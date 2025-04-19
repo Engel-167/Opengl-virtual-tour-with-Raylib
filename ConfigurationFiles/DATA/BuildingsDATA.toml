@@ -1,0 +1,81 @@
+# BuildingsDATA.toml
+
+#Building 1
+[[models]]
+path = "Assets/gltf/building_A.gltf"
+position = [0.0, 0.0, 0.0]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [1.0, 1.0, 1.0]
+
+#Building 2
+[[models]]
+path = "Assets/gltf/building_G.gltf"
+position = [-2.0, 0.0, 0.0]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [1.0, 1.0, 1.0]
+
+#Building 3
+[[models]]
+path = "Assets/gltf/building_C.gltf"
+position = [2.0, 0.0, 0.0]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [1.0, 1.0, 1.0]
+
+#Building 4
+[[models]]
+path = "Assets/gltf/building_B.gltf"
+position = [6.0, 0.0, 0.0]
+axis = [0.0, 1.0, 0.0]
+angle = -90.0
+scale = [1.0, 1.0, 1.0]
+
+#Building 5
+[[models]]
+path = "Assets/gltf/building_F.gltf"
+position = [6.0, 0.0, -2.0]
+axis = [0.0, 1.0, 0.0]
+angle = -90.0
+scale = [1.0, 1.0, 1.0]
+
+#Building 6
+[[models]]
+path = "Assets/gltf/base.gltf"
+position = [6.0, 0.0, -4.0]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [1.0, 1.0, 1.0]
+
+#Building 7
+[[models]]
+path = "Assets/gltf/building_E.gltf"
+position = [4.0, 0.0, -4.0]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [1.0, 1.0, 1.0]
+
+#Building 8
+[[models]]
+path = "Assets/gltf/building_B.gltf"
+position = [2.0, 0.0, -4.0]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [1.0, 1.0, 1.0]
+
+#Building 9
+[[models]]
+path = "Assets/gltf/building_H.gltf"
+position = [0.0, 0.0, -4.0]
+axis = [0.0, 1.0, 0.0]
+angle = -90.0
+scale = [1.0, 1.0, 1.0]
+
+#Building 10
+[[models]]
+path = "Assets/gltf/building_D.gltf"
+position = [-4.0, 0.0, -4.0]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [1.0, 1.0, 1.0]

@@ -1,48 +1,49 @@
 ﻿using System.Numerics;
+using Opengl_virtual_tour_with_Raylib.Modules._3D_World.Buildings;
+using Opengl_virtual_tour_with_Raylib.Modules._3D_World.Roads;
 using Raylib_cs;
+using static Raylib_cs.Raylib;
+using static Raylib_cs.Color;
 
 namespace Opengl_virtual_tour_with_Raylib
 {
-    class Program
+    static class Program
     {
         static void Main()
         {
             // Initialize the window
-            Raylib.InitWindow(800, 600, "3D Collision Detection Example");
-            Raylib.ToggleFullscreen();
-            Raylib.SetTargetFPS(60);
+            InitWindow(800, 600, "3D virtual tour");
+            ToggleFullscreen();
+            SetTargetFPS(60);
 
             // Define the camera
             Camera3D camera = new Camera3D
             {
                 Position = new Vector3(0.0f, 2.0f, 10.0f),
-                Target = new Vector3(0.0f, 2.0f, 0.0f),
+                Target = new Vector3(0.0f, 0.0f, 0.0f),
                 Up = new Vector3(0.0f, 1.0f, 0.0f),
                 FovY = 45.0f,
                 Projection = CameraProjection.Perspective
             };
 
-            // Define a cube with a bounding box
-            Vector3 cubePosition = new Vector3(0.0f, 1.0f, 0.0f);
-            Vector3 cubeSize = new Vector3(2.0f, 2.0f, 2.0f);
-            BoundingBox cubeBoundingBox = new BoundingBox(
-                cubePosition - cubeSize / 2,
-                cubePosition + cubeSize / 2
-            );
-
             // Player's bounding box
-            Vector3 playerSize = new Vector3(1.0f, 2.0f, 1.0f);
-            BoundingBox playerBoundingBox;
+            //Vector3 playerSize = new Vector3(1.0f, 2.0f, 1.0f);
 
             // Movement and mouse sensitivity
-            float mouseSensitivity = 0.005f;
-            float movementSpeed = 5.0f;
+            //float mouseSensitivity = 0.005f;
+            //float movementSpeed = 5.0f;
+            
+            Buildings buildings = new Buildings("ConfigurationFiles/DATA/BuildingsDATA.toml");
+            
+            Roads roads = new Roads("ConfigurationFiles/DATA/RoadsDATA.toml");
 
-            Raylib.DisableCursor();
+            BoundingBox cameraBox;
+            
+            CameraMode camMode = CameraMode.Custom;
 
-            while (!Raylib.WindowShouldClose())
+            while (!WindowShouldClose())
             {
-                float deltaTime = Raylib.GetFrameTime();
+                /*float deltaTime = Raylib.GetFrameTime();
 
                 // Get mouse movement
                 Vector2 mouseDelta = Raylib.GetMouseDelta();
@@ -61,55 +62,64 @@ namespace Opengl_virtual_tour_with_Raylib
                 if (Raylib.IsKeyDown(KeyboardKey.W)) movement += forward;
                 if (Raylib.IsKeyDown(KeyboardKey.S)) movement -= forward;
                 if (Raylib.IsKeyDown(KeyboardKey.A)) movement -= right;
-                if (Raylib.IsKeyDown(KeyboardKey.D)) movement += right;
+                if (Raylib.IsKeyDown(KeyboardKey.D)) movement += right;*/
                 
                 // Check if the middle mouse button is pressed
-                if (Raylib.IsMouseButtonDown(MouseButton.Middle))
+                if (IsMouseButtonDown(MouseButton.Middle)||IsKeyDown(KeyboardKey.F))
                 {
-                    camera.Target = cubePosition; // Make the camera look at the cube
+                    camera.Target = new Vector3(0,0,0); // Make the camera look at the cube
                 }
+                
+                if (IsMouseButtonDown(MouseButton.Left))
+                {
+                    camMode = CameraMode.Free;
+                    DisableCursor();
+                }
+                
+                // Update the camera's bounding box based on its new position
+                cameraBox = new BoundingBox(
+                    camera.Position - new Vector3(0.1f, 0.1f, 0.1f), // Min corner
+                    camera.Position + new Vector3(0.1f, 0.1f, 0.1f)  // Max corner
+                );
+                
+                UpdateCamera(ref camera, camMode);
 
-                // Normalize movement and apply speed
+                /*// Normalize movement and apply speed
                 if (movement != Vector3.Zero)
                 {
                     movement = Vector3.Normalize(movement) * movementSpeed * deltaTime;
 
                     // Update player's bounding box
-                    playerBoundingBox = new BoundingBox(
+                    var playerBoundingBox = new BoundingBox(
                         camera.Position + movement - playerSize / 2,
                         camera.Position + movement + playerSize / 2
                     );
-
-                    // Check for collision
-                    if (!Raylib.CheckCollisionBoxes(playerBoundingBox, cubeBoundingBox))
-                    {
-                        camera.Position += movement;
-                        camera.Target += movement;
-                    }
-                }
+                }*/
 
                 // Start drawing
-                Raylib.BeginDrawing();
-                Raylib.ClearBackground(Color.RayWhite);
+                BeginDrawing();
+                ClearBackground(Blue);
 
                 // Begin 3D mode
-                Raylib.BeginMode3D(camera);
-
-                // Draw the cube
-                Raylib.DrawCube(cubePosition, cubeSize.X, cubeSize.Y, cubeSize.Z, Color.Red);
-                Raylib.DrawBoundingBox(cubeBoundingBox, Color.Green);
-
+                BeginMode3D(camera);
+                buildings.Draw3DModels();
+                roads.Draw3DModels();
                 // End 3D mode
-                Raylib.EndMode3D();
+                EndMode3D();
 
                 // Draw UI
-                Raylib.DrawText("Use WASD to move, mouse to look around (press the middle mouse button to focus the cube)", 10, 10, 20, Color.DarkGray);
-
+                DrawText("Colision False", 28, 10, 20, Black);
+            
+                DrawText($@"
+                Raylib GLTF 3D model Loading
+                {GetFPS()} fps
+                Campera Pos: {camera.Position}
+                CameraBox: MIN-{cameraBox.Min} MAX-{cameraBox.Max}",-100,10,20,Color.Black);
                 // End drawing
-                Raylib.EndDrawing();
+                EndDrawing();
             }
 
-            Raylib.CloseWindow();
+            CloseWindow();
         }
     }
 }
