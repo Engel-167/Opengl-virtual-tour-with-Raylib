@@ -1,0 +1,64 @@
+# PropsData.toml
+# Prop 1
+[[models]]
+path = "Assets/gltf/car_hatchback.gltf"
+position = [0.0, 0.12, 1.15]
+axis = [0.0,1.0,0.0]
+angle = -90.0
+scale = [1.0, 1.0, 1.0]
+
+# Prop 2
+[[models]]
+path = "Assets/gltf/car_sedan.gltf"
+position = [2.0, 0.12, 1.15]
+axis = [0.0,1.0,0.0]
+angle = -90.0
+scale = [1.0, 1.0, 1.0]
+
+# Prop 3
+[[models]]
+path = "Assets/gltf/car_sedan.gltf"
+position = [-2.4, 0.12, -1.7]
+axis = [0.0,1.0,0.0]
+angle = 90.0
+scale = [1.0, 1.0, 1.0]
+
+# Prop 4
+[[models]]
+path = "Assets/gltf/car_stationwagon.gltf"
+position = [0.0, 0.12, 2.3]
+axis = [0.0,1.0,0.0]
+angle = 90.0
+scale = [1.0, 1.0, 1.0]
+
+# Prop 5
+[[models]]
+path = "Assets/gltf/car_stationwagon.gltf"
+position = [6.0, 0.12, 1.7]
+axis = [0.0,1.0,0.0]
+angle = -90.0
+scale = [1.0, 1.0, 1.0]
+
+# Prop 6
+[[models]]
+path = "Assets/gltf/car_taxi.gltf"
+position = [-2.0, 0.12, -2.3]
+axis = [0.0,1.0,0.0]
+angle = -90.0
+scale = [1.0, 1.0, 1.0]
+
+# Prop 7
+[[models]]
+path = "Assets/gltf/car_taxi.gltf"
+position = [-4.3, 0.12, 0.5]
+axis = [0.0,1.0,0.0]
+angle = 0.0
+scale = [1.0, 1.0, 1.0]
+
+# Prop 8
+[[models]]
+path = "Assets/gltf/car_police.gltf"
+position = [-3.0, 0.12, 2.3]
+axis = [0.0,1.0,0.0]
+angle = 90.0
+scale = [1.0, 1.0, 1.0]

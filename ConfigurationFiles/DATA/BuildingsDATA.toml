@@ -3,7 +3,7 @@
 #Building 1
 [[models]]
 path = "Assets/gltf/building_A.gltf"
-position = [0.0, 0.0, 0.0]
+position = [-2.0, 0.0, 0.0]
 axis = [0.0, 1.0, 0.0]
 angle = 0.0
 scale = [1.0, 1.0, 1.0]
@@ -11,7 +11,7 @@ scale = [1.0, 1.0, 1.0]
 #Building 2
 [[models]]
 path = "Assets/gltf/building_G.gltf"
-position = [-2.0, 0.0, 0.0]
+position = [0.0, 0.0, 0.0]
 axis = [0.0, 1.0, 0.0]
 angle = 0.0
 scale = [1.0, 1.0, 1.0]

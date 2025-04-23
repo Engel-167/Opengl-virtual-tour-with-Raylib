@@ -1,5 +1,6 @@
 ﻿using System.Numerics;
 using Opengl_virtual_tour_with_Raylib.Modules._3D_World.Buildings;
+using Opengl_virtual_tour_with_Raylib.Modules._3D_World.Props;
 using Opengl_virtual_tour_with_Raylib.Modules._3D_World.Roads;
 using Opengl_virtual_tour_with_Raylib.Modules.Camera;
 using Raylib_cs;
@@ -20,6 +21,8 @@ namespace Opengl_virtual_tour_with_Raylib
             Buildings buildings = new Buildings("ConfigurationFiles/DATA/BuildingsDATA.toml");
             
             Roads roads = new Roads("ConfigurationFiles/DATA/RoadsDATA.toml");
+            
+            Props props = new Props("ConfigurationFiles/DATA/PropsDATA.toml");
             
             CameraMode camMode = CameraMode.Custom;
 
@@ -50,6 +53,7 @@ namespace Opengl_virtual_tour_with_Raylib
                 BeginMode3D(CharacterCamera3D.Camera);
                 buildings.Draw3DModels();
                 roads.Draw3DModels();
+                props.Draw3DModels();
                 // End 3D mode
                 EndMode3D();
 
