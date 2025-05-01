@@ -4,11 +4,11 @@ namespace Opengl_virtual_tour_with_Raylib.Modules._3D_World.Buildings;
 
 public class Buildings(string path) : IModelsLoading
 {
-    public List<ModelData> _buildingsData = ModelDataLoader.LoadFromToml(path);
+    public readonly List<ModelData> ModelDatas = ModelDataLoader.LoadFromToml(path);
     
     public void Draw3DModels()
     {
-        foreach (ModelData model in _buildingsData)
+        foreach (ModelData model in ModelDatas)
         {
             Raylib.DrawModelEx(model.Model, model.Position, model.Axis, model.Angle, model.Scale,Color.White);
         }
@@ -16,7 +16,7 @@ public class Buildings(string path) : IModelsLoading
 
     public void Unload3DModels()
     {
-        foreach (ModelData model in _buildingsData)
+        foreach (ModelData model in ModelDatas)
         {
             Raylib.UnloadModel(model.Model);
         }
