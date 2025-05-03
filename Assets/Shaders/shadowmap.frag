@@ -7,7 +7,7 @@ in vec3 fragNormal;      // Fragment normal in world space
 
 // Input uniform values
 uniform sampler2D texture0; // Base color texture (albedo)
-uniform vec4 colDiffuse;    // Diffuse color tint from material
+uniform vec4 colDiffuse;    // Diffuse color tint from material (often white)
 
 uniform vec3 lightDir;      // Direction *towards* the light source
 uniform vec4 lightColor;    // Color and intensity of the directional light
@@ -22,51 +22,80 @@ uniform int shadowMapResolution; // Resolution of the shadow map texture
 // Output fragment color
 out vec4 finalColor;
 
-// --- Shadow Calculation Function (PCF) ---
+// --- Simple Pseudo-Random Function ---
+// Used for jittering shadow samples
+vec2 randomOffsetGenerator(vec2 seed) {
+    float n = sin(dot(seed, vec2(12.9898, 78.233)));
+    return fract(vec2(n, n * 43758.5453) * 43758.5453);
+}
+
+// --- Predefined Disk Sample Offsets (24 samples) ---
+const int diskSamples = 24;
+const vec2 diskKernel[diskSamples] = vec2[](
+// Original 12
+vec2( 0.326247f,  0.40582f ), vec2( -0.840154f, -0.07358f ),
+vec2( -0.695914f,  0.457137f ), vec2( -0.203345f, -0.620716f ),
+vec2( 0.96234f,  -0.194983f ), vec2(  0.473434f, -0.480026f ),
+vec2( -0.519456f, -0.768961f ), vec2( -0.094184f,  0.929389f ),
+vec2( 0.79552f,  0.597705f ), vec2( -0.347336f,  0.296979f ),
+vec2( 0.05311f, -0.091586f ), vec2(  0.11397f, -0.993465f ),
+// Added 12 more
+vec2( 0.179401f,  0.750657f ), vec2(  0.945593f,  0.250332f ),
+vec2( -0.168388f, -0.97347f ), vec2( -0.927865f,  0.307343f ),
+vec2( 0.57419f, -0.725481f ), vec2( -0.651784f, -0.40841f ),
+vec2( 0.41443f,  0.898566f ), vec2(  0.710477f, -0.006014f ),
+vec2( -0.041559f, -0.30207f ), vec2( -0.404445f,  0.782956f ),
+vec2( -0.800167f,  0.588684f ), vec2(  0.198169f, -0.576976f )
+);
+
+// --- Shadow Calculation Function (Randomized PCF with 24 Disk Samples) ---
 float CalculateShadowFactor(vec4 fragPosLightSpace, vec3 normal, vec3 lightDirection)
 {
     // Perspective divide
     vec3 projCoords = fragPosLightSpace.xyz / fragPosLightSpace.w;
-
     // Transform to [0,1] range
     projCoords = projCoords * 0.5 + 0.5;
-
-    // Get the fragment's current depth from the light's perspective
     float currentDepth = projCoords.z;
 
-    // Check if the fragment is outside the light's frustum (avoids sampling outside the map)
-    // Important: If outside near/far plane, it shouldn't be shadowed by definition *within* the frustum
-    // Return 1.0 (fully lit) if outside the valid depth range [0, 1]
+    // Check if the fragment is outside the light's valid depth range
     if (projCoords.z <= 0.0 || projCoords.z >= 1.0) {
-        return 1.0; // Not shadowed if outside frustum depth
+        return 1.0; // Not shadowed
     }
 
-    // Calculate bias to avoid shadow acne (self-shadowing)
-    float bias = max(0.0005 * (1.0 - dot(normal, lightDirection)), 0.0001);
+    // Calculate bias to avoid shadow acne
+    // Using the bias calculation from the previous disk kernel version
+    float bias = max(0.00005 * (1.0 - dot(normal, lightDirection)), 0.00001); // Adjust bias as needed
 
-    // PCF - Percentage-Closer Filtering
-    float shadow = 0.0; // Accumulator for shadow contribution (fraction of samples that are shadowed)
-    vec2 texelSize = 1.0 / vec2(shadowMapResolution); // Size of one texel
-    int pcfSamples = 3; // Kernel size (3x3 = 9 samples). Increase for smoother but slower shadows.
-    float halfSamples = float(pcfSamples -1) / 2.0;
+    float shadow = 0.0; // Accumulator for shadow contribution
+    vec2 texelSize = 1.0 / vec2(shadowMapResolution);
+    // Radius of the PCF disk kernel in texels. Adjust for softness.
+    float diskRadius = 1.8; // Start with this, tune if needed
 
-    for(int x = 0; x < pcfSamples; ++x)
+    for(int i = 0; i < diskSamples; ++i) // Loop 24 times
     {
-        for(int y = 0; y < pcfSamples; ++y)
-        {
-            vec2 offset = vec2(x - halfSamples, y - halfSamples) * texelSize;
-            // Sample depth from shadow map at offset coordinate
-            float pcfDepth = texture(shadowMap, projCoords.xy + offset).r;
-            // Check if the current fragment is further away (in shadow) compared to the stored depth
-            shadow += (currentDepth - bias) > pcfDepth ? 1.0 : 0.0;
-        }
-    }
-    shadow /= float(pcfSamples * pcfSamples); // Average the results
+        // Get the offset from the expanded disk kernel
+        vec2 kernelOffset = diskKernel[i] * diskRadius * texelSize;
 
-    // shadow = 0.0 means fully lit, shadow = 1.0 means fully shadowed
-    // We return (1.0 - shadow) because we want a factor to multiply the light by (1 = lit, 0 = shadow)
+        // Generate a unique random offset per sample for jittering
+        vec2 sampleSeed = gl_FragCoord.xy + vec2(i, i * 0.77); // Use screen coord + index as seed
+        vec2 randomJitter = (randomOffsetGenerator(sampleSeed) * 2.0 - 1.0) * texelSize * 0.75; // Scale jitter
+
+        // Calculate final sample coordinate
+        vec2 sampleCoord = projCoords.xy + kernelOffset + randomJitter;
+
+        // Sample depth from shadow map
+        float pcfDepth = texture(shadowMap, sampleCoord).r;
+
+        // Compare depths (fragment is shadowed if it's further than the occluder)
+        shadow += (currentDepth - bias) > pcfDepth ? 1.0 : 0.0;
+    }
+    // Average the results over the number of disk samples
+    shadow /= float(diskSamples); // Divide by 24
+
+    // Return shadow factor (1.0 = fully lit, 0.0 = fully shadowed)
     return 1.0 - shadow;
 }
+
 
 // --- Main Function ---
 void main()
@@ -80,7 +109,7 @@ void main()
     // Direction *from* fragment *to* light source
     vec3 lightDirection = normalize(-lightDir);
 
-    // --- Ambient Lighting (Fix Applied) ---
+    // --- Ambient Lighting ---
     // Calculate ambient based on texture color and ambient uniform ONLY.
     vec3 ambientColor = texelColor.rgb * ambient.rgb;
 
@@ -94,21 +123,26 @@ void main()
     vec3 specularColor = vec3(0.0);
     if (NdotL > 0.0) // Only calculate specular if light hits the surface
     {
-        vec3 reflectDir = reflect(-lightDirection, normal);
-        float specAngle = max(dot(viewDir, reflectDir), 0.0);
+        // Using Blinn-Phong (halfway vector) is generally preferred
+        vec3 halfwayDir = normalize(lightDirection + viewDir);
+        float specAngle = max(dot(normal, halfwayDir), 0.0);
+        // Phong (reflection vector) - uncomment below and comment above if preferred
+        // vec3 reflectDir = reflect(-lightDirection, normal);
+        // float specAngle = max(dot(viewDir, reflectDir), 0.0);
+
         // Shininess factor (adjust for desired highlight size)
         float shininess = 32.0;
-        // Specular usually uses light color directly, maybe tinted by a specular material color if available
+        // Specular usually uses light color directly
         specularColor = lightColor.rgb * pow(specAngle, shininess);
     }
 
     // --- Shadow Calculation ---
     // Transform fragment position to light space
     vec4 fragPosLightSpace = lightVP * vec4(fragPosition, 1.0);
-    // Get shadow factor (0.0 = shadowed, 1.0 = lit) using the PCF function
+    // Get shadow factor (0.0 = shadowed, 1.0 = lit) using the NEW PCF function
     float shadowFactor = CalculateShadowFactor(fragPosLightSpace, normal, lightDirection);
 
-    // --- Combine Lighting (Fix Applied) ---
+    // --- Combine Lighting ---
     // Apply shadow factor ONLY to diffuse and specular components
     vec3 directLight = (diffuseContrib + specularColor) * shadowFactor;
 

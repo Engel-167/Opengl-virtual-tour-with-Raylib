@@ -14,7 +14,7 @@ public static unsafe class ShadowMap
 
     private static Vector3 _lightDir;
     private static int _lightDirLoc;
-    private static Camera3D _lightCam;
+    private static Camera3D _lightCam; 
     private static RenderTexture2D _shadowMap;
     private static int _lightVpLoc;
     private static int _shadowMapLoc;
@@ -23,8 +23,8 @@ public static unsafe class ShadowMap
     {
         ShadowShader.Locs[(int)ShaderLocationIndex.VectorView] = GetShaderLocation(ShadowShader, "viewPos");
         
-        _lightDir = Vector3.Normalize(new Vector3(0.35f, -1.0f, -0.35f)); //Vector3Normalize((Vector3){ 0.35f, -1.0f, -0.35f });
-        Color lightColor = new Color(255, 197, 143, 255); //40W Tungsten: new Color(255,197,143,255); High Pressure Sodium: new Color(255, 183, 76,255)
+        _lightDir = Raymath.Vector3Normalize(new Vector3(0.35f, -1.0f, -0.35f)); //Vector3Normalize((Vector3){ 0.35f, -1.0f, -0.35f });
+        Color lightColor = new Color(255, 197, 143, 255); //40 W Tungsten: new Color(255,197,143,255); High Pressure Sodium: new Color(255, 183, 76,255)
         Vector4 lightColorNormalized = ColorNormalize(lightColor);
         _lightDirLoc = GetShaderLocation(ShadowShader, "lightDir");
         int lightColLoc = GetShaderLocation(ShadowShader, "lightColor");
@@ -34,7 +34,7 @@ public static unsafe class ShadowMap
         // Set shader light values
         int ambientLoc = GetShaderLocation(ShadowShader, "ambient");
         float[] ambient = [0.5f, 0.5f, 0.5f, 1.0f];
-        Raylib.SetShaderValue(ShadowShader, ambientLoc, ambient, ShaderUniformDataType.Vec4);
+        SetShaderValue(ShadowShader, ambientLoc, ambient, ShaderUniformDataType.Vec4);
         _lightVpLoc = GetShaderLocation(ShadowShader, "lightVP");
         _shadowMapLoc = GetShaderLocation(ShadowShader, "shadowMap");
         int shadowMapResolution = ShadowmapResolution;
@@ -42,7 +42,7 @@ public static unsafe class ShadowMap
         
         //LoadShadowmapRenderTexture(SHADOWMAP_RESOLUTION, SHADOWMAP_RESOLUTION);
         _shadowMap = LoadShadowmapRenderTexture(shadowMapResolution, shadowMapResolution);
-        // For the shadowmapping algorithm, we will be rendering everything from the light's point of view
+        // For the shadow mapping algorithm, we will be rendering everything from the light's point of view
         _lightCam = new Camera3D
         {
             Position = Raymath.Vector3Scale(_lightDir, -15.0f), //Vector3Scale(lightDir, -15.0f);
@@ -72,6 +72,7 @@ public static unsafe class ShadowMap
         Matrix4x4 lightProj = Rlgl.GetMatrixProjection();
 
         //Draw 3D Models
+        //Rlgl.EnableBackfaceCulling();
         Program.Draw3DModels();
                 
         EndMode3D();
@@ -89,15 +90,12 @@ public static unsafe class ShadowMap
                 
         Rlgl.ActiveTextureSlot(10);
         Rlgl.EnableTexture(_shadowMap.Depth.Id);
-
-        
-        Rlgl.SetUniform(_shadowMapLoc, &slot, (int)ShaderUniformDataType.Int, 1);    
-        
+        Rlgl.SetUniform(_shadowMapLoc, &slot, (int)ShaderUniformDataType.Int, 1);
     }
 
-    public static void BindShader(List<ModelData> datas)
+    public static void BindShader(List<ModelData> dataList)
     {
-        foreach (ModelData data in datas)
+        foreach (ModelData data in dataList)
         {
             
             for (int i = 0; i < data.Model.MaterialCount; i++)
@@ -110,9 +108,11 @@ public static unsafe class ShadowMap
 
     private static RenderTexture2D LoadShadowmapRenderTexture(int width, int height)
     {
-        RenderTexture2D target = new RenderTexture2D();
-            
-        target.Id = Rlgl.LoadFramebuffer(); // Load an empty framebuffer
+        RenderTexture2D target = new RenderTexture2D
+        {
+            Id = Rlgl.LoadFramebuffer() // Load an empty framebuffer
+        };
+
         target.Texture.Width = width;
         target.Texture.Height = height;
 
@@ -149,5 +149,10 @@ public static unsafe class ShadowMap
             // queried and deleted before deleting framebuffer
             Rlgl.UnloadFramebuffer(_shadowMap.Id);
         }
+    }
+
+    public static Vector3 GetLightCamPosition()
+    {
+        return _lightCam.Position;
     }
 }
