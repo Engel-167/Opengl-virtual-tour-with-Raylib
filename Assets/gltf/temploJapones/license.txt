@@ -1,0 +1,11 @@
+Model Information:
+* title:	Japanese Lowpoly temple
+* source:	https://sketchfab.com/3d-models/japanese-lowpoly-temple-cc26af7781344e908d356030e84e4121
+* author:	carolinefangel (https://sketchfab.com/carolinefangel)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Japanese Lowpoly temple" (https://sketchfab.com/3d-models/japanese-lowpoly-temple-cc26af7781344e908d356030e84e4121) by carolinefangel (https://sketchfab.com/carolinefangel) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

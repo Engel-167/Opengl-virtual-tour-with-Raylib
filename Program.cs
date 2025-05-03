@@ -51,9 +51,18 @@ namespace Opengl_virtual_tour_with_Raylib
                     DisableCursor();
                 }
                 
+                //Choose a mode to use the camera 
+                //By default is in Tourist mode
+                if (Raylib.IsKeyPressed(KeyboardKey.One)) 
+                    CharacterCamera3D.Mode = CameraModeType.Tourist;
+    
+                if (Raylib.IsKeyPressed(KeyboardKey.Two)) 
+                    CharacterCamera3D.Mode = CameraModeType.Free;
+                
                 // Update CharacterCamera3D position and hitbox
                 UpdateCamera(ref CharacterCamera3D.Camera, camMode);
                 CharacterCamera3D.UpdateHitBox();
+                CharacterCamera3D.ApplyCameraConstraints();
                 
                 ShadowMap.Update();
                 // Begin 3D mode
@@ -70,8 +79,10 @@ namespace Opengl_virtual_tour_with_Raylib
                 DrawText($@"
                 Raylib GLTF 3D model Loading
                 {GetFPS()} fps
-                Campera Pos: {CharacterCamera3D.Camera.Position}
+                Camera Pos: {CharacterCamera3D.Camera.Position}
                 CameraBox: MIN-{CharacterCamera3D.HitBox.Min} MAX-{CharacterCamera3D.HitBox.Max}",-100,10,20,Color.Black);
+                
+                DrawText($@"Current Mode < {CharacterCamera3D.Mode} >", 200, 10, 20, Black);
                 // End drawing
                 EndDrawing();
             }
