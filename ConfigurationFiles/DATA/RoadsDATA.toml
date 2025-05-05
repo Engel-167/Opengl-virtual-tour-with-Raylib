@@ -111,4 +111,179 @@ axis = [0.0, 1.0, 0.0]
 angle = 90.0
 scale = [1.0, 1.0, 1.0]
 
+# Road 15 - aca empieza ampliacion
 
+# Road 16 m
+[[models]]
+path = "Assets/gltf/road_straight.gltf"
+position = [8.0, 0.0, 2.0]
+axis = [0.0, 1.0, 0.0]
+angle = 90.0
+scale = [1.0, 1.0, 1.0]
+
+# Road 17 s
+[[models]]
+path = "Assets/gltf/road_straight.gltf"
+position = [-2.0, 0.0, -6.0]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [1.0, 1.0, 1.0]
+
+# Road 18 - s
+[[models]]
+path = "Assets/gltf/road_straight.gltf"
+position = [-2.0, 0.0, -8.0]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [1.0, 1.0, 1.0]
+
+# Road 19 m
+[[models]]
+path = "Assets/gltf/road_straight.gltf"
+position = [10.0, 0.0, 2.0]
+axis = [0.0, 1.0, 0.0]
+angle = 90.0
+scale = [1.0, 1.0, 1.0]
+
+# Road 20 m
+[[models]]
+path = "Assets/gltf/road_straight.gltf"
+position = [12.0, 0.0, 2.0]
+axis = [0.0, 1.0, 0.0]
+angle = 90.0
+scale = [1.0, 1.0, 1.0]
+
+# Road 21 - s
+[[models]]
+path = "Assets/gltf/road_straight.gltf"
+position = [-2.0, 0.0, -10.0]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [1.0, 1.0, 1.0]
+
+# Road 22 m
+[[models]]
+path = "Assets/gltf/road_straight.gltf"
+position = [14.0, 0.0, 2.0]
+axis = [0.0, 1.0, 0.0]
+angle = 90.0
+scale = [1.0, 1.0, 1.0]
+
+# Road 23 m
+[[models]]
+path = "Assets/gltf/road_straight.gltf"
+position = [16.0, 0.0, 2.0]
+axis = [0.0, 1.0, 0.0]
+angle = 90.0
+scale = [1.0, 1.0, 1.0]
+
+# Road 24 - s
+[[models]]
+path = "Assets/gltf/road_straight.gltf"
+position = [-2.0, 0.0, -12.0]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [1.0, 1.0, 1.0]
+
+# Road 25 m
+[[models]]
+path = "Assets/gltf/road_straight.gltf"
+position = [18.0, 0.0, 2.0]
+axis = [0.0, 1.0, 0.0]
+angle = 90.0
+scale = [1.0, 1.0, 1.0]
+
+# Road 26 - s
+[[models]]
+path = "Assets/gltf/road_straight.gltf"
+position = [-2.0, 0.0, -14.0]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [1.0, 1.0, 1.0]
+
+# Road 27 - s
+[[models]]
+path = "Assets/gltf/road_straight.gltf"
+position = [-2.0, 0.0, -16.0]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [1.0, 1.0, 1.0]
+
+# Road 28 m
+[[models]]
+path = "Assets/gltf/road_straight.gltf"
+position = [20.0, 0.0, 2.0]
+axis = [0.0, 1.0, 0.0]
+angle = 90.0
+scale = [1.0, 1.0, 1.0]
+
+# Road 29 - s
+[[models]]
+path = "Assets/gltf/road_junction.gltf"
+position = [-2.0, 0.0, -18.0]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [1.0, 1.0, 1.0]
+
+# Road 30 m
+[[models]]
+path = "Assets/gltf/road_junction.gltf"
+position = [22.0, 0.0, 2.0]
+axis = [0.0, 1.0, 0.0]
+angle = 90.0
+scale = [1.0, 1.0, 1.0]
+
+
+#--------Residencial-------------#
+
+# Road 1 m
+[[models]]
+path = "Assets/gltf/Carretera_Adicionales/road-straight.glb"
+position = [24.0, 0.0, 2.0]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [2.0, 4.0, 2.0]
+
+# Road 2 m
+[[models]]
+path = "Assets/gltf/Carretera_Adicionales/road-straight.glb"
+position = [26.0, 0.0, 2.0]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [2.0, 4.0, 2.0]
+
+# Road 3 m
+[[models]]
+path = "Assets/gltf/Carretera_Adicionales/road-crossroad-path.glb"
+position = [28.0, 0.0, 2.0]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [2.0, 4.0, 2.0]
+
+# Road 4 m
+[[models]]
+path = "Assets/gltf/Carretera_Adicionales/road-straight.glb"
+position = [28.0, 0.0, 0.0]
+axis = [0.0, 1.0, 0.0]
+angle = 90.0
+scale = [2.0, 4.0, 2.0]
+
+# Road 5 m
+[[models]]
+path = "Assets/gltf/Carretera_Adicionales/road-straight.glb"
+position = [28.0, 0.0, -2.0]
+axis = [0.0, 1.0, 0.0]
+angle = 90.0
+scale = [2.0, 4.0, 2.0]
+
+# Road 6 m
+[[models]]
+path = "Assets/gltf/Carretera_Adicionales/road-straight.glb"
+position = [28.0, 0.0, -4.0]
+axis = [0.0, 1.0, 0.0]
+angle = 90.0
+scale = [2.0, 4.0, 2.0]
+
+
+
+#--------Fin Residencial-------------#

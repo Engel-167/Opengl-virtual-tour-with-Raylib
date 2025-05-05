@@ -81,7 +81,7 @@ namespace Opengl_virtual_tour_with_Raylib
                 BeginMode3D(CharacterCamera3D.Camera);
                 
                 Draw3DModels();
-                
+                DrawSphere(ShadowMap.GetLightCamPosition(), 1.0f, Yellow);
                 // End 3D mode
                 EndMode3D();
 

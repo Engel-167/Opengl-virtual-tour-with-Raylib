@@ -1,5 +1,8 @@
 # PropsData.toml
 # Prop 1
+
+#--------centro de la ciudad-------------#
+
 [[models]]
 path = "Assets/gltf/car_hatchback.gltf"
 position = [0.0, 0.12, 1.15]
@@ -71,7 +74,16 @@ axis = [0.0,1.0,0.0]
 angle = 45.0
 scale = [1.0, 1.0, 1.0]
 
+#--------fin centro de la ciudad-------------#
 
+#--------Residencial-------------#
 
+# Prop 1
+[[models]]
+path = "Assets/gltf/Carretera_Adicionales/sign-highway-detailed.glb"
+position = [23.0, 0.0, 2.0]
+axis = [0.0,1.0,0.0]
+angle = 0.0
+scale = [1.0, 2.0, 2.0]
 
-
+#--------fin Residencial-------------#
