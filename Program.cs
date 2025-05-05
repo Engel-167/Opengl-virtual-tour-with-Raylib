@@ -22,7 +22,7 @@ namespace Opengl_virtual_tour_with_Raylib
         {
             // Initialize the window
             SetConfigFlags(ConfigFlags.Msaa4xHint);
-            InitWindow(800, 600, "3D virtual tour");
+            InitWindow(GetScreenWidth(), GetScreenHeight(), "3D virtual tour");
             ToggleFullscreen();
             SetTargetFPS(60);
 
