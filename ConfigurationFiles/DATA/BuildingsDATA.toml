@@ -1,5 +1,7 @@
 # BuildingsDATA.toml
 
+#--------centro de la ciudad-------------#
+
 #Building 1
 [[models]]
 path = "Assets/gltf/building_A.gltf"

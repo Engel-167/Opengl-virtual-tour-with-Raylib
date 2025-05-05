@@ -19,7 +19,7 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Camera
         
         private static Vector3 _lastPosition;
         
-        public static CameraModeType Mode { get; set; } = CameraModeType.Tourist;
+        public static CameraModeType Mode { get; set; } = CameraModeType.Free;
         //Por ahora fijamos el modo turista
         
         public static BoundingBox HitBox { get; private set; }
