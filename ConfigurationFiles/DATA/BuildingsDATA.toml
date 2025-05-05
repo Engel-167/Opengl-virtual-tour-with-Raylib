@@ -81,3 +81,92 @@ position = [-4.0, 0.0, -4.0]
 axis = [0.0, 1.0, 0.0]
 angle = 0.0
 scale = [1.0, 1.0, 1.0]
+
+#Building 11
+[[models]]
+path = "Assets/gltf/building_D.gltf"
+position = [-8.0, 0.0, -6.0]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [1.0, 1.0, 1.0]
+
+#Building 12
+[[models]]
+path = "Assets/gltf/building_D.gltf"
+position = [-4.0, 0.0, -6.0]
+axis = [0.0, 1.0, 0.0]
+angle = 90.0
+scale = [1.0, 1.0, 1.0]
+
+#Building 13
+[[models]]
+path = "Assets/gltf/building_D.gltf"
+position = [-4.0, 0.0, -8.0]
+axis = [0.0, 1.0, 0.0]
+angle = 90.0
+scale = [1.0, 1.0, 1.0]
+
+#Building 13
+[[models]]
+path = "Assets/gltf/building_A.gltf"
+position = [-4.0, 0.0, -10.0]
+axis = [0.0, 1.0, 0.0]
+angle = 90.0
+scale = [1.0, 1.0, 1.0]
+
+#Building 14
+[[models]]
+path = "Assets/gltf/building_B.gltf"
+position = [-4.0, 0.0, -12.0]
+axis = [0.0, 1.0, 0.0]
+angle = 90.0
+scale = [1.0, 1.0, 1.0]
+
+#Building 15
+[[models]]
+path = "Assets/gltf/building_C.gltf"
+position = [-4.0, 0.0, -14.0]
+axis = [0.0, 1.0, 0.0]
+angle = 90.0
+scale = [1.0, 1.0, 1.0]
+
+#Building 16 cesped
+[[models]]
+path = "Assets/gltf/miniGolf/open.glb"
+position = [-4.0, 0.0, -16.0]
+axis = [0.0, 1.0, 0.0]
+angle = 90.0
+scale = [2.0, 1.0, 2.0]
+
+#Building 17 cesped
+[[models]]
+path = "Assets/gltf/miniGolf/open.glb"
+position = [-6.0, 0.0, -16.0]
+axis = [0.0, 1.0, 0.0]
+angle = 90.0
+scale = [2.0, 1.0, 2.0]
+
+#Building 1 arbol
+[[models]]
+path = "Assets/gltf/arboles/Tree_1_A_Color1.gltf"
+position = [-4.0, 0.0, -16.0]
+axis = [0.0, 1.0, 0.0]
+angle = 90.0
+scale = [0.4, 0.4, 0.4]
+
+
+
+
+#-----------fin centro de ciudad--------#
+
+
+
+#-----------Residencial--------#
+
+#Building 1 - residencial
+[[models]]
+path = "Assets/gltf/residencial/building-type-b.glb"
+position = [-10.0, 0.0, -4.0]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [1.0, 1.0, 1.0]
