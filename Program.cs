@@ -36,10 +36,15 @@ namespace Opengl_virtual_tour_with_Raylib
             
             ShadowMap.Init();
             
+            var buildings = new Buildings("ConfigurationFiles/DATA/BuildingsDATA.toml");
+            
             while (!WindowShouldClose())
             {
                 BeginDrawing();
                 ClearBackground(Color.RayWhite);
+                
+                // Dibujar el hitbox de la cámara
+                Raylib.DrawBoundingBox(CharacterCamera3D.HitBox, Color.Blue);
                 
                 // Change the camera Target when the middle mouse button and the F key is pressed
                 if (IsMouseButtonDown(MouseButton.Middle)||IsKeyDown(KeyboardKey.F))
@@ -64,7 +69,7 @@ namespace Opengl_virtual_tour_with_Raylib
                 
                 if (CharacterCamera3D.Mode == CameraModeType.Tourist)
                 {
-                    CharacterCamera3D.HandleTouristModeInput(); // Movimiento del modo Turista
+                    CharacterCamera3D.HandleTouristModeInput(buildings.ModelDatas); // Movimiento del modo Turista
                 }
                 else
                 {
@@ -99,7 +104,8 @@ namespace Opengl_virtual_tour_with_Raylib
                 EndDrawing();
             }
             
-            //ShadowMap.UnloadShadowmapRenderTexture();
+            ShadowMap.UnloadShadowmapRenderTexture();
+            buildings.Unload3DModels();
             CloseWindow();
         }
 

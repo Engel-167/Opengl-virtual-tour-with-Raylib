@@ -1,5 +1,6 @@
 using System.Numerics;
 using Opengl_virtual_tour_with_Raylib.Modules._3D_World;
+using Opengl_virtual_tour_with_Raylib.Modules._3D_World.Buildings;
 using Raylib_cs;
 
 namespace Opengl_virtual_tour_with_Raylib.Modules.Camera
@@ -7,7 +8,7 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Camera
     //Posibles modos para la cámara
     public enum CameraModeType
     {
-        Tourist, //Altura fija, movimientos limitados
+        Tourist, //Altura fija, movimientos limitados, menor velocidad
         Free //Mayor libertad, no se traspasa el suelo
     }
     public static class CharacterCamera3D
@@ -21,12 +22,14 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Camera
         private static Vector3 _lastPosition;
         
         private static float pitch = 0.0f; // Rotación vertical acumulada
-        private static float yaw = 0.0f; 
+        private static float yaw = 0.0f; // Rotación horizontal acumulada
         
         public static CameraModeType Mode { get; set; } = CameraModeType.Tourist;
-        //Por ahora fijamos el modo turista
+        //Por ahora fijamos el modo turista por defecto
         
         public static BoundingBox HitBox { get; private set; }
+        private const float HitBoxSize=0.5f;
+        
         
         static CharacterCamera3D()
         {
@@ -50,6 +53,12 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Camera
         // Method to update the HitBox only if the camera's position changes
         public static void UpdateHitBox()
         {
+            HitBox = new BoundingBox(
+                Camera.Position - new Vector3(HitBoxSize, HitBoxSize, HitBoxSize),
+                Camera.Position + new Vector3(HitBoxSize, HitBoxSize, HitBoxSize)
+            );
+            
+            /*
             if (Camera.Position != _lastPosition)
             {
                 HitBox = new BoundingBox(
@@ -57,15 +66,15 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Camera
                     Camera.Position + new Vector3(0.1f, 0.1f, 0.1f) // Esquina sup der delantera
                 );
                 _lastPosition = Camera.Position;
-            }
+            }*/
         }
         
         public static void TryMoveCamera(Vector3 newPosition, List<ModelData> allModels)
         {
             // Crear caja tentativa en la nueva posición
             var tentativeBox = new BoundingBox(
-                newPosition - new Vector3(0.1f, 0.1f, 0.1f),
-                newPosition + new Vector3(0.1f, 0.1f, 0.1f)
+                newPosition - new Vector3(HitBoxSize, HitBoxSize, HitBoxSize),
+                newPosition + new Vector3(HitBoxSize, HitBoxSize, HitBoxSize)
             );
 
             // Verificar si colisiona con algún modelo
@@ -103,7 +112,7 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Camera
         }
 
 
-        public static void HandleTouristModeInput()
+        public static void HandleTouristModeInput(List<ModelData> allModels)
         {
             Vector3 forward=Vector3.Normalize(Camera.Target - Camera.Position);
 
@@ -127,8 +136,10 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Camera
             if(Raylib.IsKeyDown(KeyboardKey.A))
                 movement -= right*SPEED;
 
-            Camera.Position += movement;
-            Camera.Target += movement;
+            //Camera.Position += movement;
+            //Camera.Target += movement;
+            
+            TryMoveCamera(Camera.Position+movement, allModels);
     
             // Capturar el delta del mouse
             float mouseX = Raylib.GetMouseDelta().X * 0.5f; // Ajuste de sensibilidad (horizontal)

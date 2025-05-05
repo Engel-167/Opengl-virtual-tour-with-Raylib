@@ -11,6 +11,9 @@ public class Buildings(string path) : IModelsLoading
         foreach (ModelData model in ModelDatas)
         {
             Raylib.DrawModelEx(model.Model, model.Position, model.Axis, model.Angle, model.Scale,Color.White);
+            
+            // Dibujar la hitbox del modelo para depuración
+            Raylib.DrawBoundingBox(model.BoundingBox, Color.Red);
         }
     }
 
