@@ -64,7 +64,7 @@ float CalculateShadowFactor(vec4 fragPosLightSpace, vec3 normal, vec3 lightDirec
 
     // Calculate bias to avoid shadow acne
     // Using the bias calculation from the previous disk kernel version
-    float bias = max(0.00005 * (1.0 - dot(normal, lightDirection)), 0.00001); // Adjust bias as needed
+    float bias = max(0.00008 * (1.0 - dot(normal, lightDirection)), 0.000032); // Adjust bias as needed
 
     float shadow = 0.0; // Accumulator for shadow contribution
     vec2 texelSize = 1.0 / vec2(shadowMapResolution);
