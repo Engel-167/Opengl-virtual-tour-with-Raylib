@@ -27,7 +27,7 @@ namespace Opengl_virtual_tour_with_Raylib
             SetTargetFPS(60);
 
             CameraMode camMode = CameraMode.Custom;
-
+            
             ShadowMap.BindShader(Buildings.ModelDatas);
 
             ShadowMap.BindShader(Roads.ModelDatas);
@@ -38,6 +38,9 @@ namespace Opengl_virtual_tour_with_Raylib
             
             while (!WindowShouldClose())
             {
+                BeginDrawing();
+                ClearBackground(Color.RayWhite);
+                
                 // Change the camera Target when the middle mouse button and the F key is pressed
                 if (IsMouseButtonDown(MouseButton.Middle)||IsKeyDown(KeyboardKey.F))
                 {
@@ -59,12 +62,21 @@ namespace Opengl_virtual_tour_with_Raylib
                 if (Raylib.IsKeyPressed(KeyboardKey.Two)) 
                     CharacterCamera3D.Mode = CameraModeType.Free;
                 
+                if (CharacterCamera3D.Mode == CameraModeType.Tourist)
+                {
+                    CharacterCamera3D.HandleTouristModeInput(); // Movimiento del modo Turista
+                }
+                else
+                {
+                    UpdateCamera(ref CharacterCamera3D.Camera, camMode); // Movimiento del modo Libre
+                }
+                
                 // Update CharacterCamera3D position and hitbox
-                UpdateCamera(ref CharacterCamera3D.Camera, camMode);
                 CharacterCamera3D.UpdateHitBox();
                 CharacterCamera3D.ApplyCameraConstraints();
                 
                 ShadowMap.Update();
+                
                 // Begin 3D mode
                 BeginMode3D(CharacterCamera3D.Camera);
                 
@@ -87,7 +99,7 @@ namespace Opengl_virtual_tour_with_Raylib
                 EndDrawing();
             }
             
-            ShadowMap.UnloadShadowmapRenderTexture();
+            //ShadowMap.UnloadShadowmapRenderTexture();
             CloseWindow();
         }
 

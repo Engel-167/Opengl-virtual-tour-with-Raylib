@@ -10,7 +10,7 @@ public static unsafe class ShadowMap
 {
     private static readonly Shader ShadowShader = LoadShader("Assets/Shaders/shadowmap.vert", "Assets/Shaders/shadowmap.frag");
     
-    private const int ShadowmapResolution = 4096;
+    private const int ShadowmapResolution = 1080;//4096
 
     private static Vector3 _lightDir;
     private static int _lightDirLoc;
