@@ -10,7 +10,7 @@ public static unsafe class ShadowMap
 {
     private static readonly Shader ShadowShader = LoadShader("Assets/Shaders/shadowmap.vert", "Assets/Shaders/shadowmap.frag");
     
-    private const int ShadowmapResolution = 4096;
+    private const int ShadowmapResolution = 2160;
 
     private static Vector3 _lightDir;
     private static int _lightDirLoc;
@@ -72,7 +72,8 @@ public static unsafe class ShadowMap
         Matrix4x4 lightProj = Rlgl.GetMatrixProjection();
 
         //Draw 3D Models
-        //Rlgl.EnableBackfaceCulling();
+        Rlgl.EnableBackfaceCulling();
+        //Rlgl.SetCullFace(0); // CULL_front;
         Program.Draw3DModels();
                 
         EndMode3D();
@@ -91,6 +92,8 @@ public static unsafe class ShadowMap
         Rlgl.ActiveTextureSlot(10);
         Rlgl.EnableTexture(_shadowMap.Depth.Id);
         Rlgl.SetUniform(_shadowMapLoc, &slot, (int)ShaderUniformDataType.Int, 1);
+        
+        //Rlgl.SetCullFace(1); // CULL_back;;
     }
 
     public static void BindShader(List<ModelData> dataList)
