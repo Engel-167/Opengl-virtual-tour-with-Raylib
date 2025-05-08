@@ -1,4 +1,5 @@
 ﻿using System.Numerics;
+using Opengl_virtual_tour_with_Raylib.Modules._3D_World;
 using Opengl_virtual_tour_with_Raylib.Modules._3D_World.Buildings;
 using Opengl_virtual_tour_with_Raylib.Modules._3D_World.Props;
 using Opengl_virtual_tour_with_Raylib.Modules._3D_World.Roads;
@@ -21,18 +22,16 @@ namespace Opengl_virtual_tour_with_Raylib
         static void Main()
         {
             // Initialize the window
+            SetConfigFlags(ConfigFlags.FullscreenMode);
             SetConfigFlags(ConfigFlags.Msaa4xHint);
+            SetConfigFlags(ConfigFlags.VSyncHint);
             InitWindow(GetScreenWidth(), GetScreenHeight(), "3D virtual tour");
             ToggleFullscreen();
-            SetTargetFPS(60);
+            //SetTargetFPS(60);
 
             CameraMode camMode = CameraMode.Custom;
             
-            ShadowMap.BindShader(Buildings.ModelDatas);
-
-            ShadowMap.BindShader(Roads.ModelDatas);
-
-            ShadowMap.BindShader(Props.ModelDatas);
+            InitializeWorld();
             
             ShadowMap.Init();
             
@@ -115,5 +114,14 @@ namespace Opengl_virtual_tour_with_Raylib
             Roads.Draw3DModels();
             Props.Draw3DModels();
         }
+
+        static void InitializeWorld() {
+           List<ModelData> worldModels = new List<ModelData>();
+           worldModels.AddRange(Buildings.ModelDatas);
+           worldModels.AddRange(Roads.ModelDatas);
+           worldModels.AddRange(Props.ModelDatas);
+
+           ShadowMap.BindShader(worldModels);
+       }
     }
 }
