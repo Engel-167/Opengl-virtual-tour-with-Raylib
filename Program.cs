@@ -1,6 +1,5 @@
-﻿using Raylib_cs;
-
-using Opengl_virtual_tour_with_Raylib.Modules.Scenes;
+﻿using Opengl_virtual_tour_with_Raylib.Modules.Core;
+using Raylib_cs;
 
 namespace Opengl_virtual_tour_with_Raylib
 {
@@ -8,16 +7,8 @@ namespace Opengl_virtual_tour_with_Raylib
     {
         static void Main()
         {
-            MainScene mainScene = new(1, "Main Scene");
-            
-            mainScene.InitScene();
-            
-            while (!Raylib.WindowShouldClose())
-            {
-                mainScene.UpdateScene();    
-            }
-            
-            mainScene.KillScene();
+            SceneManager sceneManager = new(Raylib.GetScreenWidth(), Raylib.GetScreenHeight());
+            sceneManager.Start();
         }
     }
 }

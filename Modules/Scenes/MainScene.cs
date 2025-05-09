@@ -22,14 +22,6 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
 
     public override void InitScene()
     {
-        // Initialize the window
-        SetConfigFlags(ConfigFlags.FullscreenMode);
-        SetConfigFlags(ConfigFlags.Msaa4xHint);
-        SetConfigFlags(ConfigFlags.VSyncHint);
-        InitWindow(GetScreenWidth(), GetScreenHeight(), "3D virtual tour");
-        ToggleFullscreen();
-        SetTargetFPS(60);
-
         _camMode = CameraMode.Custom;
         
         _buildings = new Buildings("ConfigurationFiles/DATA/BuildingsDATA.toml");
@@ -47,7 +39,7 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
 
     public override void UpdateScene()
     {
-            BeginDrawing();
+            //BeginDrawing();
             ClearBackground(Color.RayWhite);
                 
             // Dibujar el hitbox de la cámara
@@ -119,7 +111,7 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
                 
             DrawText($@"Current Mode < {CharacterCamera3D.Mode} >", 200, 10, 20, Color.Black);
             // End drawing
-            EndDrawing();
+            //EndDrawing();
         
     }
 
