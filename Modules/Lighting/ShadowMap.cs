@@ -21,6 +21,8 @@ public static unsafe class ShadowMap
     
     private static List<World3DObjects>? _worldObjects;
 
+    public static bool Enabled = true;
+    
     public static void Init(List<World3DObjects> worldObjects)
     {
         _worldObjects = worldObjects;
@@ -69,45 +71,52 @@ public static unsafe class ShadowMap
 
     public static void Update()
     {
-        Vector3 cameraPos = CharacterCamera3D.Camera.Position;
-        SetShaderValue(ShadowShader, ShadowShader.Locs[(int)ShaderLocationIndex.VectorView], cameraPos, ShaderUniformDataType.Vec3);    
+        if (Enabled)
+        {
+            Vector3 cameraPos = CharacterCamera3D.Camera.Position;
+            SetShaderValue(ShadowShader, ShadowShader.Locs[(int)ShaderLocationIndex.VectorView], cameraPos, ShaderUniformDataType.Vec3);    
         
-        _lightDir = Vector3.Normalize(_lightDir);
-        _lightCam.Position = Raymath.Vector3Scale(_lightDir, -15.0f);
+            _lightDir = Vector3.Normalize(_lightDir);
+            _lightCam.Position = Raymath.Vector3Scale(_lightDir, -15.0f);
                 
-        SetShaderValue(ShadowShader, _lightDirLoc, _lightDir, ShaderUniformDataType.Vec3);
+            SetShaderValue(ShadowShader, _lightDirLoc, _lightDir, ShaderUniformDataType.Vec3);
 
-        BeginTextureMode(_shadowMap);
-        ClearBackground(Color.White);
-        BeginMode3D(_lightCam);
+            BeginTextureMode(_shadowMap);
+            ClearBackground(Color.White);
+            BeginMode3D(_lightCam);
 
-        Matrix4x4 lightView = Rlgl.GetMatrixModelview();
-        Matrix4x4 lightProj = Rlgl.GetMatrixProjection();
+            Matrix4x4 lightView = Rlgl.GetMatrixModelview();
+            Matrix4x4 lightProj = Rlgl.GetMatrixProjection();
 
-        //Draw 3D Models
-        //Rlgl.EnableBackfaceCulling();
-        if (_worldObjects != null)
-            foreach (var obj in _worldObjects)
-            {
-                obj.Draw3DModels();
-            }
+            //Draw 3D Models
+            //Rlgl.EnableBackfaceCulling();
+            if (_worldObjects != null)
+                foreach (var obj in _worldObjects)
+                {
+                    obj.Draw3DModels();
+                }
 
-        EndMode3D();
-        EndTextureMode();
+            EndMode3D();
+            EndTextureMode();
 
-        Matrix4x4 lightViewProj = Raymath.MatrixMultiply(lightView, lightProj); //MatrixMultiply(lightView, lightProj);
+            Matrix4x4 lightViewProj = Raymath.MatrixMultiply(lightView, lightProj); //MatrixMultiply(lightView, lightProj);
         
-        ClearBackground(Color.SkyBlue);
+            ClearBackground(Color.SkyBlue);
                 
-        SetShaderValueMatrix(ShadowShader, _lightVpLoc, lightViewProj);
+            SetShaderValueMatrix(ShadowShader, _lightVpLoc, lightViewProj);
                 
-        Rlgl.EnableShader(ShadowShader.Id);
+            Rlgl.EnableShader(ShadowShader.Id);
 
-        int slot = 10;
+            int slot = 10;
                 
-        Rlgl.ActiveTextureSlot(10);
-        Rlgl.EnableTexture(_shadowMap.Depth.Id);
-        Rlgl.SetUniform(_shadowMapLoc, &slot, (int)ShaderUniformDataType.Int, 1);
+            Rlgl.ActiveTextureSlot(10);
+            Rlgl.EnableTexture(_shadowMap.Depth.Id);
+            Rlgl.SetUniform(_shadowMapLoc, &slot, (int)ShaderUniformDataType.Int, 1);
+        }
+        else
+        {
+            UnloadShadowmapRenderTexture();
+        }
     }
 
     public static void BindShader(List<ModelData> dataList)

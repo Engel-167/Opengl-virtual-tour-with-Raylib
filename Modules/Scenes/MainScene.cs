@@ -40,7 +40,7 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
     public override void UpdateScene()
     {
             //BeginDrawing();
-            ClearBackground(Color.RayWhite);
+            ClearBackground(Color.SkyBlue);
                 
             // Dibujar el hitbox de la cámara
             DrawBoundingBox(CharacterCamera3D.HitBox, Color.Blue);
@@ -89,8 +89,22 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
             // Update CharacterCamera3D position and hitbox
             CharacterCamera3D.UpdateHitBox();
             CharacterCamera3D.ApplyCameraConstraints();
+
+            // if key M is preced then stop updating the shadowmap and if is pressed again then enable the shadowmap update
+            if (IsKeyPressed(KeyboardKey.M))
+            {
+                ShadowMap.Enabled = !ShadowMap.Enabled;
+
+                if (ShadowMap.Enabled)
+                {
+                    if (_worldObjects != null) ShadowMap.Init(_worldObjects);
+                }
+            }   
+            
+            ShadowMap.Update();
+            
                 
-                ShadowMap.Update();
+            
                 
             // Begin 3D mode
             BeginMode3D(CharacterCamera3D.Camera);
@@ -105,11 +119,12 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
             
             DrawText($@"
                 Raylib GLTF 3D model Loading
-                {GetFPS()} fps
+                {GetFPS()} fps                
                 Camera Pos: {CharacterCamera3D.Camera.Position}
                 CameraBox: MIN-{CharacterCamera3D.HitBox.Min} MAX-{CharacterCamera3D.HitBox.Max}",-100,10,20,Color.Black);
                 
             DrawText($@"Current Mode < {CharacterCamera3D.Mode} >", 200, 10, 20, Color.Black);
+            DrawText($"Enable shadows: {ShadowMap.Enabled} (Press M to toggle)", 200, 50, 20, Color.Red);
             // End drawing
             //EndDrawing();
         
