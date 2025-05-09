@@ -2,11 +2,11 @@ using Raylib_cs;
 
 namespace Opengl_virtual_tour_with_Raylib.Modules._3D_World.Props;
 
-public class Props (string path) : IModelsLoading
+public class Props (string path) : World3DObjects(path)
 {
-    public readonly List<ModelData> ModelDatas = ModelDataLoader.LoadFromToml(path);
+    //public readonly List<ModelData> ModelDatas = ModelDataLoader.LoadFromToml(path);
     
-    public void Draw3DModels()
+    public override void Draw3DModels()
     {
         foreach (ModelData data in ModelDatas)
         {
@@ -14,7 +14,7 @@ public class Props (string path) : IModelsLoading
         }
     }
 
-    public void Unload3DModels()
+    public override void Unload3DModels()
     {
         foreach (ModelData data in ModelDatas)
         {

@@ -18,9 +18,22 @@ public static unsafe class ShadowMap
     private static RenderTexture2D _shadowMap;
     private static int _lightVpLoc;
     private static int _shadowMapLoc;
+    
+    private static List<World3DObjects>? _worldObjects;
 
-    public static void Init()
+    public static void Init(List<World3DObjects> worldObjects)
     {
+        _worldObjects = worldObjects;
+        
+        //List<ModelData> materials = new List<ModelData>(_worldObjects);
+
+        foreach (var modelData in _worldObjects)
+        {
+            BindShader(modelData.ModelDatas);
+        }
+
+        // ShadowMap.BindShader(materials);
+        
         ShadowShader.Locs[(int)ShaderLocationIndex.VectorView] = GetShaderLocation(ShadowShader, "viewPos");
         
         _lightDir = Raymath.Vector3Normalize(new Vector3(0.35f, -1.0f, -0.35f)); //Vector3Normalize((Vector3){ 0.35f, -1.0f, -0.35f });
@@ -73,8 +86,12 @@ public static unsafe class ShadowMap
 
         //Draw 3D Models
         //Rlgl.EnableBackfaceCulling();
-        Program.Draw3DModels();
-                
+        if (_worldObjects != null)
+            foreach (var obj in _worldObjects)
+            {
+                obj.Draw3DModels();
+            }
+
         EndMode3D();
         EndTextureMode();
 
