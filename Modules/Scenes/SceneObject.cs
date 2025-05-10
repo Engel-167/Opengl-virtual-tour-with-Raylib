@@ -8,10 +8,10 @@ public abstract class SceneObject (byte id, string windowTitle)
     public string? WindowTitle = windowTitle;
 
     public abstract void InitScene();
-    public abstract void UpdateScene();
+    public abstract int UpdateScene();
     public abstract void KillScene();
 
-    protected void Draw3DModels(List<World3DObjects> worldObjects)
+    protected void Render3DModels(List<World3DObjects> worldObjects)
     {
         foreach (var currentObject in worldObjects)
         {
@@ -19,7 +19,7 @@ public abstract class SceneObject (byte id, string windowTitle)
         }
     }
 
-    protected void Unload3DModels(List<World3DObjects> worldObjects)
+    protected void Clear3DModels(List<World3DObjects> worldObjects)
     {
         foreach (var currentObject in worldObjects)
         {

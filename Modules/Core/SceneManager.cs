@@ -30,8 +30,7 @@ public class SceneManager(int screenWidth, int screenHeight)
         SetExitKey(KeyboardKey.Null);
 
         MainScene mainScene = new(1, "Main Scene");
-        
-        mainScene.InitScene();
+        HomeScene homeScene = new(2, "Home Scene");
         
         Scene currentScreen = Scene.Logo;
 
@@ -42,7 +41,6 @@ public class SceneManager(int screenWidth, int screenHeight)
 
         SetTargetFPS(60); // Set desired framerate (frames-per-second)
         //--------------------------------------------------------------------------------------
-
         // Main game loop
         while (!WindowShouldClose())
         {
@@ -61,6 +59,7 @@ public class SceneManager(int screenWidth, int screenHeight)
                     if (framesCounter > 120)
                     {
                         currentScreen = Scene.Home;
+                        homeScene.InitScene();
                     }
                 }
                     break;
@@ -69,9 +68,11 @@ public class SceneManager(int screenWidth, int screenHeight)
                     // TODO: Update TITLE screen variables here!
 
                     // Press enter to change to GAMEPLAY screen
-                    if (IsKeyPressed(KeyboardKey.Enter) || IsGestureDetected(Gesture.Tap))
+                    if (IsKeyPressed(KeyboardKey.Enter))
                     {
                         currentScreen = Scene.Main;
+                        mainScene.InitScene();
+                        homeScene.KillScene();
                     }
                 }
                     break;
@@ -83,6 +84,7 @@ public class SceneManager(int screenWidth, int screenHeight)
                     if (IsKeyPressed(KeyboardKey.Escape))
                     {
                         currentScreen = Scene.Credits;
+                        mainScene.KillScene();
                     }
                 }
                     break;
@@ -112,11 +114,12 @@ public class SceneManager(int screenWidth, int screenHeight)
                     break;
                 case Scene.Home:
                 {
-                    // TODO: Draw TITLE screen here!
-                    DrawRectangle(0, 0, ScreenWidth, ScreenHeight, Color.Green);
-                    DrawText("HOME MENU", (1920/2) - 150, (1080/2), 40, Color.DarkGreen);
-                    DrawText("PRESS ENTER or TAP to JUMP to GAMEPLAY SCREEN", 120, 220, 20, Color.DarkGreen);
-
+                    if (homeScene.UpdateScene() == 1)
+                    {
+                        currentScreen = Scene.Main;
+                        mainScene.InitScene();
+                        homeScene.KillScene();
+                    }
                 }
                     break;
                 case Scene.Main:
@@ -134,10 +137,8 @@ public class SceneManager(int screenWidth, int screenHeight)
                 }
                     break;
             }
-
             EndDrawing();
         }
-        mainScene.KillScene();
         return 0;
     }
 }    

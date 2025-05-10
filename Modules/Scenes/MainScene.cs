@@ -37,7 +37,7 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
         ShadowMap.Init(_worldObjects);
     }
 
-    public override void UpdateScene()
+    public override int UpdateScene()
     {
             //BeginDrawing();
             ClearBackground(Color.SkyBlue);
@@ -109,7 +109,7 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
             // Begin 3D mode
             BeginMode3D(CharacterCamera3D.Camera);
 
-            if (_worldObjects != null) Draw3DModels(_worldObjects);
+            if (_worldObjects != null) Render3DModels(_worldObjects);
             //DrawSphere(ShadowMap.GetLightCamPosition(), 1.0f, Yellow);
             // End 3D mode
             EndMode3D();
@@ -127,13 +127,12 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
             DrawText($"Enable shadows: {ShadowMap.Enabled} (Press M to toggle)", 200, 50, 20, Color.Red);
             // End drawing
             //EndDrawing();
-        
+        return 0;   
     }
 
     public override void KillScene()
     {
-        if (_worldObjects != null) Unload3DModels(_worldObjects);
+        if (_worldObjects != null) Clear3DModels(_worldObjects);
         ShadowMap.UnloadShadowmapRenderTexture();
-        CloseWindow();
     }
 }
