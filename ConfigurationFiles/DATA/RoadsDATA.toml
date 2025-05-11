@@ -2,7 +2,7 @@
 # Road 1
 [[models]]
 path = "Assets/gltf/road_straight_crossing.gltf"
-position = [-2.0, 0.0, 2.0]
+position = [0.0, 0.0, 0.0]
 axis = [0.0, 1.0, 0.0]
 angle = 90.0
 scale = [1.0, 1.0, 1.0]
@@ -230,7 +230,7 @@ scale = [1.0, 1.0, 1.0]
 path = "Assets/gltf/road_junction.gltf"
 position = [22.0, 0.0, 2.0]
 axis = [0.0, 1.0, 0.0]
-angle = 90.0
+angle = -90.0
 scale = [1.0, 1.0, 1.0]
 
 
@@ -284,6 +284,29 @@ axis = [0.0, 1.0, 0.0]
 angle = 90.0
 scale = [2.0, 4.0, 2.0]
 
+# Road 11
+[[models]]
+path = "Assets/gltf/road_straight.gltf"
+position = [-22.0, 0.0, 0.0]
+axis = [0.0, 1.0, 0.0]
+angle = 90.0
+scale = [1.0, 1.0, 1.0]
+
+# Road 12
+[[models]]
+path = "Assets/gltf/road_straight.gltf"
+position = [-24.0, 0.0, 0.0]
+axis = [0.0, 1.0, 0.0]
+angle = 90.0
+scale = [1.0, 1.0, 1.0]
+
+# Road 13
+[[models]]
+path = "Assets/gltf/road_straight.gltf"
+position = [-26.0, 0.0, 0.0]
+axis = [0.0, 1.0, 0.0]
+angle = 90.0
+scale = [1.0, 1.0, 1.0]
 
 
 #--------Fin Residencial-------------#
