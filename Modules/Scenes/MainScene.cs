@@ -19,6 +19,7 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
     private CameraMode _camMode;
 
     private List<World3DObjects>? _worldObjects;
+    private bool _hitboxEnabled;
 
     public override void InitScene()
     {
@@ -35,6 +36,8 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
         _worldObjects.AddRange(_props);
             
         ShadowMap.Init(_worldObjects);
+        
+        _hitboxEnabled = true;
     }
 
     public override int UpdateScene()
@@ -43,7 +46,7 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
             ClearBackground(Color.SkyBlue);
                 
             // Dibujar el hitbox de la cámara
-            DrawBoundingBox(CharacterCamera3D.HitBox, Color.Blue);
+            //DrawBoundingBox(CharacterCamera3D.HitBox, Color.Blue);
                 
             // Change the camera Target when the middle mouse button and the F key is pressed
             if (IsMouseButtonDown(MouseButton.Middle)||IsKeyDown(KeyboardKey.F))
@@ -103,14 +106,22 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
             
             ShadowMap.Update();
             
-                
-            
-                
             // Begin 3D mode
             BeginMode3D(CharacterCamera3D.Camera);
 
             if (_worldObjects != null) Render3DModels(_worldObjects);
             //DrawSphere(ShadowMap.GetLightCamPosition(), 1.0f, Yellow);
+
+            if (IsKeyPressed(KeyboardKey.B))
+            {
+                _hitboxEnabled = !_hitboxEnabled;
+            }
+            
+            if (_hitboxEnabled)
+            {
+                _buildings?.DrawHitBoxes();
+            }
+            
             // End 3D mode
             EndMode3D();
 
@@ -121,7 +132,8 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
                 Raylib GLTF 3D model Loading
                 {GetFPS()} fps                
                 Camera Pos: {CharacterCamera3D.Camera.Position}
-                CameraBox: MIN-{CharacterCamera3D.HitBox.Min} MAX-{CharacterCamera3D.HitBox.Max}",-100,10,20,Color.Black);
+                CameraBox: MIN-{CharacterCamera3D.HitBox.Min} MAX-{CharacterCamera3D.HitBox.Max}
+                Hitbox Enabled = {((_hitboxEnabled)?"Yes":"No")} (Press B to toggle)",-100,10,20,Color.Black);
                 
             DrawText($@"Current Mode < {CharacterCamera3D.Mode} >", 200, 10, 20, Color.Black);
             DrawText($"Enable shadows: {ShadowMap.Enabled} (Press M to toggle)", 200, 50, 20, Color.Red);
