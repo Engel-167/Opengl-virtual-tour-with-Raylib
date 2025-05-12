@@ -14,7 +14,7 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Camera
     {
         private const float GroundY = 0.3f; //Altura mínima del suelo
 
-        private const float Speed = 0.1f; //Velocidad de la cámara
+        private const float Speed = 0.03f; //Velocidad de la cámara
         
         private const float MouseSensitivity = 0.1f;
         
