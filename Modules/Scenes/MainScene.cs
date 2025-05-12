@@ -17,6 +17,7 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
     private Props? _props;
 
     private CameraMode _camMode;
+    private bool _cameraControlEnabled;
 
     private List<World3DObjects>? _worldObjects;
     private bool _hitboxEnabled;
@@ -71,27 +72,40 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
             if (IsKeyPressed(KeyboardKey.X))
                 SetConfigFlags(ConfigFlags.Msaa4xHint);
                 
-            //Choose a mode to use the camera 
-            //By default is in Tourist mode
-            if (IsKeyPressed(KeyboardKey.One)) 
-                CharacterCamera3D.Mode = CameraModeType.Tourist;
-    
-            if (IsKeyPressed(KeyboardKey.Two)) 
-                CharacterCamera3D.Mode = CameraModeType.Free;
-                
-            if (CharacterCamera3D.Mode == CameraModeType.Tourist)
+            if (!_cameraControlEnabled && IsMouseButtonPressed(MouseButton.Left))
             {
-                if (_buildings != null)
-                    CharacterCamera3D.HandleTouristModeInput(_buildings.ModelDatas); // Movimiento del modo Turista
+                _cameraControlEnabled = true;
+                DisableCursor(); // Captura del mouse
             }
-            else
+            
+            // Permitir cambio de modo solo si ya se activó la cámara
+            if (_cameraControlEnabled)
             {
-                UpdateCamera(ref CharacterCamera3D.Camera, _camMode); // Movimiento del modo Libre
-            }
                 
-            // Update CharacterCamera3D position and hitbox
-            CharacterCamera3D.UpdateHitBox();
-            CharacterCamera3D.ApplyCameraConstraints();
+                //Choose a mode to use the camera 
+                //By default is in Tourist mode
+                if (IsKeyPressed(KeyboardKey.One)) 
+                    CharacterCamera3D.Mode = CameraModeType.Tourist;// Movimiento del modo Turista
+
+                if (IsKeyPressed(KeyboardKey.Two)) 
+                    CharacterCamera3D.Mode = CameraModeType.Free;// Movimiento del modo Libre
+
+                // Movimiento según el modo
+                if (CharacterCamera3D.Mode == CameraModeType.Tourist)
+                {
+                    if (_buildings != null)
+                        CharacterCamera3D.HandleTouristModeInput(_buildings.ModelDatas);
+                }
+                else
+                {
+                    // Update CharacterCamera3D position and hitbox
+                    UpdateCamera(ref CharacterCamera3D.Camera, _camMode);
+                }
+
+                // Actualizar posición y restricciones
+                CharacterCamera3D.UpdateHitBox();
+                CharacterCamera3D.ApplyCameraConstraints();
+            }
 
             // if key M is preced then stop updating the shadowmap and if is pressed again then enable the shadowmap update
             if (IsKeyPressed(KeyboardKey.M))
