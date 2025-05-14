@@ -22,6 +22,7 @@ public class SceneManager(int screenWidth, int screenHeight)
         // Initialization
         //--------------------------------------------------------------------------------------
         
+        //InitWindow(ScreenWidth, ScreenHeight, "OpenGL-tour-with-Raylib");
         InitWindow(ScreenWidth, ScreenHeight, "OpenGL-tour-with-Raylib");
         ToggleFullscreen();
         SetConfigFlags(ConfigFlags.VSyncHint);
@@ -33,8 +34,6 @@ public class SceneManager(int screenWidth, int screenHeight)
         HomeScene homeScene = new(2, "Home Scene");
         
         Scene currentScreen = Scene.Logo;
-
-        // TODO: Initialize all required variables and load all required data here!
 
         // Useful to count frames
         int framesCounter = 0;
@@ -58,8 +57,8 @@ public class SceneManager(int screenWidth, int screenHeight)
                     // Wait for 2 seconds (120 frames) before jumping to TITLE screen
                     if (framesCounter > 120)
                     {
-                        currentScreen = Scene.Home;
                         homeScene.InitScene();
+                        currentScreen = Scene.Home;
                     }
                 }
                     break;

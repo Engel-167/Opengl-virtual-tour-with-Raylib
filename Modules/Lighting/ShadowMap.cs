@@ -89,7 +89,7 @@ public static unsafe class ShadowMap
             Matrix4x4 lightProj = Rlgl.GetMatrixProjection();
 
             //Draw 3D Models
-            //Rlgl.EnableBackfaceCulling();
+            Rlgl.EnableBackfaceCulling();
             if (_worldObjects != null)
                 foreach (var obj in _worldObjects)
                 {
