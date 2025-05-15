@@ -10,7 +10,7 @@ out vec4 fragColor;
 void main() {
     // diffuse term
     float d = max(dot(fsNormal, -lightDir), 0.0);
-    vec3 diffuse = vec3(0.0, 0.3, 0.6) * d;
+    vec3 diffuse = vec3(0.0117, 0.69412, 0.98824) * d; //vec3(0.0, 0.3, 0.6) * d;0.3
 
     // simple specular
     vec3 V = normalize(viewPos - fsWorldPos);

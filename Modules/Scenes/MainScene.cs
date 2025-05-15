@@ -57,8 +57,8 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
         // … your existing init …
 
         // Create a plane mesh: width=2, length=2, 100×100 subdivisions
-        Mesh waterMesh = Raylib.GenMeshPlane(2f, 2f, 100, 100);
-        _waterModel       = Raylib.LoadModelFromMesh(waterMesh);
+        Mesh waterMesh = GenMeshPlane(2f, 2f, 100, 100);
+        _waterModel = LoadModelFromMesh(waterMesh);
 
         // Attach your water shader to the model's material
         unsafe

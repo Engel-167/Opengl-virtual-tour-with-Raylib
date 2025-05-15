@@ -2,6 +2,7 @@
 using Opengl_virtual_tour_with_Raylib.Modules._3D_World;
 using Opengl_virtual_tour_with_Raylib.Modules._3D_World.Buildings;
 using Opengl_virtual_tour_with_Raylib.Modules._3D_World.Roads;
+using RayGUI_cs;
 using Raylib_cs;
 using static Raylib_cs.Raylib;
 
@@ -35,7 +36,10 @@ public class HomeScene(byte id, string windowTitle) : SceneObject(id, windowTitl
     private Camera3D _camera;
     /// <summary> List of the worldObjects that will be drawn in the background</summary>
     private List<World3DObjects>? _worldObjects;
+
+    public GuiContainer? Container;
     
+    public bool swapScene = false;
     public override void InitScene()
     {
         
@@ -79,7 +83,18 @@ public class HomeScene(byte id, string windowTitle) : SceneObject(id, windowTitl
         };
         
         PlayMusicStream(_bgMusic);
-        
+
+        Button testButton = new Button((GetScreenWidth()/2) - 150, (GetScreenHeight()/2) + 80, 300,80, "Iniciar")
+            {
+                Event = () =>
+                {
+                    PlaySound(_fxButton);
+                    swapScene = true;
+                }
+            };
+
+        Container = new GuiContainer();
+        Container.Add("testButton",testButton);
     }
     
     public override int UpdateScene()
@@ -105,11 +120,9 @@ public class HomeScene(byte id, string windowTitle) : SceneObject(id, windowTitl
             Thread.Sleep(50);
             return 1;
         }
-
-        //RayGUI.DrawButton(_testBtn);
+        
         
         BeginDrawing();
-
         // Calculate button frame rectangle to draw depending on button state
         _sourceRec.Y = _btnState*_frameHeight;
         //----------------------------------------------------------------------------------
@@ -126,6 +139,7 @@ public class HomeScene(byte id, string windowTitle) : SceneObject(id, windowTitl
         EndMode3D();
 
         DrawTextureRec(_button, _sourceRec, new Vector2(_btnBounds.X, _btnBounds.Y), Color.White); // Draw button frame
+        if (Container != null) Container.Draw();
         
         //----------------------------------------------------------------------------------
         return 0;

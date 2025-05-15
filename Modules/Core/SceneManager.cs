@@ -1,4 +1,5 @@
 using Opengl_virtual_tour_with_Raylib.Modules.Scenes;
+using RayGUI_cs;
 using Raylib_cs;
 using static Raylib_cs.Raylib;
 
@@ -32,7 +33,9 @@ public class SceneManager(int screenWidth, int screenHeight)
 
         MainScene mainScene = new(1, "Main Scene");
         HomeScene homeScene = new(2, "Home Scene");
-        
+
+        if (homeScene.Container != null) RayGUI.AttachGui(homeScene.Container);
+
         Scene currentScreen = Scene.Logo;
 
         // Useful to count frames
@@ -113,7 +116,7 @@ public class SceneManager(int screenWidth, int screenHeight)
                     break;
                 case Scene.Home:
                 {
-                    if (homeScene.UpdateScene() == 1)
+                    if (homeScene.UpdateScene() == 1 | homeScene.swapScene)
                     {
                         currentScreen = Scene.Main;
                         mainScene.InitScene();

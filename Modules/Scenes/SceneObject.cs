@@ -6,6 +6,7 @@ public abstract class SceneObject (byte id, string windowTitle)
 {
     public byte? Id = id;
     public string? WindowTitle = windowTitle;
+    //public bool InitOnce = false;
 
     public abstract void InitScene();
     public abstract int UpdateScene();
