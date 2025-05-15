@@ -7,7 +7,7 @@ using static Raylib_cs.Raylib;
 
 namespace Opengl_virtual_tour_with_Raylib.Modules.Scenes;
 
-/// <summary>This class contains the structure and functioning of the HomeScene
+/// <summary>This class contains the structure and functioning of the HomeScene,
 /// which is the one that receives the User and shows to him the menu with different options
 /// such as Play, Settings and Exit</summary>
 
@@ -35,8 +35,7 @@ public class HomeScene(byte id, string windowTitle) : SceneObject(id, windowTitl
     private Camera3D _camera;
     /// <summary> List of the worldObjects that will be drawn in the background</summary>
     private List<World3DObjects>? _worldObjects;
-
-    private Thread? _musicThread;
+    
     public override void InitScene()
     {
         
@@ -80,15 +79,7 @@ public class HomeScene(byte id, string windowTitle) : SceneObject(id, windowTitl
         };
         
         PlayMusicStream(_bgMusic);
-        /*_musicThread = new Thread(() =>
-        {
-            
-            while (!WindowShouldClose())
-            {
-                    
-            } 
-        });
-        _musicThread.Start();*/
+        
     }
     
     public override int UpdateScene()
@@ -114,6 +105,10 @@ public class HomeScene(byte id, string windowTitle) : SceneObject(id, windowTitl
             Thread.Sleep(50);
             return 1;
         }
+
+        //RayGUI.DrawButton(_testBtn);
+        
+        BeginDrawing();
 
         // Calculate button frame rectangle to draw depending on button state
         _sourceRec.Y = _btnState*_frameHeight;

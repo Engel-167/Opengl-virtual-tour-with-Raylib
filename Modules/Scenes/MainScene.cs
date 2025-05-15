@@ -21,6 +21,12 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
 
     private List<World3DObjects>? _worldObjects;
     private bool _hitboxEnabled;
+    private Shader _waterShader;
+    private int    _uTimeLoc;
+    private int    _viewPosLoc;
+    private int    _lightDirLoc;
+    private float  _timeAccumulator;
+    private Model _waterModel;
 
     public override void InitScene()
     {
@@ -39,6 +45,26 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
         ShadowMap.Init(_worldObjects);
         
         _hitboxEnabled = true;
+
+        // Load our water shader
+        _waterShader   = LoadShader("Assets/Shaders/water.vert", "Assets/Shaders/water.frag");
+        _uTimeLoc      = GetShaderLocation(_waterShader, "uTime");
+        _viewPosLoc    = GetShaderLocation(_waterShader, "viewPos");
+        _lightDirLoc   = GetShaderLocation(_waterShader, "lightDir");
+
+        _timeAccumulator = 0f;
+
+        // … your existing init …
+
+        // Create a plane mesh: width=2, length=2, 100×100 subdivisions
+        Mesh waterMesh = Raylib.GenMeshPlane(2f, 2f, 100, 100);
+        _waterModel       = Raylib.LoadModelFromMesh(waterMesh);
+
+        // Attach your water shader to the model's material
+        unsafe
+        {
+            _waterModel.Materials[0].Shader = _waterShader;
+        }
     }
 
     public override int UpdateScene()
@@ -120,27 +146,59 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
             
             ShadowMap.Update();
             
-            // Begin 3D mode
+            // Advance time
+            _timeAccumulator += GetFrameTime();
+
+            // Update shader uniforms
+            SetShaderValue(_waterShader, _uTimeLoc,
+                          new[] { _timeAccumulator }, ShaderUniformDataType.Float);
+            // pass camera position
+            Vector3 camPos = CharacterCamera3D.Camera.Position;
+            SetShaderValue(_waterShader, _viewPosLoc,
+                          new[] { camPos.X, camPos.Y, camPos.Z },
+                          ShaderUniformDataType.Vec3);
+            // simple directional light coming from above/front
+            var light = Vector3.Normalize(new Vector3( 0.5f, -1.0f, 0.3f ));
+            SetShaderValue(_waterShader, _lightDirLoc,
+                          new[] { light.X, light.Y, light.Z },
+                          ShaderUniformDataType.Vec3);
+
+            // Begin 3D once...
             BeginMode3D(CharacterCamera3D.Camera);
 
-            if (_worldObjects != null) Render3DModels(_worldObjects);
-            //DrawSphere(ShadowMap.GetLightCamPosition(), 1.0f, Yellow);
+        // 1) Draw your opaque world
+        if (_worldObjects != null) Render3DModels(_worldObjects);
 
-            if (IsKeyPressed(KeyboardKey.B))
-            {
-                _hitboxEnabled = !_hitboxEnabled;
-            }
-            
-            if (_hitboxEnabled)
-            {
-                _buildings?.DrawHitBoxes();
-            }
-            
-            // End 3D mode
-            EndMode3D();
+        // 2) Transparent water pass
+        Raylib.BeginBlendMode(BlendMode.Alpha);
+        Rlgl.DisableDepthMask();  // don't write to depth
+
+        // Update shader uniforms as before…
+        _timeAccumulator += Raylib.GetFrameTime();
+        Raylib.SetShaderValue(_waterShader, _uTimeLoc,
+            new[] { _timeAccumulator }, ShaderUniformDataType.Float);
+        camPos = CharacterCamera3D.Camera.Position;
+        Raylib.SetShaderValue(_waterShader, _viewPosLoc,
+            new[]{camPos.X,camPos.Y,camPos.Z}, ShaderUniformDataType.Vec3);
+        light = Vector3.Normalize(new Vector3(0.5f, -1f, 0.3f));
+        Raylib.SetShaderValue(_waterShader, _lightDirLoc,
+            new[]{light.X,light.Y,light.Z}, ShaderUniformDataType.Vec3);
+
+        // Draw the subdivided plane at y=0, centered on your cube’s footprint
+        // (rotate so it faces up)
+        Raylib.DrawModel(_waterModel,
+            new Vector3(0, 0, -3),    // position
+            1f,                       // uniform scale
+            Color.White               // color is ignored by shader
+        );
+
+        Rlgl.EnableDepthMask();
+        Raylib.EndBlendMode();
+
+        EndMode3D();
 
             // Draw UI
-            DrawText("Colision False", 28, 10, 20, Color.Black);
+            DrawText("Collision False", 28, 10, 20, Color.Black);
             
             DrawText($@"
                 Raylib GLTF 3D model Loading
@@ -158,7 +216,7 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
 
     public override void KillScene()
     {
-        if (_worldObjects != null) Clear3DModels(_worldObjects);
-        ShadowMap.UnloadShadowmapRenderTexture();
+        Raylib.UnloadShader(_waterShader);
+        // … your other cleanup …
     }
 }
