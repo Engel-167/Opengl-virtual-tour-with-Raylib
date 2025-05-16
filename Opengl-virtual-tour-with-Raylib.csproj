@@ -23,6 +23,13 @@
         <None Include="Assets\**\*" CopyToPublishDirectory="PreserveNewest" />
         <None Include="ConfigurationFiles\**\*" CopyToOutputDirectory="Always" />
         <None Include="ConfigurationFiles\**\*" CopyToPublishDirectory="Always" />
+        <None Update="Assets\gltf\KitMedieval_v1\Textures\colormap.png">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Assets\glb\" />
     </ItemGroup>
 
 </Project>
