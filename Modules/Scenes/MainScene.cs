@@ -165,6 +165,16 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
 
             // Begin 3D once...
             BeginMode3D(CharacterCamera3D.Camera);
+            
+            if (IsKeyPressed(KeyboardKey.B))
+            {
+                _hitboxEnabled = !_hitboxEnabled;
+            }
+            
+            if (_hitboxEnabled)
+            {
+                _buildings?.DrawHitBoxes();
+            }
 
         // 1) Draw your opaque world
         if (_worldObjects != null) Render3DModels(_worldObjects);
