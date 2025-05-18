@@ -1,5 +1,5 @@
 using Opengl_virtual_tour_with_Raylib.Modules.Scenes;
-using RayGUI_cs;
+using Opengl_virtual_tour_with_Raylib.Modules.UI_UX;
 using Raylib_cs;
 using static Raylib_cs.Raylib;
 
@@ -34,8 +34,6 @@ public class SceneManager(int screenWidth, int screenHeight)
         MainScene mainScene = new(1, "Main Scene");
         HomeScene homeScene = new(2, "Home Scene");
 
-        if (homeScene.Container != null) RayGUI.AttachGui(homeScene.Container);
-
         Scene currentScreen = Scene.Logo;
 
         // Useful to count frames
@@ -46,6 +44,7 @@ public class SceneManager(int screenWidth, int screenHeight)
         // Main game loop
         while (!WindowShouldClose())
         {
+            MouseCatcher.UpdateMouseCatcher();
             // Update
             //----------------------------------------------------------------------------------
             switch (currentScreen)
@@ -58,7 +57,7 @@ public class SceneManager(int screenWidth, int screenHeight)
                     framesCounter++;
 
                     // Wait for 2 seconds (120 frames) before jumping to TITLE screen
-                    if (framesCounter > 120)
+                    if (framesCounter > 1)
                     {
                         homeScene.InitScene();
                         currentScreen = Scene.Home;
@@ -116,7 +115,7 @@ public class SceneManager(int screenWidth, int screenHeight)
                     break;
                 case Scene.Home:
                 {
-                    if (homeScene.UpdateScene() == 1 | homeScene.swapScene)
+                    if (homeScene.UpdateScene() == 1 | homeScene.SwapScene)
                     {
                         currentScreen = Scene.Main;
                         mainScene.InitScene();

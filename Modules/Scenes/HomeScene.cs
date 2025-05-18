@@ -2,7 +2,7 @@
 using Opengl_virtual_tour_with_Raylib.Modules._3D_World;
 using Opengl_virtual_tour_with_Raylib.Modules._3D_World.Buildings;
 using Opengl_virtual_tour_with_Raylib.Modules._3D_World.Roads;
-using RayGUI_cs;
+using Opengl_virtual_tour_with_Raylib.Modules.UI_UX;
 using Raylib_cs;
 using static Raylib_cs.Raylib;
 
@@ -36,10 +36,10 @@ public class HomeScene(byte id, string windowTitle) : SceneObject(id, windowTitl
     private Camera3D _camera;
     /// <summary> List of the worldObjects that will be drawn in the background</summary>
     private List<World3DObjects>? _worldObjects;
-
-    public GuiContainer? Container;
     
-    public bool swapScene = false;
+    private Button? _testBtn;
+    
+    public bool SwapScene;
     public override void InitScene()
     {
         
@@ -83,18 +83,11 @@ public class HomeScene(byte id, string windowTitle) : SceneObject(id, windowTitl
         };
         
         PlayMusicStream(_bgMusic);
+        
+        //testing buttons
 
-        Button testButton = new Button((GetScreenWidth()/2) - 150, (GetScreenHeight()/2) + 80, 300,80, "Iniciar")
-            {
-                Event = () =>
-                {
-                    PlaySound(_fxButton);
-                    swapScene = true;
-                }
-            };
-
-        Container = new GuiContainer();
-        Container.Add("testButton",testButton);
+        _testBtn = new Button(LoadTexture("Assets/UI-UX/kenney_ui-pack-adventure/PNG/Double/panel_brown_damaged.png"),LoadTexture("Assets/UI-UX/kenney_ui-pack-adventure/PNG/Double/panel_brown_corners_b.png"),new Vector2(GetScreenWidth()/2.0f - 50f, GetScreenHeight()/2.0f + 100f) , 100,100);
+        
     }
     
     public override int UpdateScene()
@@ -139,8 +132,7 @@ public class HomeScene(byte id, string windowTitle) : SceneObject(id, windowTitl
         EndMode3D();
 
         DrawTextureRec(_button, _sourceRec, new Vector2(_btnBounds.X, _btnBounds.Y), Color.White); // Draw button frame
-        if (Container != null) Container.Draw();
-        
+        if (_testBtn != null) _testBtn.Draw();
         //----------------------------------------------------------------------------------
         return 0;
     }
