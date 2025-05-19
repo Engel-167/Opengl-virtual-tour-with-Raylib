@@ -14,30 +14,16 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Scenes;
 
 public class HomeScene(byte id, string windowTitle) : SceneObject(id, windowTitle)
 {
-    ///<summary>The Number of Frames that the Button images have</summary>> 
-    private const int NumFrames = 3;
-    /// <summary>Variable to store the mouse position</summary> 
-    private Vector2 _mousePoint;
-    /// <summary>Variable to store the button position</summary> 
-    private Rectangle _btnBounds;
-    /// <summary>Variable to keep track of the button</summary>
-    private int _btnState;
     ///<summary>Variable to play the sound of the button</summary> 
     private Sound _fxButton;
     /// <summary>Background Music</summary>
     private Music _bgMusic;
-    ///<summary>Variable to store the button frame</summary> 
-    private Rectangle _sourceRec;
-    /// <summary>Variable to Determine where the button frame begins</summary>
-    private float _frameHeight;
-    /// <summary> Variable for storing the button texture</summary>
-    private Texture2D _button;
     /// <summary>Camera needed for the 3D background</summary>
     private Camera3D _camera;
     /// <summary> List of the worldObjects that will be drawn in the background</summary>
     private List<World3DObjects>? _worldObjects;
     
-    private Button? _testBtn;
+    private Button? _startButton;
     
     public bool SwapScene;
     public override void InitScene()
@@ -55,18 +41,6 @@ public class HomeScene(byte id, string windowTitle) : SceneObject(id, windowTitl
 
         _bgMusic = LoadMusicStream("Assets/Music/Sketchbook 2024-10-30.ogg"); // Assets/Music/Sketchbook 2024-10-30.ogg
         _fxButton = LoadSound("Assets/UI-UX/Buttons/buttonfx.wav");   // Load button sound
-        _button = LoadTexture("Assets/UI-UX/Buttons/Play-BTN-ES.png"); // Load button texture
-
-        // Define frame rectangle for drawing
-        _frameHeight = (float)_button.Height/NumFrames;
-        _sourceRec = new Rectangle(0, 0, _button.Width, _frameHeight); //{ 0, 0, (float)button.Width, frameHeight };
-
-        // Define button bounds on screen
-        _btnBounds = new Rectangle(GetScreenWidth()/2.0f - _button.Width/2.0f, GetScreenHeight()/2.0f - (float)_button.Height/NumFrames/2.0f, _button.Width, _frameHeight ); //{ };
-
-        _btnState = 0;               // Button state: 0-NORMAL, 1-MOUSE_HOVER, 2-PRESSED// Button action should be activated
-
-        _mousePoint = new Vector2(0, 0);
         
         _camera = new Camera3D
         {
@@ -86,8 +60,18 @@ public class HomeScene(byte id, string windowTitle) : SceneObject(id, windowTitl
         
         //testing buttons
 
-        _testBtn = new Button(LoadTexture("Assets/UI-UX/kenney_ui-pack-adventure/PNG/Double/panel_brown_damaged.png"),LoadTexture("Assets/UI-UX/kenney_ui-pack-adventure/PNG/Double/panel_brown_corners_b.png"),new Vector2(GetScreenWidth()/2.0f - 50f, GetScreenHeight()/2.0f + 100f) , 100,100);
-        
+        _startButton = new Button(LoadTexture("Assets/UI-UX/kenney_ui-pack-adventure/PNG/Double/panel_brown_damaged.png"),LoadTexture("Assets/UI-UX/kenney_ui-pack-adventure/PNG/Double/panel_brown_corners_b.png"),new Vector2(GetScreenWidth()/2.0f - 125f, GetScreenHeight()/2.0f - 50f) , 250,100)
+            {
+                Text = "Iniciar",
+                Font = GetFontDefault(),
+                FontSize = 32f,
+                FontSpacing = 2f,
+            };
+        _startButton.Event += (_, _) =>
+        {
+            PlaySound(_fxButton);
+            SwapScene = true;
+        };
     }
     
     public override int UpdateScene()
@@ -95,29 +79,7 @@ public class HomeScene(byte id, string windowTitle) : SceneObject(id, windowTitl
         UpdateMusicStream(_bgMusic);
         // Update
         //----------------------------------------------------------------------------------
-        _mousePoint = GetMousePosition();
-        bool btnAction = false;
-
-        // Check button state
-        if (CheckCollisionPointRec(_mousePoint, _btnBounds))
-        {
-            _btnState = IsMouseButtonDown(MouseButton.Left) ? 2 : 1;
-
-            if (IsMouseButtonReleased(MouseButton.Left)) btnAction = true;
-        }
-        else _btnState = 0;
-
-        if (btnAction)
-        {
-            PlaySound(_fxButton);
-            Thread.Sleep(50);
-            return 1;
-        }
-        
-        
         BeginDrawing();
-        // Calculate button frame rectangle to draw depending on button state
-        _sourceRec.Y = _btnState*_frameHeight;
         //----------------------------------------------------------------------------------
             
         // Here starts the Background rendering
@@ -131,8 +93,8 @@ public class HomeScene(byte id, string windowTitle) : SceneObject(id, windowTitl
         
         EndMode3D();
 
-        DrawTextureRec(_button, _sourceRec, new Vector2(_btnBounds.X, _btnBounds.Y), Color.White); // Draw button frame
-        if (_testBtn != null) _testBtn.Draw();
+        // Draw the Start Button
+        if (_startButton != null) _startButton.Draw();
         //----------------------------------------------------------------------------------
         return 0;
     }
@@ -141,7 +103,6 @@ public class HomeScene(byte id, string windowTitle) : SceneObject(id, windowTitl
     {
         // De-Initialization
         //--------------------------------------------------------------------------------------
-        UnloadTexture(_button);  // Unload button texture
         UnloadSound(_fxButton);  // Unload sound
         UnloadMusicStream(_bgMusic); // Unload music stream
 

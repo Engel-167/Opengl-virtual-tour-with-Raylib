@@ -6,7 +6,6 @@
         <RootNamespace>Opengl_virtual_tour_with_Raylib</RootNamespace>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <PublishAot>true</PublishAot>
         <InvariantGlobalization>true</InvariantGlobalization>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     </PropertyGroup>
@@ -17,13 +16,9 @@
     </ItemGroup>
 
     <ItemGroup>
-        <None Include="Assets\**\*" CopyToOutputDirectory="PreserveNewest" />
-        <None Include="Assets\**\*" CopyToPublishDirectory="PreserveNewest" />
-        <None Include="ConfigurationFiles\**\*" CopyToOutputDirectory="Always" />
-        <None Include="ConfigurationFiles\**\*" CopyToPublishDirectory="Always" />
-        <None Update="Assets\gltf\KitMedieval_v1\Textures\colormap.png">
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
+        <None Include="Assets\**\*" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest"/>
+        <None Include="ConfigurationFiles\**\*" CopyToOutputDirectory="Always" CopyToPublishDirectory="PreserveNewest"/>
+        <None Update="Assets\gltf\KitMedieval_v1\Textures\colormap.png" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest"/>
     </ItemGroup>
 
     <ItemGroup>

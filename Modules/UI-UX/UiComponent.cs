@@ -5,29 +5,19 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.UI_UX;
 
 public abstract class UiComponent
 {
-    private readonly Texture2D _backgroundTexture;
-    private readonly Texture2D _hoverTexture;
-    private Vector2 Position { get; set; }
-    private int Width { get; set; }
-    private int Height { get; set; }
-    private Rectangle HitBox { get; set; }
-    public string Text { get; set; } = string.Empty;
+    protected readonly Texture2D BackgroundTexture;
+    protected Vector2 Position { get; set; }
+    protected float Width { get; set; }
+    protected float Height { get; set; }
+    public Rectangle HitBox;
+    public string Text = string.Empty;
+    public Font Font;
+    public float FontSize;
+    public float FontSpacing;
 
     protected UiComponent(Texture2D backgroundTexture, Vector2 position, int width, int height)
     {
-        _backgroundTexture = backgroundTexture;
-        _hoverTexture = backgroundTexture;
-        Position = position;
-        Width = width;
-        Height = height;
-        
-        HitBox = new Rectangle(Position.X, Position.Y, Width, Height);
-    }
-    
-    protected UiComponent(Texture2D backgroundTexture, Texture2D hoverTexture, Vector2 position, int width, int height)
-    {
-        _backgroundTexture = backgroundTexture;
-        _hoverTexture = hoverTexture;
+        BackgroundTexture = backgroundTexture;
         Position = position;
         Width = width;
         Height = height;
@@ -35,15 +25,19 @@ public abstract class UiComponent
         HitBox = new Rectangle(Position.X, Position.Y, Width, Height);
     }
 
-    public void Draw()
+    public virtual void Draw()
     {
-        /*if (Raylib.CheckCollisionPointRec(MouseCatcher.MousePosition, HitBox))
-        {
-            
-        }*/
         
-        Raylib.DrawTextureV(!Raylib.CheckCollisionPointRec(MouseCatcher.MousePosition, HitBox) ? _backgroundTexture : _hoverTexture, Position, Color.White);
+        NPatchInfo patchInfo = new NPatchInfo
+        {
+            Source = new Rectangle(0, 0, BackgroundTexture.Width, BackgroundTexture.Height),
+            Left = 10, // Adjust these as required for your specific texture
+            Top = 10,
+            Right = 10,
+            Bottom = 10,
+            Layout = NPatchLayout.NinePatch
+        };
+        
+        Raylib.DrawTextureNPatch(BackgroundTexture, patchInfo, HitBox, Vector2.Zero, 0.0f, Color.White);
     }
-    
-    public abstract void Event();
 }
