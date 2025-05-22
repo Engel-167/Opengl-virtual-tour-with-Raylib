@@ -14,16 +14,14 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Scenes;
 
 public class HomeScene(byte id, string windowTitle) : SceneObject(id, windowTitle)
 {
-    ///<summary>Variable to play the sound of the button</summary> 
-    private Sound _fxButton;
     /// <summary>Background Music</summary>
     private Music _bgMusic;
     /// <summary>Camera needed for the 3D background</summary>
     private Camera3D _camera;
     /// <summary> List of the worldObjects that will be drawn in the background</summary>
     private List<World3DObjects>? _worldObjects;
-    
-    private Button? _startButton;
+
+    private HomeUi? _homeUi;
     
     public bool SwapScene;
     public override void InitScene()
@@ -40,7 +38,6 @@ public class HomeScene(byte id, string windowTitle) : SceneObject(id, windowTitl
         _worldObjects.AddRange(roads);
 
         _bgMusic = LoadMusicStream("Assets/Music/Sketchbook 2024-10-30.ogg"); // Assets/Music/Sketchbook 2024-10-30.ogg
-        _fxButton = LoadSound("Assets/UI-UX/Buttons/buttonfx.wav");   // Load button sound
         
         _camera = new Camera3D
         {
@@ -57,21 +54,8 @@ public class HomeScene(byte id, string windowTitle) : SceneObject(id, windowTitl
         };
         
         PlayMusicStream(_bgMusic);
-        
-        //testing buttons
-
-        _startButton = new Button(LoadTexture("Assets/UI-UX/kenney_ui-pack-adventure/PNG/Double/panel_brown_damaged.png"),LoadTexture("Assets/UI-UX/kenney_ui-pack-adventure/PNG/Double/panel_brown_corners_b.png"),new Vector2(GetScreenWidth()/2.0f - 125f, GetScreenHeight()/2.0f - 50f) , 250,100)
-            {
-                Text = "Iniciar",
-                Font = GetFontDefault(),
-                FontSize = 32f,
-                FontSpacing = 2f,
-            };
-        _startButton.Event += (_, _) =>
-        {
-            PlaySound(_fxButton);
-            SwapScene = true;
-        };
+        SwapScene = false;
+        _homeUi = new HomeUi(() => { SwapScene = true; });
     }
     
     public override int UpdateScene()
@@ -94,7 +78,7 @@ public class HomeScene(byte id, string windowTitle) : SceneObject(id, windowTitl
         EndMode3D();
 
         // Draw the Start Button
-        if (_startButton != null) _startButton.Draw();
+        if (_homeUi != null) _homeUi.Draw();
         //----------------------------------------------------------------------------------
         return 0;
     }
@@ -103,7 +87,6 @@ public class HomeScene(byte id, string windowTitle) : SceneObject(id, windowTitl
     {
         // De-Initialization
         //--------------------------------------------------------------------------------------
-        UnloadSound(_fxButton);  // Unload sound
         UnloadMusicStream(_bgMusic); // Unload music stream
 
         CloseAudioDevice();     // Close audio device

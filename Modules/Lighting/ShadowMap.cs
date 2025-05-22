@@ -8,7 +8,7 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Lighting;
 
 public static unsafe class ShadowMap
 {
-    private static readonly Shader ShadowShader = LoadShader("Assets/Shaders/shadowmap.vert", "Assets/Shaders/shadowmap.frag");
+    public static readonly Shader ShadowShader = LoadShader("Assets/Shaders/shadowmap.vert", "Assets/Shaders/shadowmap.frag");
     
     private const int ShadowmapResolution = 2160;//4096
 

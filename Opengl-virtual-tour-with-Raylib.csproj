@@ -23,6 +23,7 @@
 
     <ItemGroup>
       <Folder Include="Assets\glb\" />
+      <Folder Include="Assets\UI-UX\FlatIcons\" />
     </ItemGroup>
 
 </Project>

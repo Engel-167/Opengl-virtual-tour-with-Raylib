@@ -3,19 +3,20 @@ using Raylib_cs;
 
 namespace Opengl_virtual_tour_with_Raylib.Modules.UI_UX;
 
-public class Button(Texture2D backgroundTexture, Texture2D hoverTexture, Vector2 position, int width, int height) : UiComponent(backgroundTexture, position, width, height)
+public class Button(Texture2D backgroundTexture, Texture2D hoverTexture, Vector2 position, int width, int height, int[] padding) : UiComponent(backgroundTexture, position, width, height)
 {
     public event EventHandler? Event;
+
     public override void Draw()
     {
         // Configure the 9-patch scaling
         NPatchInfo patchInfo = new NPatchInfo
         {
             Source = new Rectangle(0, 0, BackgroundTexture.Width, BackgroundTexture.Height),
-            Left = 40, // Adjust these as required for your specific texture
-            Top = 40,
-            Right = 40,
-            Bottom = 40,
+            Left = padding[0], // Adjust these as required for your specific texture
+            Top = padding[1],
+            Right = padding[2],
+            Bottom = padding[3],
             Layout = NPatchLayout.NinePatch
         };
 
@@ -57,7 +58,7 @@ public class Button(Texture2D backgroundTexture, Texture2D hoverTexture, Vector2
         }
     }
 
-    public void TriggerEvent()
+    private void TriggerEvent()
     {
         Event?.Invoke(this, EventArgs.Empty);
     }
