@@ -19,11 +19,11 @@ public class SceneManager(int screenWidth, int screenHeight)
         SetConfigFlags(ConfigFlags.VSyncHint);
         SetConfigFlags(ConfigFlags.Msaa4xHint);
         SetConfigFlags(ConfigFlags.ResizableWindow);
+        SetConfigFlags(ConfigFlags.AlwaysRunWindow);
+        SetConfigFlags(ConfigFlags.BorderlessWindowMode);
         //InitWindow(ScreenWidth, ScreenHeight, "OpenGL-tour-with-Raylib");
         InitWindow(ScreenWidth, ScreenHeight, "OpenGL-tour-with-Raylib");
-        ToggleFullscreen();
         SetWindowMinSize(1000, 600);
-        
         SetExitKey(KeyboardKey.Null);
         
         AudioManager audioManager = new();
@@ -36,8 +36,10 @@ public class SceneManager(int screenWidth, int screenHeight)
         Variables.SettingsMenu = new SettingsUi();
         // Useful to count frames
         int framesCounter = 0;
-
-        SetTargetFPS(60); // Set desired framerate (frames-per-second)
+        
+        Thread.Sleep(500);
+        ToggleFullscreen();
+        
         //--------------------------------------------------------------------------------------
         // Main game loop
         while (!WindowShouldClose())

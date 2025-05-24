@@ -40,8 +40,9 @@ public class VideoSettingsUi
             }
             else
             {
-                ToggleFullscreen();
                 SetWindowSize(1280, 720);
+                ToggleFullscreen();
+                
             }
         };
         
