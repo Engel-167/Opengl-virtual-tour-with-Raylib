@@ -23,7 +23,6 @@
 
     <ItemGroup>
       <Folder Include="Assets\glb\" />
-      <Folder Include="Assets\SFX\" />
       <Folder Include="Assets\UI-UX\FlatIcons\" />
     </ItemGroup>
 
