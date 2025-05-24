@@ -85,7 +85,7 @@ public class HomeUi
         {
             Thread.Sleep(500);
             Console.WriteLine("Exit button");
-            CloseWindow();
+            Environment.Exit(0);
         };
 
         //Github Button

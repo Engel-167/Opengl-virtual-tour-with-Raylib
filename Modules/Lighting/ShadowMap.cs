@@ -80,28 +80,26 @@ public static unsafe class ShadowMap
             _lightCam.Position = Raymath.Vector3Scale(_lightDir, -15.0f);
                 
             SetShaderValue(ShadowShader, _lightDirLoc, _lightDir, ShaderUniformDataType.Vec3);
+            
+                BeginTextureMode(_shadowMap);
+                ClearBackground(Color.White);
+                BeginMode3D(_lightCam);
 
-            BeginTextureMode(_shadowMap);
-            ClearBackground(Color.White);
-            BeginMode3D(_lightCam);
+                Matrix4x4 lightView = Rlgl.GetMatrixModelview();
+                Matrix4x4 lightProj = Rlgl.GetMatrixProjection();
 
-            Matrix4x4 lightView = Rlgl.GetMatrixModelview();
-            Matrix4x4 lightProj = Rlgl.GetMatrixProjection();
+                //Draw 3D Models
+                Rlgl.EnableBackfaceCulling();
+                if (_worldObjects != null)
+                    foreach (var obj in _worldObjects)
+                    {
+                        obj.Draw3DModels();
+                    }
 
-            //Draw 3D Models
-            Rlgl.EnableBackfaceCulling();
-            if (_worldObjects != null)
-                foreach (var obj in _worldObjects)
-                {
-                    obj.Draw3DModels();
-                }
-
-            EndMode3D();
-            EndTextureMode();
-
+                EndMode3D();
+                EndTextureMode();
+                
             Matrix4x4 lightViewProj = Raymath.MatrixMultiply(lightView, lightProj); //MatrixMultiply(lightView, lightProj);
-        
-            ClearBackground(Color.SkyBlue);
                 
             SetShaderValueMatrix(ShadowShader, _lightVpLoc, lightViewProj);
                 

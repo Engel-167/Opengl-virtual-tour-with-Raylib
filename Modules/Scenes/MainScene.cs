@@ -71,9 +71,6 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
 
     public override void UpdateScene()
     {
-            //BeginDrawing();
-            ClearBackground(Color.SkyBlue);
-                
             // Dibujar el hitbox de la cámara
             //DrawBoundingBox(CharacterCamera3D.HitBox, Color.Blue);
                 
@@ -143,6 +140,11 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
                 }
             }   
             
+            if (IsKeyPressed(KeyboardKey.B))
+            {
+                _hitboxEnabled = !_hitboxEnabled;
+            }
+            
             ShadowMap.Update();
             
             // Advance time
@@ -161,72 +163,66 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
             SetShaderValue(_waterShader, _lightDirLoc,
                           new[] { light.X, light.Y, light.Z },
                           ShaderUniformDataType.Vec3);
-
-            // Begin 3D once...
-            BeginMode3D(CharacterCamera3D.Camera);
             
-            if (IsKeyPressed(KeyboardKey.B))
-            {
-                _hitboxEnabled = !_hitboxEnabled;
-            }
+            BeginDrawing();
             
-            if (_hitboxEnabled)
-            {
-                _buildings?.DrawHitBoxes();
-            }
-
-            // 1) Draw your opaque world
-            if (WorldObjects != null) Render3DModels(WorldObjects);
-
-            // 2) Transparent water pass
-            BeginBlendMode(BlendMode.Alpha);
-            Rlgl.DisableDepthMask();  // don't write to depth
-
-            // Update shader uniforms as before…
-            _timeAccumulator += GetFrameTime();
-            SetShaderValue(_waterShader, _uTimeLoc,
-                new[] { _timeAccumulator }, ShaderUniformDataType.Float);
-            camPos = CharacterCamera3D.Camera.Position;
-            SetShaderValue(_waterShader, _viewPosLoc,
-                new[]{camPos.X,camPos.Y,camPos.Z}, ShaderUniformDataType.Vec3);
-            light = Vector3.Normalize(new Vector3(0.5f, -1f, 0.3f));
-            SetShaderValue(_waterShader, _lightDirLoc,
-                new[]{light.X,light.Y,light.Z}, ShaderUniformDataType.Vec3);
-
-            // Draw the subdivided plane at y=0, centered on your cube’s footprint
-            // (rotate so it faces up)
-            DrawModel(_waterModel,
-                new Vector3(0, 0, -3),    // position
-                1f,                       // uniform scale
-                Color.White               // color is ignored by shader
-            );
-
-            Rlgl.EnableDepthMask();
-            EndBlendMode();
-
-            EndMode3D();
-
-            // Draw UI
-            DrawText("Collision False", 28, 10, 20, Color.Black);
+                ClearBackground(Color.SkyBlue);
+                
+                BeginMode3D(CharacterCamera3D.Camera);
             
-            DrawText($@"
+                if (_hitboxEnabled)
+                {
+                    _buildings?.DrawHitBoxes();
+                }
+                // 1) Draw your opaque world
+                if (WorldObjects != null) Render3DModels(WorldObjects);
+
+                // 2) Transparent water pass
+                BeginBlendMode(BlendMode.Alpha);
+                Rlgl.DisableDepthMask();  // don't write to depth
+
+                // Update shader uniforms as before…
+                _timeAccumulator += GetFrameTime();
+                SetShaderValue(_waterShader, _uTimeLoc,
+                    new[] { _timeAccumulator }, ShaderUniformDataType.Float);
+                camPos = CharacterCamera3D.Camera.Position;
+                SetShaderValue(_waterShader, _viewPosLoc,
+                    new[]{camPos.X,camPos.Y,camPos.Z}, ShaderUniformDataType.Vec3);
+                light = Vector3.Normalize(new Vector3(0.5f, -1f, 0.3f));
+                SetShaderValue(_waterShader, _lightDirLoc,
+                    new[]{light.X,light.Y,light.Z}, ShaderUniformDataType.Vec3);
+
+                // Draw the subdivided plane at y=0, centered on your cube’s footprint
+                // (rotate so it faces up)
+                DrawModel(_waterModel,
+                    new Vector3(0, 0, -3),    // position
+                    1f,                       // uniform scale
+                    Color.White               // color is ignored by shader
+                );
+
+                Rlgl.EnableDepthMask();
+                EndBlendMode();
+
+                EndMode3D();
+                
+                DrawText("Collision False", 28, 10, 20, Color.Black);
+            
+                DrawText($@"
                 Raylib GLTF 3D model Loading
                 {GetFPS()} fps                
                 Camera Pos: {CharacterCamera3D.Camera.Position}
                 CameraBox: MIN-{CharacterCamera3D.HitBox.Min} MAX-{CharacterCamera3D.HitBox.Max}
                 Hitbox Enabled = {((_hitboxEnabled)?"Yes":"No")} (Press B to toggle)",-100,10,20,Color.Black);
                 
-            DrawText($@"Current Mode < {CharacterCamera3D.Mode} >", 200, 10, 20, Color.Black);
-            DrawText($"Enable shadows: {ShadowMap.Enabled} (Press M to toggle)", 200, 50, 20, Color.Red);
-            
-            if (Core.Globals.Variables.IsSettingsMenuEnabled)
-            {
-                if (Core.Globals.Variables.SettingsMenu != null) Core.Globals.Variables.SettingsMenu.Draw();
-            }
-            
-            // End drawing
-            //EndDrawing();
-        
+                DrawText($@"Current Mode < {CharacterCamera3D.Mode} >", 200, 10, 20, Color.Black);
+                DrawText($"Enable shadows: {ShadowMap.Enabled} (Press M to toggle)", 200, 50, 20, Color.Red);
+                
+                if (Core.Globals.Variables.IsSettingsMenuEnabled)
+                {
+                    if (Core.Globals.Variables.SettingsMenu != null) Core.Globals.Variables.SettingsMenu.Draw();
+                }
+                
+            EndDrawing();
     }
 
     public override void KillScene()

@@ -61,30 +61,30 @@ public class HomeScene(byte id, string windowTitle) : SceneObject(id,windowTitle
         // Update
         //----------------------------------------------------------------------------------
         BeginDrawing();
-        //----------------------------------------------------------------------------------
+        
+            ClearBackground(Color.SkyBlue);
             
-        // Here starts the Background rendering
-        ClearBackground(Color.SkyBlue);
-        
-        UpdateCamera(ref _camera, CameraMode.Orbital);
-        
-        BeginMode3D(_camera);
-        
-        if (_worldObjects != null) Render3DModels(_worldObjects);
-        
-        EndMode3D();
-        
-        // Draw the Start Button
-        if (!Core.Globals.Variables.IsSettingsMenuEnabled)
-        {
-            if (_homeUi != null) _homeUi.Draw();
-            if (Core.Globals.Variables.SettingsMenu != null) Core.Globals.Variables.SettingsMenu.UpdateLayout();
-        }
-        else
-        {
-            if (Core.Globals.Variables.SettingsMenu != null) Core.Globals.Variables.SettingsMenu.Draw();
-            if (_homeUi != null) _homeUi.UpdateLayout();
-        }
+            UpdateCamera(ref _camera, CameraMode.Orbital);
+            
+            BeginMode3D(_camera);
+            
+                if (_worldObjects != null) Render3DModels(_worldObjects);
+            
+            EndMode3D();
+            
+            // Draw the Start Button
+            if (!Core.Globals.Variables.IsSettingsMenuEnabled)
+            {
+                if (_homeUi != null) _homeUi.Draw();
+                if (Core.Globals.Variables.SettingsMenu != null) Core.Globals.Variables.SettingsMenu.UpdateLayout();
+            }
+            else
+            {
+                if (Core.Globals.Variables.SettingsMenu != null) Core.Globals.Variables.SettingsMenu.Draw();
+                if (_homeUi != null) _homeUi.UpdateLayout();
+            }
+            
+        EndDrawing();
         //----------------------------------------------------------------------------------
     }
 

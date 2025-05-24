@@ -49,17 +49,18 @@ public class SceneManager(int screenWidth, int screenHeight)
             MouseCatcher.UpdateMouseCatcher();
             // Update
             //----------------------------------------------------------------------------------
-            BeginDrawing();
-
-            ClearBackground(Color.RayWhite);
 
             switch (Globals.Scenes.CurrentScene)
             {
                 case Globals.Scenes.Scene.Logo:
                 {
-                    DrawText("LOGO SCREEN", (1920/2) - 150, (1080/2), 40, Color.LightGray);
-                    DrawText("WAIT for 2 SECONDS...", 290, 220, 20, Color.Gray);
+                    BeginDrawing();
                     
+                        ClearBackground(Color.RayWhite);
+                        DrawText("LOGO SCREEN", (1920/2) - 150, (1080/2), 40, Color.LightGray);
+                        DrawText("WAIT for 2 SECONDS...", 290, 220, 20, Color.Gray);
+                        
+                    EndDrawing();
                     // Count frames
                     framesCounter++;
 
@@ -115,7 +116,6 @@ public class SceneManager(int screenWidth, int screenHeight)
                 }
                     break;
             }
-            EndDrawing();
         }
         // De-Initialization
         audioManager.Kill();

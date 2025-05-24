@@ -32,17 +32,19 @@ public class VideoSettingsUi
         };
         _fullscreenButton.Event += (_, _) =>
         {
+            int monitor = GetCurrentMonitor();
             if (!IsWindowFullscreen())
             {
-                int monitor = GetCurrentMonitor();
                 SetWindowSize(GetMonitorWidth(monitor), GetMonitorHeight(monitor));
+                Variables.SettingsMenu?.UpdateLayout();
                 ToggleFullscreen();
             }
             else
             {
                 SetWindowSize(1280, 720);
                 ToggleFullscreen();
-                
+                SetWindowPosition(GetMonitorWidth(monitor)/2 - 1280/2, GetMonitorHeight(monitor)/2 - 720/2);
+                Variables.SettingsMenu?.UpdateLayout();
             }
         };
         
