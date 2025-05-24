@@ -1,14 +1,25 @@
 using System.Numerics;
+using Opengl_virtual_tour_with_Raylib.Modules.Core.Globals;
 using Raylib_cs;
 
-namespace Opengl_virtual_tour_with_Raylib.Modules.UI_UX;
+namespace Opengl_virtual_tour_with_Raylib.Modules.UI_UX.Elements;
 
 public class Button(Texture2D backgroundTexture, Texture2D hoverTexture, Vector2 position, int width, int height, int[] padding) : UiComponent(backgroundTexture, position, width, height)
 {
+    public string Text = string.Empty;
+    public Font Font;
+    public float FontSize;
+    public float FontSpacing;
+    public Color TextColor = Color.Black;
+    public Color ClickTextColor = Color.White;
+    public Color HoverTextColor = Color.Brown;
     public event EventHandler? Event;
+    private bool _wasHovered;
 
     public override void Draw()
     {
+        Position = new Vector2(Position.X, Position.Y); // This line is not needed, just for clarity
+        HitBox = new Rectangle(Position.X, Position.Y, Width, Height);
         // Configure the 9-patch scaling
         NPatchInfo patchInfo = new NPatchInfo
         {
@@ -38,17 +49,24 @@ public class Button(Texture2D backgroundTexture, Texture2D hoverTexture, Vector2
         if (isClicked)
         {
             Raylib.DrawTextureNPatch(hoverTexture, patchInfo, HitBox, Vector2.Zero, 0.0f, Color.Gray); // Optional: change texture for click
-            Raylib.DrawTextPro(Font, Text, textPosition, Vector2.Zero, 0.0f, FontSize, FontSpacing, Color.White);
+            Raylib.DrawTextPro(Font, Text, textPosition, Vector2.Zero, 0.0f, FontSize, FontSpacing, ClickTextColor);
+            Raylib.PlaySound(Sfx.Click);
         }
         else if (isHovered)
         {
             Raylib.DrawTextureNPatch(hoverTexture, patchInfo, HitBox, Vector2.Zero, 0.0f, Color.White);
-            Raylib.DrawTextPro(Font, Text, textPosition, Vector2.Zero, 0.0f, FontSize, FontSpacing, Color.Brown);
+            Raylib.DrawTextPro(Font, Text, textPosition, Vector2.Zero, 0.0f, FontSize, FontSpacing, HoverTextColor);
+            if (!_wasHovered)
+            {
+                Raylib.PlaySound(Sfx.Hover);    
+            }
+            _wasHovered = true;
         }
         else
         {
+            _wasHovered = false;
             Raylib.DrawTextureNPatch(BackgroundTexture, patchInfo, HitBox, Vector2.Zero, 0.0f, Color.White);
-            Raylib.DrawTextPro(Font, Text, textPosition, Vector2.Zero, 0.0f, FontSize, FontSpacing, Color.Black);
+            Raylib.DrawTextPro(Font, Text, textPosition, Vector2.Zero, 0.0f, FontSize, FontSpacing, TextColor);
         }
 
         // Trigger click event if mouse was released on the button
@@ -57,6 +75,8 @@ public class Button(Texture2D backgroundTexture, Texture2D hoverTexture, Vector2
             TriggerEvent();
         }
     }
+    
+    
 
     private void TriggerEvent()
     {

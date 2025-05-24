@@ -12,7 +12,7 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Scenes;
 /// which is the one that receives the User and shows to him the menu with different options
 /// such as Play, Settings and Exit</summary>
 
-public class HomeScene(byte id, string windowTitle) : SceneObject(id, windowTitle)
+public class HomeScene(byte id, string windowTitle) : SceneObject(id,windowTitle)
 {
     /// <summary>Background Music</summary>
     private Music _bgMusic;
@@ -23,12 +23,8 @@ public class HomeScene(byte id, string windowTitle) : SceneObject(id, windowTitl
 
     private HomeUi? _homeUi;
     
-    public bool SwapScene;
     public override void InitScene()
     {
-        
-        InitAudioDevice();      // Initialize audio device
-        
         //InitializeWorld();
         Buildings buildings = new Buildings("ConfigurationFiles/DATA/BuildingsDATA.toml");
         Roads roads = new Roads("ConfigurationFiles/DATA/RoadsDATA.toml");
@@ -54,11 +50,12 @@ public class HomeScene(byte id, string windowTitle) : SceneObject(id, windowTitl
         };
         
         PlayMusicStream(_bgMusic);
-        SwapScene = false;
-        _homeUi = new HomeUi(() => { SwapScene = true; });
+        _homeUi = new HomeUi();
+
+        Initialized = true;
     }
     
-    public override int UpdateScene()
+    public override void UpdateScene()
     {
         UpdateMusicStream(_bgMusic);
         // Update
@@ -76,11 +73,19 @@ public class HomeScene(byte id, string windowTitle) : SceneObject(id, windowTitl
         if (_worldObjects != null) Render3DModels(_worldObjects);
         
         EndMode3D();
-
+        
         // Draw the Start Button
-        if (_homeUi != null) _homeUi.Draw();
+        if (!Core.Globals.Variables.IsSettingsMenuEnabled)
+        {
+            if (_homeUi != null) _homeUi.Draw();
+            if (Core.Globals.Variables.SettingsMenu != null) Core.Globals.Variables.SettingsMenu.UpdateLayout();
+        }
+        else
+        {
+            if (Core.Globals.Variables.SettingsMenu != null) Core.Globals.Variables.SettingsMenu.Draw();
+            if (_homeUi != null) _homeUi.UpdateLayout();
+        }
         //----------------------------------------------------------------------------------
-        return 0;
     }
 
     public override void KillScene()
@@ -88,7 +93,7 @@ public class HomeScene(byte id, string windowTitle) : SceneObject(id, windowTitl
         // De-Initialization
         //--------------------------------------------------------------------------------------
         UnloadMusicStream(_bgMusic); // Unload music stream
-
-        CloseAudioDevice();     // Close audio device
+        
+        Initialized = false;
     }
 }

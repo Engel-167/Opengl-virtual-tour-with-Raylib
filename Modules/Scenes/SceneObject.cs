@@ -6,10 +6,11 @@ public abstract class SceneObject (byte id, string windowTitle)
 {
     public byte? Id = id;
     public string? WindowTitle = windowTitle;
-    //public bool InitOnce = false;
+    
+    public bool Initialized = false;
 
     public abstract void InitScene();
-    public abstract int UpdateScene();
+    public abstract void UpdateScene();
     public abstract void KillScene();
 
     protected void Render3DModels(List<World3DObjects> worldObjects)

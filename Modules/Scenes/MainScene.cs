@@ -19,7 +19,7 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
     private CameraMode _camMode;
     private bool _cameraControlEnabled;
 
-    private List<World3DObjects>? _worldObjects;
+    public static List<World3DObjects>? WorldObjects;
     private bool _hitboxEnabled;
     private Shader _waterShader;
     private int    _uTimeLoc;
@@ -37,12 +37,12 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
         _props = new Props("ConfigurationFiles/DATA/PropsDATA.toml");
         
         //InitializeWorld();
-        _worldObjects = new List<World3DObjects>();
-        _worldObjects.AddRange(_buildings);
-        _worldObjects.AddRange(_roads);
-        _worldObjects.AddRange(_props);
+        WorldObjects = new List<World3DObjects>();
+        WorldObjects.AddRange(_buildings);
+        WorldObjects.AddRange(_roads);
+        WorldObjects.AddRange(_props);
             
-        ShadowMap.Init(_worldObjects);
+        ShadowMap.Init(WorldObjects);
         
         _hitboxEnabled = true;
 
@@ -65,9 +65,11 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
         {
             _waterModel.Materials[0].Shader = _waterShader;
         }
+        
+        Initialized = true;
     }
 
-    public override int UpdateScene()
+    public override void UpdateScene()
     {
             //BeginDrawing();
             ClearBackground(Color.SkyBlue);
@@ -82,23 +84,20 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
             }
                 
             // Start capturing the mouse
-            if (IsMouseButtonDown(MouseButton.Left))
+            if (IsMouseButtonDown(MouseButton.Left) && !Core.Globals.Variables.IsSettingsMenuEnabled)
             {
                 _camMode = CameraMode.Free;
                 DisableCursor();
             }
 
-            if (IsKeyPressed(KeyboardKey.Y))
+            if (IsKeyPressed(KeyboardKey.Escape))
             {
-                    //ClearConfigFlags(ConfigFlags.Msaa4xHint);
-                    ClearWindowState(ConfigFlags.Msaa4xHint);
-                    CloseWindow();
+                Core.Globals.Variables.IsSettingsMenuEnabled = true;
+                _cameraControlEnabled = false;
+                EnableCursor();
             }
                 
-            if (IsKeyPressed(KeyboardKey.X))
-                SetConfigFlags(ConfigFlags.Msaa4xHint);
-                
-            if (!_cameraControlEnabled && IsMouseButtonPressed(MouseButton.Left))
+            if (!_cameraControlEnabled && IsMouseButtonPressed(MouseButton.Left) && !Core.Globals.Variables.IsSettingsMenuEnabled)
             {
                 _cameraControlEnabled = true;
                 DisableCursor(); // Captura del mouse
@@ -140,7 +139,7 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
 
                 if (ShadowMap.Enabled)
                 {
-                    if (_worldObjects != null) ShadowMap.Init(_worldObjects);
+                    if (WorldObjects != null) ShadowMap.Init(WorldObjects);
                 }
             }   
             
@@ -176,36 +175,36 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
                 _buildings?.DrawHitBoxes();
             }
 
-        // 1) Draw your opaque world
-        if (_worldObjects != null) Render3DModels(_worldObjects);
+            // 1) Draw your opaque world
+            if (WorldObjects != null) Render3DModels(WorldObjects);
 
-        // 2) Transparent water pass
-        Raylib.BeginBlendMode(BlendMode.Alpha);
-        Rlgl.DisableDepthMask();  // don't write to depth
+            // 2) Transparent water pass
+            BeginBlendMode(BlendMode.Alpha);
+            Rlgl.DisableDepthMask();  // don't write to depth
 
-        // Update shader uniforms as before…
-        _timeAccumulator += Raylib.GetFrameTime();
-        Raylib.SetShaderValue(_waterShader, _uTimeLoc,
-            new[] { _timeAccumulator }, ShaderUniformDataType.Float);
-        camPos = CharacterCamera3D.Camera.Position;
-        Raylib.SetShaderValue(_waterShader, _viewPosLoc,
-            new[]{camPos.X,camPos.Y,camPos.Z}, ShaderUniformDataType.Vec3);
-        light = Vector3.Normalize(new Vector3(0.5f, -1f, 0.3f));
-        Raylib.SetShaderValue(_waterShader, _lightDirLoc,
-            new[]{light.X,light.Y,light.Z}, ShaderUniformDataType.Vec3);
+            // Update shader uniforms as before…
+            _timeAccumulator += GetFrameTime();
+            SetShaderValue(_waterShader, _uTimeLoc,
+                new[] { _timeAccumulator }, ShaderUniformDataType.Float);
+            camPos = CharacterCamera3D.Camera.Position;
+            SetShaderValue(_waterShader, _viewPosLoc,
+                new[]{camPos.X,camPos.Y,camPos.Z}, ShaderUniformDataType.Vec3);
+            light = Vector3.Normalize(new Vector3(0.5f, -1f, 0.3f));
+            SetShaderValue(_waterShader, _lightDirLoc,
+                new[]{light.X,light.Y,light.Z}, ShaderUniformDataType.Vec3);
 
-        // Draw the subdivided plane at y=0, centered on your cube’s footprint
-        // (rotate so it faces up)
-        Raylib.DrawModel(_waterModel,
-            new Vector3(0, 0, -3),    // position
-            1f,                       // uniform scale
-            Color.White               // color is ignored by shader
-        );
+            // Draw the subdivided plane at y=0, centered on your cube’s footprint
+            // (rotate so it faces up)
+            DrawModel(_waterModel,
+                new Vector3(0, 0, -3),    // position
+                1f,                       // uniform scale
+                Color.White               // color is ignored by shader
+            );
 
-        Rlgl.EnableDepthMask();
-        Raylib.EndBlendMode();
+            Rlgl.EnableDepthMask();
+            EndBlendMode();
 
-        EndMode3D();
+            EndMode3D();
 
             // Draw UI
             DrawText("Collision False", 28, 10, 20, Color.Black);
@@ -219,14 +218,20 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
                 
             DrawText($@"Current Mode < {CharacterCamera3D.Mode} >", 200, 10, 20, Color.Black);
             DrawText($"Enable shadows: {ShadowMap.Enabled} (Press M to toggle)", 200, 50, 20, Color.Red);
+            
+            if (Core.Globals.Variables.IsSettingsMenuEnabled)
+            {
+                if (Core.Globals.Variables.SettingsMenu != null) Core.Globals.Variables.SettingsMenu.Draw();
+            }
+            
             // End drawing
             //EndDrawing();
-        return 0;   
+        
     }
 
     public override void KillScene()
     {
-        Raylib.UnloadShader(_waterShader);
-        // … your other cleanup …
+        UnloadShader(_waterShader);
+        Initialized = false;
     }
 }

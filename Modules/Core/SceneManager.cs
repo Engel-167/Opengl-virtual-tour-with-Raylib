@@ -1,17 +1,10 @@
+using Opengl_virtual_tour_with_Raylib.Modules.Core.Globals;
 using Opengl_virtual_tour_with_Raylib.Modules.Scenes;
 using Opengl_virtual_tour_with_Raylib.Modules.UI_UX;
 using Raylib_cs;
 using static Raylib_cs.Raylib;
 
 namespace Opengl_virtual_tour_with_Raylib.Modules.Core;
-
-enum Scene
-{
-    Logo = 0,
-    Home = 1,
-    Main = 2,
-    Credits = 3
-}
 
 public class SceneManager(int screenWidth, int screenHeight)
 {
@@ -23,19 +16,24 @@ public class SceneManager(int screenWidth, int screenHeight)
         // Initialization
         //--------------------------------------------------------------------------------------
         
+        SetConfigFlags(ConfigFlags.VSyncHint);
+        SetConfigFlags(ConfigFlags.Msaa4xHint);
+        SetConfigFlags(ConfigFlags.ResizableWindow);
         //InitWindow(ScreenWidth, ScreenHeight, "OpenGL-tour-with-Raylib");
         InitWindow(ScreenWidth, ScreenHeight, "OpenGL-tour-with-Raylib");
         ToggleFullscreen();
-        SetConfigFlags(ConfigFlags.VSyncHint);
-        SetConfigFlags(ConfigFlags.Msaa4xHint);
+        SetWindowMinSize(1000, 600);
         
         SetExitKey(KeyboardKey.Null);
-
+        
+        AudioManager audioManager = new();
+        audioManager.Initialize();
+        
         MainScene mainScene = new(1, "Main Scene");
         HomeScene homeScene = new(2, "Home Scene");
+        CreditsScene creditsScene = new(3, "Credits Scene");
 
-        Scene currentScreen = Scene.Logo;
-
+        Variables.SettingsMenu = new SettingsUi();
         // Useful to count frames
         int framesCounter = 0;
 
@@ -44,102 +42,81 @@ public class SceneManager(int screenWidth, int screenHeight)
         // Main game loop
         while (!WindowShouldClose())
         {
+            Variables.IsWindowResized = IsWindowResized();
+            
             MouseCatcher.UpdateMouseCatcher();
             // Update
             //----------------------------------------------------------------------------------
-            switch (currentScreen)
-            {
-                case Scene.Logo:
-                {
-                    // TODO: Update LOGO screen variables here!
+            BeginDrawing();
 
+            ClearBackground(Color.RayWhite);
+
+            switch (Globals.Scenes.CurrentScene)
+            {
+                case Globals.Scenes.Scene.Logo:
+                {
+                    DrawText("LOGO SCREEN", (1920/2) - 150, (1080/2), 40, Color.LightGray);
+                    DrawText("WAIT for 2 SECONDS...", 290, 220, 20, Color.Gray);
+                    
                     // Count frames
                     framesCounter++;
 
                     // Wait for 2 seconds (120 frames) before jumping to TITLE screen
                     if (framesCounter > 1)
                     {
-                        homeScene.InitScene();
-                        currentScreen = Scene.Home;
+                        Globals.Scenes.CurrentScene = Globals.Scenes.Scene.Home;
                     }
-                }
-                    break;
-                case Scene.Home:
-                {
-                    // TODO: Update TITLE screen variables here!
 
-                    // Press enter to change to GAMEPLAY screen
-                    if (IsKeyPressed(KeyboardKey.Enter))
-                    {
-                        currentScreen = Scene.Main;
-                        mainScene.InitScene();
-                        homeScene.KillScene();
-                    }
                 }
                     break;
-                case Scene.Main:
+                case Globals.Scenes.Scene.Home:
                 {
-                    // TODO: Update GAMEPLAY screen variables here!
+                    if (!homeScene.Initialized)
+                    {
+                        homeScene.InitScene();    
+                    }
 
-                    // Press enter to change to ENDING screen
-                    if (IsKeyPressed(KeyboardKey.Escape))
+                    if (creditsScene.Initialized)
                     {
-                        currentScreen = Scene.Credits;
-                        mainScene.KillScene();
+                        creditsScene.KillScene();
                     }
-                }
-                    break;
-                case Scene.Credits:
-                {
-                    // TODO: Update ENDING screen variables here!
                     
-                    // Press Escape to return to exit the program
-                    SetExitKey(KeyboardKey.Escape);
+                    homeScene.UpdateScene();
                 }
                     break;
-            }
-            
-            BeginDrawing();
-
-            ClearBackground(Color.RayWhite);
-
-            switch (currentScreen)
-            {
-                case Scene.Logo:
+                case Globals.Scenes.Scene.Main:
                 {
-                    // TODO: Draw LOGO screen here!
-                    DrawText("LOGO SCREEN", (1920/2) - 150, (1080/2), 40, Color.LightGray);
-                    DrawText("WAIT for 2 SECONDS...", 290, 220, 20, Color.Gray);
-
-                }
-                    break;
-                case Scene.Home:
-                {
-                    if (homeScene.UpdateScene() == 1 | homeScene.SwapScene)
+                    if (!mainScene.Initialized)
                     {
-                        currentScreen = Scene.Main;
                         mainScene.InitScene();
+                    }
+                    
+                    if (homeScene.Initialized)
+                    {
                         homeScene.KillScene();
                     }
-                }
-                    break;
-                case Scene.Main:
-                {
+                    
                     mainScene.UpdateScene();
                 }
                     break;
-                case Scene.Credits:
+                case Globals.Scenes.Scene.Credits:
                 {
-                    // TODO: Draw ENDING screen here!
-                    DrawRectangle(0, 0, ScreenWidth, ScreenHeight, Color.Blue);
-                    DrawText("CREDITS SCREEN", 20, 20, 40, Color.DarkBlue);
-                    DrawText("PRESS ENTER or TAP to RETURN to TITLE SCREEN", 120, 220, 20, Color.DarkBlue);
-
+                    if (!creditsScene.Initialized)
+                    {
+                        creditsScene.InitScene();
+                    }
+                    if (homeScene.Initialized)
+                    {
+                        homeScene.KillScene();
+                    }
+                    creditsScene.UpdateScene();
                 }
                     break;
             }
             EndDrawing();
         }
+        // De-Initialization
+        audioManager.Kill();
         return 0;
     }
 }    

@@ -1,19 +1,15 @@
 using System.Numerics;
 using Raylib_cs;
 
-namespace Opengl_virtual_tour_with_Raylib.Modules.UI_UX;
+namespace Opengl_virtual_tour_with_Raylib.Modules.UI_UX.Elements;
 
 public abstract class UiComponent
 {
     protected readonly Texture2D BackgroundTexture;
-    protected Vector2 Position { get; set; }
-    protected float Width { get; set; }
-    protected float Height { get; set; }
-    public Rectangle HitBox;
-    public string Text = string.Empty;
-    public Font Font;
-    public float FontSize;
-    public float FontSpacing;
+    public Vector2 Position { get; set; }
+    public float Width;
+    public float Height;
+    protected Rectangle HitBox;
 
     protected UiComponent(Texture2D backgroundTexture, Vector2 position, int width, int height)
     {
