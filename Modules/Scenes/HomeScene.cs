@@ -15,7 +15,7 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Scenes;
 public class HomeScene(byte id, string windowTitle) : SceneObject(id,windowTitle)
 {
     /// <summary>Background Music</summary>
-    private Music _bgMusic;
+    
     /// <summary>Camera needed for the 3D background</summary>
     private Camera3D _camera;
     /// <summary> List of the worldObjects that will be drawn in the background</summary>
@@ -32,8 +32,6 @@ public class HomeScene(byte id, string windowTitle) : SceneObject(id,windowTitle
         _worldObjects = new List<World3DObjects>();
         _worldObjects.AddRange(buildings);
         _worldObjects.AddRange(roads);
-
-        _bgMusic = LoadMusicStream("Assets/Music/Sketchbook 2024-10-30.ogg"); // Assets/Music/Sketchbook 2024-10-30.ogg
         
         _camera = new Camera3D
         {
@@ -49,15 +47,13 @@ public class HomeScene(byte id, string windowTitle) : SceneObject(id,windowTitle
             
         };
         
-        PlayMusicStream(_bgMusic);
         _homeUi = new HomeUi();
-
+        
         Initialized = true;
     }
     
     public override void UpdateScene()
     {
-        UpdateMusicStream(_bgMusic);
         // Update
         //----------------------------------------------------------------------------------
         BeginDrawing();
@@ -92,8 +88,12 @@ public class HomeScene(byte id, string windowTitle) : SceneObject(id,windowTitle
     {
         // De-Initialization
         //--------------------------------------------------------------------------------------
-        UnloadMusicStream(_bgMusic); // Unload music stream
-        
+        if (_worldObjects != null)
+            foreach (var obj in _worldObjects)
+            {
+                obj.Unload3DModels();
+            }
+
         Initialized = false;
     }
 }

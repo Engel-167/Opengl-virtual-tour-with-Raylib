@@ -9,7 +9,7 @@ public class HomeUi
 {
     private readonly Button? _githubButton;
     
-    private Container? _container;
+    private readonly Container? _container;
 
     public HomeUi()
     {

@@ -4,6 +4,7 @@ using Opengl_virtual_tour_with_Raylib.Modules._3D_World.Buildings;
 using Opengl_virtual_tour_with_Raylib.Modules._3D_World.Props;
 using Opengl_virtual_tour_with_Raylib.Modules._3D_World.Roads;
 using Opengl_virtual_tour_with_Raylib.Modules.Camera;
+using Opengl_virtual_tour_with_Raylib.Modules.Core.Globals;
 using Opengl_virtual_tour_with_Raylib.Modules.Lighting;
 using Raylib_cs;
 using static Raylib_cs.Raylib;
@@ -81,7 +82,7 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
             }
                 
             // Start capturing the mouse
-            if (IsMouseButtonDown(MouseButton.Left) && !Core.Globals.Variables.IsSettingsMenuEnabled)
+            if (IsMouseButtonDown(MouseButton.Left) && !Variables.IsSettingsMenuEnabled)
             {
                 _camMode = CameraMode.Free;
                 DisableCursor();
@@ -89,12 +90,12 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
 
             if (IsKeyPressed(KeyboardKey.Escape))
             {
-                Core.Globals.Variables.IsSettingsMenuEnabled = true;
+                Variables.IsSettingsMenuEnabled = true;
                 _cameraControlEnabled = false;
                 EnableCursor();
             }
                 
-            if (!_cameraControlEnabled && IsMouseButtonPressed(MouseButton.Left) && !Core.Globals.Variables.IsSettingsMenuEnabled)
+            if (!_cameraControlEnabled && IsMouseButtonPressed(MouseButton.Left) && !Variables.IsSettingsMenuEnabled)
             {
                 _cameraControlEnabled = true;
                 DisableCursor(); // Captura del mouse
@@ -217,9 +218,14 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
                 DrawText($@"Current Mode < {CharacterCamera3D.Mode} >", 200, 10, 20, Color.Black);
                 DrawText($"Enable shadows: {ShadowMap.Enabled} (Press M to toggle)", 200, 50, 20, Color.Red);
                 
-                if (Core.Globals.Variables.IsSettingsMenuEnabled)
+                if (Variables.IsSettingsMenuEnabled)
                 {
-                    if (Core.Globals.Variables.SettingsMenu != null) Core.Globals.Variables.SettingsMenu.Draw();
+                    Variables.SettingsMenu?.Draw();
+                }
+
+                if (IsWindowResized())
+                {
+                    Variables.SettingsMenu?.UpdateLayout();
                 }
                 
             EndDrawing();

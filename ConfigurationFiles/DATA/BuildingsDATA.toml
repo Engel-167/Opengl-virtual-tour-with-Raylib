@@ -3,6 +3,12 @@
 #-----------Parte baja de la ciudad --------#
 
 #Building 1 - Muros (1)-------------------------------
+[[models]]
+path = "Assets/gltf/KitMedieval_v1/wall_straight_gate.gltf"
+position = [11.0, 0.0, 0.0]
+axis = [0.0, 1.0, 0.0]
+angle = 180.0
+scale = [1.0, 1.5, 1.0]
 
 [[models]]
 path = "Assets/gltf/KitMedieval_v1/wall_straight_gate.gltf"
@@ -95,40 +101,6 @@ position = [-10.0, 0.0, 6.92]
 axis = [0.0, 1.0, 0.0]
 angle = -120.0
 scale = [1.0, 1.5, 1.0]
-
-
-
-#Building 1 - Muros (1)----------------------------
-
-
-
-#Building 2 - Entrada
-
-[[models]]
-path = "Assets/gltf/KitMedieval_v1/building_bridge_A.gltf"
-position = [0.0, 0.0, 4.0]
-axis = [0.0, 1.0, 0.0]
-angle = -30.0
-scale = [2.0, 1.0, 2.0]
-
-#Building 3 - Entrada
-
-[[models]]
-path = "Assets/gltf/KitMedieval_v1/building_barracks_yellow.gltf"
-position = [4.0, 0.0, 7.0]
-axis = [0.0, 1.0, 0.0]
-angle = -90.0
-scale = [2.0, 1.5, 2.0]
-
-#Building 4 - Entrada
-
-[[models]]
-path = "Assets/gltf/KitMedieval_v1/building_blacksmith_yellow.gltf"
-position = [-4.0, 0.0, 7.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.5, 2.0]
-
 
 
 #muros continuacion 
@@ -241,12 +213,99 @@ scale = [1.0, 1.5, 1.0]
 
 
 [[models]]
-path = "Assets/gltf/KitMedieval_v1/wall_straight_gate.gltf"
+path = "Assets/gltf/KitMedieval_v1/wall_corner_A_gate.gltf"
 position = [-20.00, 0.0, 29.45]
 axis = [0.0, 1.0, 0.0]
 angle = -120.0
 scale = [1.0, 1.5, 1.0]
 
+[[models]]
+path = "Assets/gltf/KitMedieval_v1/wall_straight.gltf"
+position = [-19.0, 0.0, 31.18]
+axis = [0.0, 1.0, 0.0]
+angle = -60.0
+scale = [1.0, 1.5, 1.0]
 
+[[models]]
+path = "Assets/gltf/KitMedieval_v1/wall_straight.gltf"
+position = [-18.0, 0.0, 32.91]
+axis = [0.0, 1.0, 0.0]
+angle = -60.0
+scale = [1.0, 1.5, 1.0]
+
+[[models]]
+path = "Assets/gltf/KitMedieval_v1/wall_corner_A_outside.gltf"
+position = [-17.0, 0.0, 34.64]
+axis = [0.0, 1.0, 0.0]
+angle = -60.0
+scale = [1.0, 1.5, 1.0]
+
+[[models]]
+path = "Assets/gltf/KitMedieval_v1/building_tower_A_yellow.gltf"
+position = [-16.0, 0.0, 34.64]
+axis = [0.0, 1.0, 0.0]
+angle = 180.0
+scale = [1.0, 1.5, 1.0]
+
+
+[[models]]
+path = "Assets/gltf/KitMedieval_v1/wall_straight.gltf"
+position = [-15.0, 0.0, 34.64]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [1.0, 1.5, 1.0]
+
+[[models]]
+path = "Assets/gltf/KitMedieval_v1/wall_straight.gltf"
+position = [-13.0, 0.0, 34.64]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [1.0, 1.5, 1.0]
+
+[[models]]
+path = "Assets/gltf/KitMedieval_v1/wall_straight.gltf"
+position = [-11.0, 0.0, 34.64]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [1.0, 1.5, 1.0]
+
+[[models]]
+path = "Assets/gltf/KitMedieval_v1/wall_straight.gltf"
+position = [-9.0, 0.0, 34.64]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [1.0, 1.5, 1.0]
+
+
+#Building 1 - Muros (1)----------------------------
+
+
+
+#Building 2 - Entrada
+
+[[models]]
+path = "Assets/gltf/KitMedieval_v1/building_bridge_A.gltf"
+position = [0.0, 0.0, 4.0]
+axis = [0.0, 1.0, 0.0]
+angle = -30.0
+scale = [2.0, 1.0, 2.0]
+
+#Building 3 - Entrada
+
+[[models]]
+path = "Assets/gltf/KitMedieval_v1/building_barracks_yellow.gltf"
+position = [4.0, 0.0, 7.0]
+axis = [0.0, 1.0, 0.0]
+angle = -90.0
+scale = [2.0, 1.5, 2.0]
+
+#Building 4 - Entrada
+
+[[models]]
+path = "Assets/gltf/KitMedieval_v1/building_blacksmith_yellow.gltf"
+position = [-4.0, 0.0, 7.0]
+axis = [0.0, 1.0, 0.0]
+angle = 90.0
+scale = [2.0, 1.5, 2.0]
 
 
