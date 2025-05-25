@@ -1,5 +1,6 @@
 using System.Numerics;
 using Opengl_virtual_tour_with_Raylib.Modules._3D_World;
+using Opengl_virtual_tour_with_Raylib.Modules._3D_World.Hitboxes;
 using Raylib_cs;
 
 namespace Opengl_virtual_tour_with_Raylib.Modules.Camera
@@ -7,24 +8,19 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Camera
     // Modes for the camera
     public enum CameraModeType
     {
-        Tourist, // The height is fixed,it has few movements and the speed is lower 
+        Tourist, // The height is fixed, it has few movements and the speed is lower 
         Free //More freedom, useful to look for the map
     }
     public static class CharacterCamera3D
     {
         private const float GroundY = 0.35f; //Minimum height for the camera
-
         private const float Speed = 0.03f; //Camera's speed
-        
-        private const float MouseSensitivity = 0.1f; //Mouse sensitivity 
+        private const float MouseSensitivity = 0.1f; //Mouse sensitivity
         
         public static Camera3D Camera;
-        
         private static Vector3 _lastPosition;
-        
         private static float _pitch; // Cumulative vertical rotation 
         private static float _yaw; // Cumulative horizontal rotation
-        
         public static CameraModeType Mode { get; set; } = CameraModeType.Tourist;
         // The camera's mode by default is tourist
         
@@ -47,7 +43,6 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Camera
             };
             
             _lastPosition = Camera.Position;
-            
         }
         
         // Method to update the HitBox only if the camera's position changes
@@ -63,19 +58,16 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Camera
             }
         }
         
-        private static void TryMoveCamera(Vector3 newPosition, List<ModelData> allModels) 
+        //This method checks if it's possible to move the camera without trespassing the hitbox in the world
+        //If a position it's not allowed, the method checks if we can move the camera around the object
+        private static void TryMoveCamera(Vector3 newPosition, List<ModelData> allModels, List<Hitbox> obbHitboxes)
         {
-            // Create the new tentative box
-            var tentativeBox = new BoundingBox(
-                newPosition - new Vector3(HitBoxSize, HitBoxSize, HitBoxSize),
-                newPosition + new Vector3(HitBoxSize, HitBoxSize, HitBoxSize)
-            );
-            
+            float camRadius = HitBoxSize;
             bool collided = false;
-    
-            foreach (var model in allModels)
+
+            foreach (var hitbox in obbHitboxes)
             {
-                if (Raylib.CheckCollisionBoxes(tentativeBox, model.BoundingBox))
+                if (hitbox.Box.CheckCollisionSphere(newPosition, camRadius))
                 {
                     collided = true;
                     break;
@@ -84,13 +76,78 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Camera
 
             if (!collided)
             {
+                // Create the new tentative box
+                var tentativeBox = new BoundingBox(
+                    newPosition - new Vector3(HitBoxSize, HitBoxSize, HitBoxSize),
+                    newPosition + new Vector3(HitBoxSize, HitBoxSize, HitBoxSize)
+                );
+                
+                foreach (var model in allModels)
+                {
+                    if (Raylib.CheckCollisionBoxes(tentativeBox, model.BoundingBox))
+                    {
+                        collided = true;
+                        break;
+                    }
+                }
+            }
+            
+            if (!collided)
+            {
                 Camera.Position = newPosition;
                 UpdateHitBox();
                 return;
             }
 
-            // Try to move in the x-axis
             Vector3 tryX = new Vector3(newPosition.X, Camera.Position.Y, Camera.Position.Z);
+            bool xCollided = false;
+
+            foreach (var hitbox in obbHitboxes)
+                if (hitbox.Box.CheckCollisionSphere(tryX, camRadius))
+                    xCollided = true;
+            if (!xCollided)
+            {
+                var boxX = new BoundingBox(
+                    tryX - new Vector3(HitBoxSize, HitBoxSize, HitBoxSize),
+                    tryX + new Vector3(HitBoxSize, HitBoxSize, HitBoxSize)
+                );
+                foreach (var model in allModels)
+                    if (Raylib.CheckCollisionBoxes(boxX, model.BoundingBox))
+                        xCollided = true;
+            }
+
+            // Sliding en Z
+            Vector3 tryZ = new Vector3(Camera.Position.X, Camera.Position.Y, newPosition.Z);
+            bool zCollided = false;
+
+            foreach (var hitbox in obbHitboxes)
+                if (hitbox.Box.CheckCollisionSphere(tryZ, camRadius))
+                    zCollided = true;
+            if (!zCollided)
+            {
+                var boxZ = new BoundingBox(
+                    tryZ - new Vector3(HitBoxSize, HitBoxSize, HitBoxSize),
+                    tryZ + new Vector3(HitBoxSize, HitBoxSize, HitBoxSize)
+                );
+                foreach (var model in allModels)
+                    if (Raylib.CheckCollisionBoxes(boxZ, model.BoundingBox))
+                        zCollided = true;
+            }
+
+            // Aplica el movimiento si hay espacio
+            if (!xCollided && zCollided)
+            {
+                Camera.Position = tryX;
+                UpdateHitBox();
+            }
+            else if (xCollided && !zCollided)
+            {
+                Camera.Position = tryZ;
+                UpdateHitBox();
+            }
+            
+            // Try to move in the x-axis
+            /*Vector3 tryX = new Vector3(newPosition.X, Camera.Position.Y, Camera.Position.Z);
             var boxX = new BoundingBox(
                 tryX - new Vector3(HitBoxSize, HitBoxSize, HitBoxSize),
                 tryX + new Vector3(HitBoxSize, HitBoxSize, HitBoxSize)
@@ -107,7 +164,7 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Camera
                 }
             }
 
-            // try to move in the z-axis
+            // Try to move in the z-axis
             Vector3 tryZ = new Vector3(Camera.Position.X, Camera.Position.Y, newPosition.Z);
             var boxZ = new BoundingBox(
                 tryZ - new Vector3(HitBoxSize, HitBoxSize, HitBoxSize),
@@ -136,20 +193,21 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Camera
             {
                 Camera.Position = tryZ;
                 UpdateHitBox();
-            }
+            }*/
             // If both are free, we would move them before
             // If both are blocked, it doesn't move
         }
         
+        //Method that blocks the Y-coordinate if the camera has the Tourist mode enabled
         
         public static void ApplyCameraConstraints()
         {
-            Vector3 pos = Camera.Position;
-
             switch (Mode)
             {
                 case CameraModeType.Tourist:
                     // Fixed height
+                    Vector3 pos = Camera.Position;
+                    
                     Camera.Position = new Vector3(pos.X, GroundY, pos.Z);
                     break;
 
@@ -164,7 +222,8 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Camera
             }
         }
         
-        public static void HandleTouristModeInput(List<ModelData> allModels)
+        //This method is called everytime we need to perform a camera's movement using the keyboard and mouse
+        public static void HandleTouristModeInput(List<ModelData> allModels, List<Hitbox> obbHitboxes)
         {
             Vector3 forward=Vector3.Normalize(Camera.Target - Camera.Position);
 
@@ -179,8 +238,7 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Camera
 
             if (Raylib.IsKeyDown(KeyboardKey.W))
             {
-                //Raylib.CameraMoveForward(ref Camera, Speed,true);    
-                
+                //Raylib.CameraMoveForward(ref Camera, Speed,true);   
                 movement += forward*Speed;
 
             }
@@ -200,7 +258,7 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Camera
             if (Raylib.IsKeyDown(KeyboardKey.LeftShift))
                 movement *= 6.0f;
 
-            TryMoveCamera(Camera.Position+movement, allModels);
+            TryMoveCamera(Camera.Position+movement, allModels, obbHitboxes);
             
             // Takes the mouse's delta
             float mouseX = Raylib.GetMouseDelta().X * MouseSensitivity; 
