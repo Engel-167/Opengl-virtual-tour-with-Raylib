@@ -1,0 +1,13 @@
+[[hitboxes]]
+id=""
+type="box"
+center=[8.0,1.0,7.0]
+size=[2.0,2.0,2.0]
+angle=20.0
+
+[[hitboxes]]
+id=""
+type="box"
+center=[10.0,1.0,10.0]
+size=[2.0,2.0,2.0]
+angle=40.0
