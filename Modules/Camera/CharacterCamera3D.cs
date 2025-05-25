@@ -197,6 +197,9 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Camera
                 //Raylib.CameraMoveRight(ref Camera, -Speed,true);
                 movement -= right*Speed;
             
+            if (Raylib.IsKeyDown(KeyboardKey.LeftShift))
+                movement *= 6.0f;
+
             TryMoveCamera(Camera.Position+movement, allModels);
             
             // Takes the mouse's delta
