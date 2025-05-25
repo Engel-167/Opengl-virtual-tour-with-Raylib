@@ -182,7 +182,7 @@ public class SettingsUi
     
     public void Draw()
     {
-        if (Variables.IsWindowResized)
+        if (Raylib.IsWindowResized())
         {
             UpdateLayout();
         }

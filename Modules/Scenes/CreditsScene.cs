@@ -1,4 +1,3 @@
-using Opengl_virtual_tour_with_Raylib.Modules.Core;
 using Raylib_cs;
 using static Raylib_cs.Raylib;
 
@@ -19,10 +18,11 @@ public class CreditsScene(byte id, string windowTitle) : SceneObject(id, windowT
         {
             Core.Globals.Scenes.CurrentScene = Core.Globals.Scenes.Scene.Home;
         }
-        
-        DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), Color.White);
-        DrawText("CREDITS SCREEN", 20, 20, 40, Color.DarkBlue);
-        DrawText("PRESS ENTER or TAP to RETURN to TITLE SCREEN", 120, 220, 20, Color.DarkBlue);
+        BeginDrawing();
+            DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), Color.White);
+            DrawText("CREDITS SCREEN", 20, 20, 40, Color.DarkBlue);
+            DrawText("PRESS ESCAPE to RETURN to HOME SCREEN", 120, 220, 20, Color.DarkBlue);
+        EndDrawing();
     }
 
     public override void KillScene()

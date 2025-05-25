@@ -44,8 +44,6 @@ public class SceneManager(int screenWidth, int screenHeight)
         // Main game loop
         while (!WindowShouldClose())
         {
-            Variables.IsWindowResized = IsWindowResized();
-            
             MouseCatcher.UpdateMouseCatcher();
             // Update
             //----------------------------------------------------------------------------------
@@ -57,7 +55,7 @@ public class SceneManager(int screenWidth, int screenHeight)
                     BeginDrawing();
                     
                         ClearBackground(Color.RayWhite);
-                        DrawText("LOGO SCREEN", (1920/2) - 150, (1080/2), 40, Color.LightGray);
+                        DrawText("LOGO SCREEN", 1920/2 - 150, 1080/2, 40, Color.LightGray);
                         DrawText("WAIT for 2 SECONDS...", 290, 220, 20, Color.Gray);
                         
                     EndDrawing();

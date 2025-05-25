@@ -153,7 +153,7 @@ public class HomeUi
 
     public void Draw()
     {
-        if (Core.Globals.Variables.IsWindowResized)
+        if (IsWindowResized())
         {
             UpdateLayout();
         }

@@ -7,7 +7,4 @@ public static class Variables
     //Settings menu Variables
     public static bool IsSettingsMenuEnabled = false;
     public static SettingsUi? SettingsMenu;
-    
-    //window Resized variable
-    public static bool IsWindowResized = false;
 }
