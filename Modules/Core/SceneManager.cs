@@ -74,13 +74,15 @@ public class SceneManager(int screenWidth, int screenHeight)
                 {
                     if (!homeScene.Initialized)
                     {
-                        homeScene.InitScene();    
+                        homeScene.InitScene();
+                        Variables.CurrentBgMusic = 1;
                     }
 
                     if (creditsScene.Initialized)
                     {
                         creditsScene.KillScene();
                     }
+
                     
                     homeScene.UpdateScene();
                 }
@@ -90,6 +92,7 @@ public class SceneManager(int screenWidth, int screenHeight)
                     if (!mainScene.Initialized)
                     {
                         mainScene.InitScene();
+                        Variables.CurrentBgMusic = 0;   
                     }
                     
                     if (homeScene.Initialized)

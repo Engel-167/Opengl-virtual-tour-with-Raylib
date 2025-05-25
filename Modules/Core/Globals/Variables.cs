@@ -7,4 +7,7 @@ public static class Variables
     //Settings menu Variables
     public static bool IsSettingsMenuEnabled = false;
     public static SettingsUi? SettingsMenu;
+    
+    //Music variables
+    public static byte CurrentBgMusic = 1;
 }
