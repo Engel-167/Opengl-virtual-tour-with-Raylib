@@ -29,13 +29,13 @@ public class SceneManager(int screenWidth, int screenHeight)
         AudioManager audioManager = new();
         audioManager.Initialize();
         
+        LogoScene logoScene = new LogoScene(0,"Logo Scene");
         MainScene mainScene = new(1, "Main Scene");
         HomeScene homeScene = new(2, "Home Scene");
         CreditsScene creditsScene = new(3, "Credits Scene");
 
         Variables.SettingsMenu = new SettingsUi();
         // Useful to count frames
-        int framesCounter = 0;
         
         Thread.Sleep(500);
         ToggleFullscreen();
@@ -52,22 +52,12 @@ public class SceneManager(int screenWidth, int screenHeight)
             {
                 case Globals.Scenes.Scene.Logo:
                 {
-                    BeginDrawing();
-                    
-                        ClearBackground(Color.RayWhite);
-                        DrawText("LOGO SCREEN", 1920/2 - 150, 1080/2, 40, Color.LightGray);
-                        DrawText("WAIT for 2 SECONDS...", 290, 220, 20, Color.Gray);
-                        
-                    EndDrawing();
-                    // Count frames
-                    framesCounter++;
-
-                    // Wait for 2 seconds (120 frames) before jumping to TITLE screen
-                    if (framesCounter > 1)
+                    if (!logoScene.Initialized)
                     {
-                        Globals.Scenes.CurrentScene = Globals.Scenes.Scene.Home;
+                        logoScene.InitScene();
                     }
-
+                    
+                    logoScene.UpdateScene();
                 }
                     break;
                 case Globals.Scenes.Scene.Home:
@@ -78,6 +68,11 @@ public class SceneManager(int screenWidth, int screenHeight)
                         Variables.CurrentBgMusic = 1;
                     }
 
+                    if (logoScene.Initialized)
+                    {
+                        logoScene.KillScene();
+                    }
+                    
                     if (creditsScene.Initialized)
                     {
                         creditsScene.KillScene();

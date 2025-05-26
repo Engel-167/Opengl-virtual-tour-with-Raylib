@@ -14,8 +14,8 @@ public static class Textures
     public static Texture2D BlueExitButtonFocus = Raylib.LoadTexture("Assets/UI-UX/kenney_ui-pack-adventure/PNG/Double/checkbox_grey_checked.png");
 
     // Github icon
-    public static Texture2D GithubIcon = Raylib.LoadTexture("Assets/UI-UX/FlatIcons/Github/github64px.png");
-    public static Texture2D GithubIconHover = Raylib.LoadTexture("Assets/UI-UX/FlatIcons/Github/githubHover64px.png");
+    public static Texture2D GithubIcon = Raylib.LoadTexture("Assets/UI-UX/FlatIcons/Github/githubx64.png");
+    public static Texture2D GithubIconHover = Raylib.LoadTexture("Assets/UI-UX/FlatIcons/Github/githubx64White.png");
     
     // Brown with gray focus style
     public static Texture2D BrownPanel = Raylib.LoadTexture("Assets/UI-UX/kenney_ui-pack-adventure/PNG/Double/panel_brown_dark.png");
