@@ -5,7 +5,7 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.UI_UX.Elements;
 
 public abstract class UiComponent
 {
-    protected readonly Texture2D BackgroundTexture;
+    public Texture2D BackgroundTexture;
     public Vector2 Position { get; set; }
     public float Width;
     public float Height;

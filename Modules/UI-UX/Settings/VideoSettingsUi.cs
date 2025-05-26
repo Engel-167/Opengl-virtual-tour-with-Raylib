@@ -17,10 +17,10 @@ public class VideoSettingsUi
     public VideoSettingsUi()
     {
         _fullscreenButton = new Button(
-            Textures.BrownPanel,
-            Textures.BrownPanelFocus,
+            Textures.EnabledStateButton,
+            Textures.DefaultStateButton,
             new Vector2(20 + 200, 50), 300, 80,
-            [40, 40, 40, 40])
+            [15, 15, 15, 15])
         {
             Text = "Pantalla Completa",
             Font = Fonts.UbuntuM,
@@ -35,12 +35,14 @@ public class VideoSettingsUi
             int monitor = GetCurrentMonitor();
             if (!IsWindowFullscreen())
             {
+                _fullscreenButton.BackgroundTexture = Textures.EnabledStateButton;
                 SetWindowSize(GetMonitorWidth(monitor), GetMonitorHeight(monitor));
                 Variables.SettingsMenu?.UpdateLayout();
                 ToggleFullscreen();
             }
             else
             {
+                _fullscreenButton.BackgroundTexture = Textures.DisabledStateButton;
                 SetWindowSize(1280, 720);
                 ToggleFullscreen();
                 SetWindowPosition(GetMonitorWidth(monitor)/2 - 1280/2, GetMonitorHeight(monitor)/2 - 720/2);
@@ -49,10 +51,10 @@ public class VideoSettingsUi
         };
         
         Button shadowsButton = new Button(
-            Textures.BrownPanel,
-            Textures.BrownPanelFocus,
+            Textures.EnabledStateButton,
+            Textures.DefaultStateButton,
             new Vector2(20 + 200, 50), 200, 80,
-            [40, 40, 40, 40])
+            [15, 15, 15, 15])
         {
             Text = "Sombras",
             Font = Fonts.UbuntuM,
@@ -68,7 +70,12 @@ public class VideoSettingsUi
 
             if (ShadowMap.Enabled)
             {
+                shadowsButton.BackgroundTexture = Textures.EnabledStateButton;
                 if (MainScene.WorldObjects != null) ShadowMap.Init(MainScene.WorldObjects);
+            }
+            else
+            {
+                shadowsButton.BackgroundTexture = Textures.DisabledStateButton;
             }
         };
         

@@ -20,4 +20,9 @@ public static class Textures
     // Brown with gray focus style
     public static Texture2D BrownPanel = Raylib.LoadTexture("Assets/UI-UX/kenney_ui-pack-adventure/PNG/Double/panel_brown_dark.png");
     public static Texture2D BrownPanelFocus = Raylib.LoadTexture("Assets/UI-UX/kenney_ui-pack-adventure/PNG/Double/panel_brown_dark_corners_a.png");
+    
+    //Enabled and Disabled buttons
+    public static Texture2D DefaultStateButton = Raylib.LoadTexture("Assets/UI-UX/kenney_ui-pack-adventure/PNG/Double/progress_white.png");
+    public static Texture2D EnabledStateButton = Raylib.LoadTexture("Assets/UI-UX/kenney_ui-pack-adventure/PNG/Double/progress_green.png");
+    public static Texture2D DisabledStateButton = Raylib.LoadTexture("Assets/UI-UX/kenney_ui-pack-adventure/PNG/Double/progress_blue.png");
 }
