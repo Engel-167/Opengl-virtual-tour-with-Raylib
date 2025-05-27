@@ -101,7 +101,6 @@ public static class FrustumCulling
         Matrix4x4 clip = view * proj;
 
         // Assuming perspective mode for now
-        // TODO: Implement orthogonal mode if needed
         frustum.Left = Vector4.Normalize(new Vector4(clip.M14 + clip.M11, clip.M24 + clip.M21, clip.M34 + clip.M31, clip.M44 + clip.M41));
         frustum.Right = Vector4.Normalize(new Vector4(clip.M14 - clip.M11, clip.M24 - clip.M21, clip.M34 - clip.M31, clip.M44 - clip.M41));
 

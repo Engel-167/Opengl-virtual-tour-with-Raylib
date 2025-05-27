@@ -1,29 +1,28 @@
-using Opengl_virtual_tour_with_Raylib.Modules._3D_World.Hitboxes;
-using Opengl_virtual_tour_with_Raylib.Modules.Camera;
 using Raylib_cs;
 
 namespace Opengl_virtual_tour_with_Raylib.Modules._3D_World.Buildings;
 
 public class Buildings(string path) : World3DObjects(path)
 {
-    private const float CameraNearPlane = 0.01f; 
-    private const float CameraFarPlane = 1000.0f;
+    //private const float CameraNearPlane = 0.01f; 
+    //private const float CameraFarPlane = 1000.0f;
     public override void Draw3DModels()
     {
         // Get the camera's view OBB, passing the near and far planes
-        Obb cameraViewObb = FrustumCulling.GetCameraViewObb(
+        /*Obb cameraViewObb = FrustumCulling.GetCameraViewObb(
             CharacterCamera3D.Camera, 
             (float)Raylib.GetScreenWidth() / Raylib.GetScreenHeight(),
             CameraNearPlane,
-            CameraFarPlane);
+            CameraFarPlane);*/
 
         foreach (ModelData model in ModelDatas)
         {
-            // Check if the model's OBB collides with the camera's view OBB
+            Raylib.DrawModelEx(model.Model, model.Position, model.Axis, model.Angle, model.Scale, Color.White);
+            /*// Check if the model's OBB collides with the camera's view OBB
             if (Obb.CheckCollisionBoundingBoxVsObb(model.BoundingBox, cameraViewObb))
             {
                 Raylib.DrawModelEx(model.Model, model.Position, model.Axis, model.Angle, model.Scale, Color.White);
-            }
+            }*/
         }
 
     }
