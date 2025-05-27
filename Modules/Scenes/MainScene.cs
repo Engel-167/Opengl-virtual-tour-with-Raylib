@@ -6,6 +6,8 @@ using Opengl_virtual_tour_with_Raylib.Modules._3D_World.Roads;
 using Opengl_virtual_tour_with_Raylib.Modules.Camera;
 using Opengl_virtual_tour_with_Raylib.Modules.Core.Globals;
 using Opengl_virtual_tour_with_Raylib.Modules.Lighting;
+using Opengl_virtual_tour_with_Raylib.Modules.Audio;
+
 using Raylib_cs;
 using static Raylib_cs.Raylib;
 using Opengl_virtual_tour_with_Raylib.Modules._3D_World.Hitboxes;
@@ -32,6 +34,7 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
     private int    _lightDirLoc;*/
     //private float  _timeAccumulator;
     private Model _waterModel;
+    private FootstepManager? _footstepManager;
 
     public override void InitScene()
     {
@@ -47,6 +50,7 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
         
         //InitializeWorld();
         WorldObjects = new List<World3DObjects>();
+        WorldObjects = new List<World3DObjects>();
         WorldObjects.AddRange(_buildings);
         WorldObjects.AddRange(_roads);
         WorldObjects.AddRange(_props);
@@ -54,7 +58,11 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
         ShadowMap.Init(WorldObjects);
         
         _hitboxEnabled = true;
-
+        
+        // Inicializar FootstepManager con los modelos que tienen suelo tipo "tile"
+        var modelos = _roads?.ModelDatas ?? new List<ModelData>();
+        _footstepManager = new FootstepManager(modelos);
+        
         // Load our water shader
         _waterShader   = LoadShader("Assets/Shaders/water.vert", "Assets/Shaders/water.frag");
         /*_uTimeLoc      = GetShaderLocation(_waterShader, "uTime");
@@ -155,6 +163,14 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
             }
             
             ShadowMap.Update();
+            
+            // Actualizar sonidos de pasos
+            if (_footstepManager != null)
+            {
+                Vector3 playerPos = CharacterCamera3D.Camera.Position;
+                bool isRunning = IsKeyDown(KeyboardKey.LeftShift); // correr con shift
+                _footstepManager.Update(playerPos, isRunning);
+            }
             
             // Advance time
             //_timeAccumulator += GetFrameTime();
@@ -262,6 +278,8 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
     public override void KillScene()
     {
         UnloadShader(_waterShader);
+        _footstepManager?.Unload();
+
         Initialized = false;
     }
 }

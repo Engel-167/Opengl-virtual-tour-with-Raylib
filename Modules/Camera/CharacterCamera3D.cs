@@ -1,6 +1,8 @@
 using System.Numerics;
 using Opengl_virtual_tour_with_Raylib.Modules._3D_World;
 using Opengl_virtual_tour_with_Raylib.Modules._3D_World.Hitboxes;
+using Opengl_virtual_tour_with_Raylib.Modules.Audio;
+
 using Raylib_cs;
 
 namespace Opengl_virtual_tour_with_Raylib.Modules.Camera
@@ -280,6 +282,15 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Camera
             
             if (Raylib.IsKeyDown(KeyboardKey.LeftShift))
                 movement *= 6.0f;
+            
+            // Detectar si se está moviendo
+            bool isMoving = movement.Length() > 0.0f;
+            bool isRunning = isMoving && Raylib.IsKeyDown(KeyboardKey.LeftShift);
+
+            // Llamar a FootstepManager si está en movimiento
+            if (isMoving && FootstepAudio != null)
+                FootstepAudio.Update(Camera.Position, isRunning);
+
 
             TryMoveCamera(Camera.Position+movement, allModels, obbHitboxes);
             
@@ -290,6 +301,9 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Camera
         {
             return FrustumCulling.CameraGetFrustum(Camera, aspect);
         }
+        
+        public static FootstepManager FootstepAudio;
+
     }
 
 }

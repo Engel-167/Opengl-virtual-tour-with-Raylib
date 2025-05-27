@@ -12,6 +12,7 @@ namespace Opengl_virtual_tour_with_Raylib.Modules._3D_World
         public float Angle { get; set; }
         public Vector3 Scale { get; set; }
         public BoundingBox BoundingBox { get; private set; }
+        public string AssetName { get; set; }
 
         public ModelData(RawModelData data)
         {
@@ -20,7 +21,9 @@ namespace Opengl_virtual_tour_with_Raylib.Modules._3D_World
             Axis = new Vector3(data.Axis[0], data.Axis[1], data.Axis[2]);
             Angle = data.Angle;
             Scale = new Vector3(data.Scale[0], data.Scale[1], data.Scale[2]);
+            AssetName = Path.GetFileNameWithoutExtension(data.Path);
 
+            
             BoundingBox baseBox = Raylib.GetModelBoundingBox(Model);
             BoundingBox = new BoundingBox
             {
