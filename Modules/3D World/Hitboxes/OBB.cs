@@ -88,14 +88,14 @@ public struct Obb
     {
         Vector3[] corners =
         [
-            new Vector3(box.Min.X, box.Min.Y, box.Min.Z),
-            new Vector3(box.Max.X, box.Min.Y, box.Min.Z),
-            new Vector3(box.Max.X, box.Max.Y, box.Min.Z),
-            new Vector3(box.Min.X, box.Max.Y, box.Min.Z),
-            new Vector3(box.Min.X, box.Min.Y, box.Max.Z),
-            new Vector3(box.Max.X, box.Min.Y, box.Max.Z),
-            new Vector3(box.Max.X, box.Max.Y, box.Max.Z),
-            new Vector3(box.Min.X, box.Max.Y, box.Max.Z)
+            new(box.Min.X, box.Min.Y, box.Min.Z),
+            new(box.Max.X, box.Min.Y, box.Min.Z),
+            new(box.Max.X, box.Max.Y, box.Min.Z),
+            new(box.Min.X, box.Max.Y, box.Min.Z),
+            new(box.Min.X, box.Min.Y, box.Max.Z),
+            new(box.Max.X, box.Min.Y, box.Max.Z),
+            new(box.Max.X, box.Max.Y, box.Max.Z),
+            new(box.Min.X, box.Max.Y, box.Max.Z)
         ];
 
         min = Vector3.Dot(corners[0], axis);
