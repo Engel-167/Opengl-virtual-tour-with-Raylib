@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using System.Numerics;
+using Opengl_virtual_tour_with_Raylib.Modules.Core.Globals;
 using Opengl_virtual_tour_with_Raylib.Modules.UI_UX.Elements;
 using static Raylib_cs.Raylib;
 
@@ -15,13 +16,13 @@ public class HomeUi
     {
         //Start Button
         Button startButton = new Button(
-            Core.Globals.Textures.BasicPanel,
-            Core.Globals.Textures.BasicPanelFocus,
+            Textures.BasicPanel,
+            Textures.BasicPanelFocus,
             new Vector2(GetScreenWidth() / 2.0f - 125f, GetScreenHeight() / 2.0f - 50f), 250, 100,
             [40,40,40,40])
         {
-            Text = "Iniciar",
-            Font = Core.Globals.Fonts.UbuntuM,
+            Text = Variables.Language.StartString,
+            Font = Fonts.UbuntuM,
             FontSize = 32f,
             FontSpacing = 2f,
         };
@@ -34,31 +35,31 @@ public class HomeUi
 
         //Settings Button
         Button settingsButton = new Button(
-            Core.Globals.Textures.BasicPanel,
-            Core.Globals.Textures.BasicPanelFocus,
+            Textures.BasicPanel,
+            Textures.BasicPanelFocus,
             new Vector2(GetScreenWidth() / 2.0f - 125f, GetScreenHeight() / 2.0f + 55f), 250, 100,
             [40,40,40,40])
         {
-            Text = "Ajustes",
-            Font = Core.Globals.Fonts.UbuntuM,
+            Text = Variables.Language.SettingsString,
+            Font = Fonts.UbuntuM,
             FontSize = 32f,
             FontSpacing = 2f
         };
         settingsButton.Event += (_, _) =>
         {
-            Core.Globals.Variables.IsSettingsMenuEnabled = true;
+            Variables.IsSettingsMenuEnabled = true;
             Console.WriteLine("Settings button");
         };
 
         //Credits button
         Button creditsButton = new Button(
-            Core.Globals.Textures.BasicPanel,
-            Core.Globals.Textures.BasicPanelFocus,
+            Textures.BasicPanel,
+            Textures.BasicPanelFocus,
             new Vector2(GetScreenWidth() / 2.0f - 125f, GetScreenHeight() / 2.0f + 160f), 250, 100,
             [40,40,40,40])
         {
-            Text = "Creditos",
-            Font = Core.Globals.Fonts.UbuntuM,
+            Text = Variables.Language.CreditsString,
+            Font = Fonts.UbuntuM,
             FontSize = 32f,
             FontSpacing = 2f
         };
@@ -71,13 +72,13 @@ public class HomeUi
 
         //Exit button
         Button exitButton = new Button(
-            Core.Globals.Textures.BasicPanel,
-            Core.Globals.Textures.BasicPanelFocus,
+            Textures.BasicPanel,
+            Textures.BasicPanelFocus,
             new Vector2(GetScreenWidth() / 2.0f - 125f, GetScreenHeight() / 2.0f + 265f), 250, 100,
             [40,40,40,40])
         {
-            Text = "Salir",
-            Font = Core.Globals.Fonts.UbuntuM,
+            Text = Variables.Language.ExitString,
+            Font = Fonts.UbuntuM,
             FontSize = 32f,
             FontSpacing = 2f
         };
@@ -90,15 +91,15 @@ public class HomeUi
 
         //Github Button
         _githubButton = new Button(
-            Core.Globals.Textures.GithubIcon,
-            Core.Globals.Textures.GithubIconHover,
+            Textures.GithubIcon,
+            Textures.GithubIconHover,
             new Vector2(20,20),
             64,
             64,
             [0,0,0,0])
         {
             Text = "",
-            Font = Core.Globals.Fonts.UbuntuM,
+            Font = Fonts.UbuntuM,
             FontSize = 32f,
             FontSpacing = 2f
         };
@@ -122,7 +123,7 @@ public class HomeUi
             }
         };
 
-        _container = new Container(Core.Globals.ContainerOrientation.Vertical, 0, 5);
+        _container = new Container(ContainerOrientation.Vertical, 0, 5);
         _container.Components.Add(startButton);
         _container.Components.Add(settingsButton);
         _container.Components.Add(creditsButton);
@@ -160,6 +161,17 @@ public class HomeUi
         
         if (_githubButton != null) _githubButton.Draw();
 
+        if (Variables.UpdateText)
+        {
+            if (_container != null)
+            {
+                _container.Components[0].Text = Variables.Language.StartString;
+                _container.Components[1].Text = Variables.Language.SettingsString;
+                _container.Components[2].Text = Variables.Language.CreditsString;
+                _container.Components[3].Text = Variables.Language.ExitString;
+            }
+        }
+        
         if (_container != null) _container.Draw();
     }
 

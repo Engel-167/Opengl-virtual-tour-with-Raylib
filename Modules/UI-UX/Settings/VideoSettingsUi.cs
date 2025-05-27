@@ -23,7 +23,7 @@ public class VideoSettingsUi
             new Vector2(20 + 200, 50), 300, 80,
             [15, 15, 15, 15])
         {
-            Text = "Pantalla Completa",
+            Text = Variables.Language.FullscreenString,
             Font = Fonts.UbuntuM,
             FontSize = 32f,
             FontSpacing = 2f,
@@ -75,7 +75,7 @@ public class VideoSettingsUi
             new Vector2(20 + 200, 50), 200, 80,
             [15, 15, 15, 15])
         {
-            Text = "Sombras",
+            Text = Variables.Language.ShadowsString,
             Font = Fonts.UbuntuM,
             FontSize = 32f,
             FontSpacing = 2f,
@@ -110,6 +110,15 @@ public class VideoSettingsUi
     
     public void Draw()
     {
+        if (Variables.UpdateText)
+        {
+            if (_container != null)
+            {
+                _container.Components[0].Text = Variables.Language.FullscreenString;
+                _container.Components[1].Text = Variables.Language.ShadowsString;
+            }
+        }
+        
         _container?.Draw();
     }
     

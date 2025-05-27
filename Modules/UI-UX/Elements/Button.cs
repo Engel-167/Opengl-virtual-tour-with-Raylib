@@ -6,7 +6,7 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.UI_UX.Elements;
 
 public class Button(Texture2D backgroundTexture, Texture2D hoverTexture, Vector2 position, int width, int height, int[] padding) : UiComponent(backgroundTexture, position, width, height)
 {
-    public string Text = string.Empty;
+    public string Text { get; set; } = string.Empty;
     public Font Font;
     public float FontSize;
     public float FontSpacing;

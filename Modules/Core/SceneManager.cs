@@ -60,6 +60,7 @@ public class SceneManager
             SettingsLoader.SaveSettings(Variables.SettingsFilePath, Variables.AppSettings);
         }
         
+        int framesCounter = 0;
         //--------------------------------------------------------------------------------------
         // Main game loop
         while (!WindowShouldClose())
@@ -67,7 +68,18 @@ public class SceneManager
             MouseCatcher.UpdateMouseCatcher();
             // Update
             //----------------------------------------------------------------------------------
+            if (Variables.UpdateText)
+            {
+                framesCounter++;
 
+                // Wait for 2 seconds (120 frames) before jumping to TITLE screen
+                if (framesCounter > 240)
+                {
+                    Variables.UpdateText = false;
+                    framesCounter = 0;
+                }
+            }
+            
             switch (Globals.Scenes.CurrentScene)
             {
                 case Globals.Scenes.Scene.Logo:

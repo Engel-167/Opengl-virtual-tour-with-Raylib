@@ -5,7 +5,7 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.UI_UX.Elements;
 
 public class Container
 {
-    public readonly List<UiComponent> Components = new();
+    public readonly List<Button> Components = new();
 
     private readonly ContainerOrientation _orientation;
     

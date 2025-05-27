@@ -23,6 +23,26 @@ public static class SettingsLoader
             return new AppSettings();
         }
     }
+    
+    public static Language LoadLanguage(string filePath)
+    {
+        if (!File.Exists(filePath))
+        {
+            Console.WriteLine($"Warning: Settings file not found at {filePath}. Using default settings.");
+            return new Language();
+        }
+
+        try
+        {
+            var toml = File.ReadAllText(filePath);
+            return Toml.ToModel<Language>(toml);
+        }
+        catch (TomlException ex)
+        {
+            Console.WriteLine($"Error parsing {filePath}: {ex.Message}");
+            return new Language();
+        }
+    }
 
     public static void SaveSettings(string filePath, AppSettings settings)
     {

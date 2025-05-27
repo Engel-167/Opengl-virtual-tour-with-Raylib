@@ -1,0 +1,17 @@
+start_string = "Iniciar"
+exit_string = "Salir"
+
+settings_string = "Ajustes"
+credits_string = "Creditos"
+
+general_string = "General"
+video_string = "Video"
+sound_string = "Sonido"
+controls_string = "Controles"
+
+#Video Settings
+fullscreen_string = "Pantalla Completa"
+shadows_string = "Sombras"
+
+#language
+language_string = "Español"

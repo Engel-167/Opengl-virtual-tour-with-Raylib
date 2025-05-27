@@ -1,0 +1,17 @@
+start_string = "Start"
+exit_string = "Quit"
+
+settings_string = "Settings"
+credits_string = "Credits"
+
+general_string = "General"
+video_string = "Video"
+sound_string = "Sound"
+controls_string = "Controls"
+
+#Video Settings
+fullscreen_string = "FUllScreen"
+shadows_string = "Shadows"
+
+#language
+language_string = "Enlish"

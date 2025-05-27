@@ -16,6 +16,8 @@ public class SettingsUi
 
     private readonly Container? _container;
     
+    private readonly GeneralSettingsUi? _generalSettingsUi;
+    
     private readonly VideoSettingsUi? _videoSettingsUi;
     
     private enum CurrentSettings
@@ -37,7 +39,7 @@ public class SettingsUi
             [40, 40, 40, 40] // Padding
         )
         {
-            Text = "Ajustes",
+            Text = string.Empty,
             Font = Fonts.UbuntuM,
             FontSize = 32f,
             FontSpacing = 2f
@@ -49,7 +51,7 @@ public class SettingsUi
             new Vector2(_backgroundPanel.Width - 30, 10), 60, 60,
             [0, 0, 0, 0])
         {
-            Text = "",
+            Text = string.Empty,
             Font = Fonts.UbuntuM,
             FontSize = 32f,
             FontSpacing = 2f
@@ -66,7 +68,7 @@ public class SettingsUi
             new Vector2(20 + 200, 50), 200, 80,
             [40, 40, 40, 40])
         {
-            Text = "General",
+            Text = Variables.Language.GeneralString,
             Font = Fonts.UbuntuM,
             FontSize = 32f,
             FontSpacing = 2f,
@@ -87,7 +89,7 @@ public class SettingsUi
             new Vector2(440,50), 200, 80,
             [40, 40, 40, 40])
         {
-            Text = "Video",
+            Text = Variables.Language.VideoString,
             Font = Fonts.UbuntuM,
             FontSize = 32f,
             FontSpacing = 2f,
@@ -108,7 +110,7 @@ public class SettingsUi
             new Vector2(440 + 220, 50), 200, 80,
             [40, 40, 40, 40])
         {
-            Text = "Sonido",
+            Text = Variables.Language.SoundString,
             Font = Fonts.UbuntuM,
             FontSize = 32f,
             FontSpacing = 2f,
@@ -129,7 +131,7 @@ public class SettingsUi
             new Vector2(660 + 220, 50), 200, 80,
             [40, 40, 40, 40])
         {
-            Text = "Controles",
+            Text = Variables.Language.ControlsString,
             Font = Fonts.UbuntuM,
             FontSize = 32f,
             FontSpacing = 2f,
@@ -152,7 +154,7 @@ public class SettingsUi
             new Vector2((float)Raylib.GetScreenWidth()/2 - 100, _backgroundPanel.Height - 110), 200, 80,
             [40, 40, 40, 40])
         {
-            Text = "Salir",
+            Text = Variables.Language.ExitString,
             Font = Fonts.UbuntuM,
             FontSize = 32f,
             FontSpacing = 2f,
@@ -178,6 +180,7 @@ public class SettingsUi
         
         _container.Position = new Vector2(Raylib.GetScreenWidth() / 2.0f - _container.GetWidth() / 2.0f, 10);
         
+        _generalSettingsUi = new GeneralSettingsUi();
         _videoSettingsUi = new VideoSettingsUi();
     }
     
@@ -190,6 +193,20 @@ public class SettingsUi
         
         _backgroundPanel?.Draw();
         _closeButton?.Draw();
+        
+        if (Variables.UpdateText)
+        {
+            if (_container != null)
+            {
+                _container.Components[0].Text = Variables.Language.GeneralString;
+                _container.Components[1].Text = Variables.Language.VideoString;
+                _container.Components[2].Text = Variables.Language.SoundString;
+                _container.Components[3].Text = Variables.Language.ControlsString;
+
+                if (_homeButton != null) _homeButton.Text = Variables.Language.ExitString;
+            }
+        }
+        
         _container?.Draw();
 
         switch (_currentSettings)
@@ -197,6 +214,7 @@ public class SettingsUi
             case CurrentSettings.General:
             {
                 // Draw general settings UI here
+                _generalSettingsUi?.Draw();
                 
             }
                 break;
@@ -244,6 +262,7 @@ public class SettingsUi
             _container.Position = new Vector2(Raylib.GetScreenWidth() / 2f - _container.GetWidth() / 2f, 10);
         
         _videoSettingsUi?.UpdateLayout();
+        _generalSettingsUi?.UpdateLayout();
         
         if (Variables.AppSettings.Fullscreen == false && Raylib.IsWindowResized())
         {
