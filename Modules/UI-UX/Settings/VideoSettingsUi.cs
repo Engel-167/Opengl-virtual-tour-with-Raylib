@@ -38,9 +38,10 @@ public class VideoSettingsUi
             {
                 _fullscreenButton.BackgroundTexture = Textures.EnabledStateButton;
                 SetWindowSize(GetMonitorWidth(monitor), GetMonitorHeight(monitor));
-                Variables.SettingsMenu?.UpdateLayout();
+                
                 ToggleFullscreen();
                 Variables.AppSettings.Fullscreen = true;
+                Variables.SettingsMenu?.UpdateLayout();
                 SettingsLoader.SaveSettings(Variables.SettingsFilePath, Variables.AppSettings);
             }
             else
@@ -58,7 +59,7 @@ public class VideoSettingsUi
                 SetWindowSize(Variables.AppSettings.ScreenWidth, Variables.AppSettings.ScreenHeight);
                 
                 ToggleFullscreen();
-                SetWindowPosition(GetMonitorWidth(monitor)/2 - 1280/2, GetMonitorHeight(monitor)/2 - 720/2);
+                SetWindowPosition(GetMonitorWidth(monitor)/2 - GetScreenWidth()/2, GetMonitorHeight(monitor)/2 - GetScreenHeight()/2);
                 
                 Variables.AppSettings.Fullscreen = false;
                 

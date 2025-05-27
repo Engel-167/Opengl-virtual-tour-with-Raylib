@@ -245,7 +245,7 @@ public class SettingsUi
         
         _videoSettingsUi?.UpdateLayout();
         
-        if (Raylib.IsWindowResized() && Variables.AppSettings.Fullscreen == false)
+        if (Variables.AppSettings.Fullscreen == false && Raylib.IsWindowResized())
         {
             Variables.AppSettings.ScreenWidth = Raylib.GetScreenWidth();
             Variables.AppSettings.ScreenHeight = Raylib.GetScreenHeight();

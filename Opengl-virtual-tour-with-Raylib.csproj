@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <OutputType>Exe</OutputType>
+        <OutputType>WinExe</OutputType>
         <TargetFramework>net9.0</TargetFramework>
         <RootNamespace>Opengl_virtual_tour_with_Raylib</RootNamespace>
         <ImplicitUsings>enable</ImplicitUsings>
@@ -25,5 +25,5 @@
       <Folder Include="Assets\SFX\" />
       <Folder Include="Assets\UI-UX\FlatIcons\" />
     </ItemGroup>
-
+    
 </Project>
