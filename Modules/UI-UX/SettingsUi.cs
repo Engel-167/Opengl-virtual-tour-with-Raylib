@@ -1,5 +1,6 @@
 using System.Numerics;
 using Opengl_virtual_tour_with_Raylib.Modules.Core.Globals;
+using Opengl_virtual_tour_with_Raylib.Modules.Core.Settings;
 using Opengl_virtual_tour_with_Raylib.Modules.UI_UX.Elements;
 using Opengl_virtual_tour_with_Raylib.Modules.UI_UX.Settings;
 using Raylib_cs;
@@ -243,5 +244,12 @@ public class SettingsUi
             _container.Position = new Vector2(Raylib.GetScreenWidth() / 2f - _container.GetWidth() / 2f, 10);
         
         _videoSettingsUi?.UpdateLayout();
+        
+        if (Raylib.IsWindowResized() && Variables.AppSettings.Fullscreen == false)
+        {
+            Variables.AppSettings.ScreenWidth = Raylib.GetScreenWidth();
+            Variables.AppSettings.ScreenHeight = Raylib.GetScreenHeight();
+            SettingsLoader.SaveSettings(Variables.SettingsFilePath, Variables.AppSettings);    
+        }
     }
 }

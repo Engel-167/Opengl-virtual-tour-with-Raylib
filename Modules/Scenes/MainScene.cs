@@ -9,6 +9,8 @@ using Opengl_virtual_tour_with_Raylib.Modules.Lighting;
 using Raylib_cs;
 using static Raylib_cs.Raylib;
 using Opengl_virtual_tour_with_Raylib.Modules._3D_World.Hitboxes;
+using Opengl_virtual_tour_with_Raylib.Modules.Core;
+using Opengl_virtual_tour_with_Raylib.Modules.Core.Settings;
 
 namespace Opengl_virtual_tour_with_Raylib.Modules.Scenes;
 
@@ -125,7 +127,7 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
                 if (CharacterCamera3D.Mode == CameraModeType.Tourist)
                 {
                     if (_buildings != null && _hitboxLoader?.Cajas !=null)
-                        CharacterCamera3D.HandleTouristModeInput(_buildings.ModelDatas, _hitboxLoader?.Cajas);
+                        CharacterCamera3D.HandleTouristModeInput(_buildings.ModelDatas, _hitboxLoader.Cajas);
                 }
                 else
                 {

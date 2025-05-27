@@ -1,5 +1,6 @@
 using System.Numerics;
 using Opengl_virtual_tour_with_Raylib.Modules.Core.Globals;
+using Opengl_virtual_tour_with_Raylib.Modules.Core.Settings;
 using Opengl_virtual_tour_with_Raylib.Modules.Lighting;
 using Opengl_virtual_tour_with_Raylib.Modules.Scenes;
 using Opengl_virtual_tour_with_Raylib.Modules.UI_UX.Elements;
@@ -33,20 +34,37 @@ public class VideoSettingsUi
         _fullscreenButton.Event += (_, _) =>
         {
             int monitor = GetCurrentMonitor();
-            if (!IsWindowFullscreen())
+            if (!Variables.AppSettings.Fullscreen)
             {
                 _fullscreenButton.BackgroundTexture = Textures.EnabledStateButton;
                 SetWindowSize(GetMonitorWidth(monitor), GetMonitorHeight(monitor));
                 Variables.SettingsMenu?.UpdateLayout();
                 ToggleFullscreen();
+                Variables.AppSettings.Fullscreen = true;
+                SettingsLoader.SaveSettings(Variables.SettingsFilePath, Variables.AppSettings);
             }
             else
             {
                 _fullscreenButton.BackgroundTexture = Textures.DisabledStateButton;
-                SetWindowSize(1280, 720);
+                if (Variables.FirstTime)
+                {
+                    SetWindowSize(1280, 720);
+                    Variables.AppSettings.ScreenWidth = 1280;
+                    Variables.AppSettings.ScreenHeight = 720;
+                    
+                    Variables.FirstTime = false;
+                }
+                
+                SetWindowSize(Variables.AppSettings.ScreenWidth, Variables.AppSettings.ScreenHeight);
+                
                 ToggleFullscreen();
                 SetWindowPosition(GetMonitorWidth(monitor)/2 - 1280/2, GetMonitorHeight(monitor)/2 - 720/2);
+                
+                Variables.AppSettings.Fullscreen = false;
+                
                 Variables.SettingsMenu?.UpdateLayout();
+                
+                SettingsLoader.SaveSettings(Variables.SettingsFilePath, Variables.AppSettings);
             }
         };
         
