@@ -280,6 +280,11 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Camera
             // Updates the Camera's target
             Camera.Target = Camera.Position + Vector3.Normalize(direction);
         }
+        
+        public static Frustum GetCurrentFrustum(float aspect)
+        {
+            return FrustumCulling.CameraGetFrustum(Camera, aspect);
+        }
     }
 
 }

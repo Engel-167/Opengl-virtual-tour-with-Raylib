@@ -9,8 +9,6 @@ using Opengl_virtual_tour_with_Raylib.Modules.Lighting;
 using Raylib_cs;
 using static Raylib_cs.Raylib;
 using Opengl_virtual_tour_with_Raylib.Modules._3D_World.Hitboxes;
-using Opengl_virtual_tour_with_Raylib.Modules.Core;
-using Opengl_virtual_tour_with_Raylib.Modules.Core.Settings;
 
 namespace Opengl_virtual_tour_with_Raylib.Modules.Scenes;
 
