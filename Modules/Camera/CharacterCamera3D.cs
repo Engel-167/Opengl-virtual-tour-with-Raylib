@@ -62,28 +62,39 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Camera
         
         //This method checks if it's possible to move the camera without trespassing the hitbox in the world
         //If a position it's not allowed, the method checks if we can move the camera around the object
-        private static void TryMoveCamera(Vector3 newPosition, List<ModelData> allModels, List<Hitbox> obbHitboxes)
+       private static void TryMoveCamera(Vector3 newPosition, List<ModelData> allModels, List<Hitbox> obbHitboxes)
         {
             float camRadius = HitBoxSize;
+            Vector3 movement = newPosition - Camera.Position;
+            if (movement.LengthSquared() < 1e-8f) return;
+
+            // 1. Finds collisions with OBBs and gets the normal of the collision (if it exists)
             bool collided = false;
+            Vector3 collisionNormal = Vector3.Zero;
+            float minDist = float.MaxValue;
 
             foreach (var hitbox in obbHitboxes)
             {
-                if (hitbox.Box.CheckCollisionSphere(newPosition, camRadius))
+                if (hitbox.Box.CheckCollisionSphere(newPosition, camRadius, out Vector3 normal))
                 {
-                    collided = true;
-                    break;
+                    float dist = Vector3.Distance(Camera.Position, hitbox.Box.Center);
+                    if (dist < minDist)
+                    {
+                        collided = true;
+                        minDist = dist;
+                        collisionNormal = normal;
+                    }
                 }
             }
 
+            // 2. Checks collisions with AABBs (BoundingBox)
             if (!collided)
             {
-                // Create the new tentative box
                 var tentativeBox = new BoundingBox(
                     newPosition - new Vector3(HitBoxSize, HitBoxSize, HitBoxSize),
                     newPosition + new Vector3(HitBoxSize, HitBoxSize, HitBoxSize)
                 );
-                
+
                 foreach (var model in allModels)
                 {
                     if (Raylib.CheckCollisionBoxes(tentativeBox, model.BoundingBox))
@@ -93,7 +104,8 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Camera
                     }
                 }
             }
-            
+
+            // 3. If there's no collision, moves the camera normally
             if (!collided)
             {
                 Camera.Position = newPosition;
@@ -101,103 +113,48 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Camera
                 return;
             }
 
-            Vector3 tryX = new Vector3(newPosition.X, Camera.Position.Y, Camera.Position.Z);
-            bool xCollided = false;
+            // 4. If there's collision with OBB, try to slide using the normal
+            if (collisionNormal != Vector3.Zero)
+            {
+                // Computes the allowed movement (sliding): component tangent to the collision's plane
+                Vector3 slideMovement = movement - Vector3.Dot(movement, collisionNormal) * collisionNormal;
+                Vector3 slideTarget = Camera.Position + slideMovement;
 
-            foreach (var hitbox in obbHitboxes)
-                if (hitbox.Box.CheckCollisionSphere(tryX, camRadius))
-                    xCollided = true;
-            if (!xCollided)
-            {
-                var boxX = new BoundingBox(
-                    tryX - new Vector3(HitBoxSize, HitBoxSize, HitBoxSize),
-                    tryX + new Vector3(HitBoxSize, HitBoxSize, HitBoxSize)
-                );
-                foreach (var model in allModels)
-                    if (Raylib.CheckCollisionBoxes(boxX, model.BoundingBox))
-                        xCollided = true;
-            }
-
-            // Sliding en Z
-            Vector3 tryZ = new Vector3(Camera.Position.X, Camera.Position.Y, newPosition.Z);
-            bool zCollided = false;
-
-            foreach (var hitbox in obbHitboxes)
-                if (hitbox.Box.CheckCollisionSphere(tryZ, camRadius))
-                    zCollided = true;
-            if (!zCollided)
-            {
-                var boxZ = new BoundingBox(
-                    tryZ - new Vector3(HitBoxSize, HitBoxSize, HitBoxSize),
-                    tryZ + new Vector3(HitBoxSize, HitBoxSize, HitBoxSize)
-                );
-                foreach (var model in allModels)
-                    if (Raylib.CheckCollisionBoxes(boxZ, model.BoundingBox))
-                        zCollided = true;
-            }
-
-            // Aplica el movimiento si hay espacio
-            if (!xCollided && zCollided)
-            {
-                Camera.Position = tryX;
-                UpdateHitBox();
-            }
-            else if (xCollided && !zCollided)
-            {
-                Camera.Position = tryZ;
-                UpdateHitBox();
-            }
-            
-            // Try to move in the x-axis
-            /*Vector3 tryX = new Vector3(newPosition.X, Camera.Position.Y, Camera.Position.Z);
-            var boxX = new BoundingBox(
-                tryX - new Vector3(HitBoxSize, HitBoxSize, HitBoxSize),
-                tryX + new Vector3(HitBoxSize, HitBoxSize, HitBoxSize)
-            );
-        
-            bool xCollided = false;
-            
-            foreach (var model in allModels)
-            {
-                if (Raylib.CheckCollisionBoxes(boxX, model.BoundingBox))
+                // Checks for collisions on the direction of sliding (with OBBs)
+                bool slideCollided = false;
+                foreach (var hitbox in obbHitboxes)
                 {
-                    xCollided = true;
-                    break;
+                    if (hitbox.Box.CheckCollisionSphere(slideTarget, camRadius, out _))
+                    {
+                        slideCollided = true;
+                        break;
+                    }
                 }
-            }
-
-            // Try to move in the z-axis
-            Vector3 tryZ = new Vector3(Camera.Position.X, Camera.Position.Y, newPosition.Z);
-            var boxZ = new BoundingBox(
-                tryZ - new Vector3(HitBoxSize, HitBoxSize, HitBoxSize),
-                tryZ + new Vector3(HitBoxSize, HitBoxSize, HitBoxSize)
-            );
-    
-            bool zCollided = false;
-        
-            foreach (var model in allModels)
-            {
-                if (Raylib.CheckCollisionBoxes(boxZ, model.BoundingBox))
+                // And with AABB models
+                if (!slideCollided)
                 {
-                    zCollided = true;
-                    break;
+                    var slideBox = new BoundingBox(
+                        slideTarget - new Vector3(HitBoxSize, HitBoxSize, HitBoxSize),
+                        slideTarget + new Vector3(HitBoxSize, HitBoxSize, HitBoxSize)
+                    );
+                    foreach (var model in allModels)
+                    {
+                        if (Raylib.CheckCollisionBoxes(slideBox, model.BoundingBox))
+                        {
+                            slideCollided = true;
+                            break;
+                        }
+                    }
                 }
-            }
 
-            // Apply the movement if there's some space
-            if (!xCollided && zCollided)
-            {
-                Camera.Position = tryX;
-                UpdateHitBox();
+                // If it can move, apply the change
+                if (!slideCollided)
+                {
+                    Camera.Position = slideTarget;
+                    UpdateHitBox();
+                }
+                // If it can not slide, doesn't change
             }
-        
-            else if (xCollided && !zCollided)
-            {
-                Camera.Position = tryZ;
-                UpdateHitBox();
-            }*/
-            // If both are free, we would move them before
-            // If both are blocked, it doesn't move
         }
         
         //Method that blocks the Y-coordinate if the camera has the Tourist mode enabled
@@ -224,7 +181,7 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Camera
             }
         }
 
-        private static void HandleMouse()
+        private static void HandleMouseRotation()
         {
             // Takes the mouse's delta
             float mouseX = Raylib.GetMouseDelta().X * MouseSensitivity; 
@@ -294,7 +251,7 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Camera
 
             TryMoveCamera(Camera.Position+movement, allModels, obbHitboxes);
             
-            HandleMouse();
+            HandleMouseRotation();
         }
         
         public static Frustum GetCurrentFrustum(float aspect)

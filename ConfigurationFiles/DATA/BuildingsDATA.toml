@@ -360,7 +360,7 @@ scale = [1.0, 1.5, 1.0]
 
 
 
-#aca empieza vuelra de 11
+#aca empieza vuelta de 11
 [[models]]
 path = "Assets/gltf/KitMedieval_v1/wall_corner_A_outside.gltf"
 position = [-16.0, 0.0, 17.30]

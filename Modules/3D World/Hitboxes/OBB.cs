@@ -279,21 +279,36 @@ public struct Obb
         return result;
     }
         
-     // Esfera vs OBB
-    public bool CheckCollisionSphere(Vector3 sphereCenter, float radius) 
+    // Sphere vs OBB
+    public bool CheckCollisionSphere(Vector3 sphereCenter, float radius, out Vector3 normal)
     {
-        Vector3 localCenter = sphereCenter - Center; 
-        Quaternion invRot = Quaternion.Inverse(Rotation); 
+        // 1. Takes the sphere's center to the local space of the Obb
+        Vector3 localCenter = sphereCenter - Center;
+        Quaternion invRot = Quaternion.Inverse(Rotation);
         localCenter = Vector3.Transform(localCenter, invRot);
-        
+
+        // 2. Finds the closest point ob the Obb (in the local space)
         Vector3 clamped = new Vector3(
             Math.Clamp(localCenter.X, -HalfExtents.X, HalfExtents.X),
             Math.Clamp(localCenter.Y, -HalfExtents.Y, HalfExtents.Y),
             Math.Clamp(localCenter.Z, -HalfExtents.Z, HalfExtents.Z)
-            );
+        );
 
-        Vector3 worldClamped = Vector3.Transform(clamped, Rotation) + Center;
-        float distSq = Vector3.DistanceSquared(sphereCenter, worldClamped);
-        return distSq <= radius * radius;
+        // 3. Computes the vector from the closest point to the sphere's center
+        Vector3 localDiff = localCenter - clamped;
+        float distSq = localDiff.LengthSquared();
+
+        // 4. If there's no collision, returns false
+        if (distSq > radius * radius)
+        {
+            normal = Vector3.Zero;
+            return false;
+        }
+
+        // 5. Always return the normal vector, from the Obb to the sphere
+        // (this works because the sphere must be outside the Obb)
+        normal = Vector3.TransformNormal(Vector3.Normalize(localDiff), Matrix4x4.CreateFromQuaternion(Rotation));
+        normal = Vector3.Normalize(normal);
+        return true;
     }
 }
