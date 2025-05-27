@@ -221,6 +221,29 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Camera
                     break;
             }
         }
+
+        private static void HandleMouse()
+        {
+            // Takes the mouse's delta
+            float mouseX = Raylib.GetMouseDelta().X * MouseSensitivity; 
+            float mouseY = Raylib.GetMouseDelta().Y * MouseSensitivity;
+
+            // Updates the rotation's angles (yaw and pitch)
+            _yaw += mouseX;         // Horizontal rotation
+            _pitch -= mouseY;       // Vertical rotation (inverted because the movement to up must be positive)
+
+            // Limit the vertical angle to avoid gimbal lock
+            _pitch = Math.Clamp(_pitch, -89.0f, 89.0f);
+
+            // Calculates the new vector based on yaw and pitch
+            Vector3 direction;
+            direction.X = MathF.Cos(_pitch * (MathF.PI / 180.0f)) * MathF.Cos(_yaw * (MathF.PI / 180.0f));
+            direction.Y = MathF.Sin(_pitch * (MathF.PI / 180.0f));
+            direction.Z = MathF.Cos(_pitch * (MathF.PI / 180.0f)) * MathF.Sin(_yaw * (MathF.PI / 180.0f));
+
+            // Updates the Camera's target
+            Camera.Target = Camera.Position + Vector3.Normalize(direction);
+        }
         
         //This method is called everytime we need to perform a camera's movement using the keyboard and mouse
         public static void HandleTouristModeInput(List<ModelData> allModels, List<Hitbox> obbHitboxes)
@@ -260,25 +283,7 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Camera
 
             TryMoveCamera(Camera.Position+movement, allModels, obbHitboxes);
             
-            // Takes the mouse's delta
-            float mouseX = Raylib.GetMouseDelta().X * MouseSensitivity; 
-            float mouseY = Raylib.GetMouseDelta().Y * MouseSensitivity;
-
-            // Updates the rotation's angles (yaw and pitch)
-            _yaw += mouseX;         // Horizontal rotation
-            _pitch -= mouseY;       // Vertical rotation (inverted because the movement to up must be positive)
-
-            // Limit the vertical angle to avoid gimbal lock
-            _pitch = Math.Clamp(_pitch, -89.0f, 89.0f);
-
-            // Calculates the new vector based on yaw and pitch
-            Vector3 direction;
-            direction.X = MathF.Cos(_pitch * (MathF.PI / 180.0f)) * MathF.Cos(_yaw * (MathF.PI / 180.0f));
-            direction.Y = MathF.Sin(_pitch * (MathF.PI / 180.0f));
-            direction.Z = MathF.Cos(_pitch * (MathF.PI / 180.0f)) * MathF.Sin(_yaw * (MathF.PI / 180.0f));
-
-            // Updates the Camera's target
-            Camera.Target = Camera.Position + Vector3.Normalize(direction);
+            HandleMouse();
         }
         
         public static Frustum GetCurrentFrustum(float aspect)
