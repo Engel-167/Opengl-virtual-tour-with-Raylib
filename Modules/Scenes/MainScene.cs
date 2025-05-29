@@ -11,6 +11,7 @@ using Opengl_virtual_tour_with_Raylib.Modules.Audio;
 using Raylib_cs;
 using static Raylib_cs.Raylib;
 using Opengl_virtual_tour_with_Raylib.Modules._3D_World.Hitboxes;
+using Opengl_virtual_tour_with_Raylib.Modules._3D_World.SkyBox;
 
 namespace Opengl_virtual_tour_with_Raylib.Modules.Scenes;
 
@@ -35,6 +36,8 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
     //private float  _timeAccumulator;
     private Model _waterModel;
     private FootstepManager? _footstepManager;
+
+    private SkyBox _skyBox;
 
     public override void InitScene()
     {
@@ -82,6 +85,8 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
         {
             _waterModel.Materials[0].Shader = _waterShader;
         }
+        
+        _skyBox = new SkyBox();
         
         Initialized = true;
     }
@@ -212,6 +217,8 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
                 
                 BeginMode3D(CharacterCamera3D.Camera);
             
+                _skyBox.Draw();
+                
                 if (_hitboxEnabled)
                 {
                     _buildings?.DrawHitBoxes();
@@ -280,6 +287,8 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
         UnloadShader(_waterShader);
         _footstepManager?.Unload();
 
+        _skyBox.Destroy();
+        
         Initialized = false;
     }
 }

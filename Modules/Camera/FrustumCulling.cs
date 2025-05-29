@@ -158,7 +158,7 @@ public static class FrustumCulling
     }
     
     // New method to get an OBB representing the camera's view volume
-    public static Obb GetCameraViewObb(Raylib_cs.Camera3D camera, float aspect, float nearPlane, float farPlane)
+    public static Obb GetCameraViewObb(Camera3D camera, float aspect, float nearPlane, float farPlane)
     {
         // 1. Calculate the camera's forward direction
         // The camera's front vector is the direction from target to position

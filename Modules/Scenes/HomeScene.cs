@@ -2,6 +2,7 @@
 using Opengl_virtual_tour_with_Raylib.Modules._3D_World;
 using Opengl_virtual_tour_with_Raylib.Modules._3D_World.Buildings;
 using Opengl_virtual_tour_with_Raylib.Modules._3D_World.Roads;
+using Opengl_virtual_tour_with_Raylib.Modules._3D_World.SkyBox;
 using Opengl_virtual_tour_with_Raylib.Modules.UI_UX;
 using Raylib_cs;
 using static Raylib_cs.Raylib;
@@ -22,6 +23,8 @@ public class HomeScene(byte id, string windowTitle) : SceneObject(id,windowTitle
     private List<World3DObjects>? _worldObjects;
 
     private HomeUi? _homeUi;
+
+    private SkyBox _skyBox;
     
     public override void InitScene()
     {
@@ -49,6 +52,8 @@ public class HomeScene(byte id, string windowTitle) : SceneObject(id,windowTitle
         
         _homeUi = new HomeUi();
         
+        _skyBox = new SkyBox();
+        
         Initialized = true;
     }
     
@@ -63,6 +68,8 @@ public class HomeScene(byte id, string windowTitle) : SceneObject(id,windowTitle
             UpdateCamera(ref _camera, CameraMode.Orbital);
             
             BeginMode3D(_camera);
+            
+                _skyBox.Draw();
             
                 if (_worldObjects != null) Render3DModels(_worldObjects);
             
@@ -94,6 +101,7 @@ public class HomeScene(byte id, string windowTitle) : SceneObject(id,windowTitle
                 obj.Unload3DModels();
             }
 
+        _skyBox.Destroy();
         Initialized = false;
     }
 }
