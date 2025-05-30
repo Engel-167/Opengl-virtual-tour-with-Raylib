@@ -25,7 +25,7 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Camera
         private static float _yaw; // Cumulative horizontal rotation
         public static CameraModeType Mode { get; set; } = CameraModeType.Tourist;
         // The camera's mode by default is tourist
-        
+         
         public static BoundingBox HitBox { get; private set; }
         private const float HitBoxSize=0.1f;
         
@@ -61,8 +61,9 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Camera
         }
         
         //This method checks if it's possible to move the camera without trespassing the hitbox in the world
-        //If a position it's not allowed, the method checks if we can move the camera around the object
-       private static void TryMoveCamera(Vector3 newPosition, List<ModelData> allModels, List<Hitbox> obbHitboxes)
+        //If a position it's not allowed, the method checks if we can move the camera around the object     
+        
+        private static void TryMoveCamera(Vector3 newPosition, List<Hitbox> obbHitboxes)
         {
             float camRadius = HitBoxSize;
             Vector3 movement = newPosition - Camera.Position;
@@ -88,23 +89,6 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Camera
             }
 
             // 2. Checks collisions with AABBs (BoundingBox)
-            if (!collided)
-            {
-                var tentativeBox = new BoundingBox(
-                    newPosition - new Vector3(HitBoxSize, HitBoxSize, HitBoxSize),
-                    newPosition + new Vector3(HitBoxSize, HitBoxSize, HitBoxSize)
-                );
-
-                foreach (var model in allModels)
-                {
-                    if (Raylib.CheckCollisionBoxes(tentativeBox, model.BoundingBox))
-                    {
-                        collided = true;
-                        break;
-                    }
-                }
-            }
-
             // 3. If there's no collision, moves the camera normally
             if (!collided)
             {
@@ -131,22 +115,6 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Camera
                     }
                 }
                 // And with AABB models
-                if (!slideCollided)
-                {
-                    var slideBox = new BoundingBox(
-                        slideTarget - new Vector3(HitBoxSize, HitBoxSize, HitBoxSize),
-                        slideTarget + new Vector3(HitBoxSize, HitBoxSize, HitBoxSize)
-                    );
-                    foreach (var model in allModels)
-                    {
-                        if (Raylib.CheckCollisionBoxes(slideBox, model.BoundingBox))
-                        {
-                            slideCollided = true;
-                            break;
-                        }
-                    }
-                }
-
                 // If it can move, apply the change
                 if (!slideCollided)
                 {
@@ -157,8 +125,8 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Camera
             }
         }
         
-        //Method that blocks the Y-coordinate if the camera has the Tourist mode enabled
         
+        //Method that blocks the Y-coordinate if the camera has the Tourist mode enabled
         public static void ApplyCameraConstraints()
         {
             switch (Mode)
@@ -249,7 +217,7 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Camera
                 FootstepAudio.Update(Camera.Position, isRunning);
 
 
-            TryMoveCamera(Camera.Position+movement, allModels, obbHitboxes);
+            TryMoveCamera(Camera.Position+movement, obbHitboxes);
             
             HandleMouseRotation();
         }

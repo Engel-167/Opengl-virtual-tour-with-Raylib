@@ -20,9 +20,7 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
     private Buildings? _buildings;
     private Roads? _roads;
     private Props? _props;
-    //<Temporal>
     private HitboxLoader? _hitboxLoader;
-    //</Temporal>
     
     private CameraMode _camMode;
     private bool _cameraControlEnabled;
@@ -46,10 +44,7 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
         _buildings = new Buildings("ConfigurationFiles/DATA/BuildingsDATA.toml");
         _roads = new Roads("ConfigurationFiles/DATA/RoadsDATA.toml");
         _props = new Props("ConfigurationFiles/DATA/PropsDATA.toml");
-        
-        //<Temporal>
         _hitboxLoader= new HitboxLoader("ConfigurationFiles/DATA/HitboxesDATA.toml");
-        //</Temporal>
         
         //InitializeWorld();
         WorldObjects = new List<World3DObjects>();
@@ -193,24 +188,7 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
             SetShaderValue(_waterShader, _lightDirLoc,
                           new[] { light.X, light.Y, light.Z },
                           ShaderUniformDataType.Vec3);*/
-            //<Temporal>
-            /*Vector3 center = new Vector3(4, 1, 3);
-            Vector3 size = new Vector3(2, 2, 2);
-            Vector3 halfExtents = size / 2f;
-
-                // Rotación: 45 grados sobre el eje Y
-            float angleY = 45.0f * MathF.PI / 180.0f;
-            Quaternion rotY = Quaternion.CreateFromAxisAngle(Vector3.UnitY, angleY);
-            
-            float angleX = 20.0f * MathF.PI / 180.0f;
-            Quaternion rotX = Quaternion.CreateFromAxisAngle(Vector3.UnitX, angleX);
-
-                // Combinación (primero X, luego Y)
-            Quaternion rotation = Quaternion.Normalize(rotY * rotX);
-            
-            Obb prueba = new Obb(center, halfExtents, rotation);*/
-            //</Temporal>
-            
+        
             BeginDrawing();
         
                 ClearBackground(Color.SkyBlue);
@@ -221,10 +199,7 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
                 
                 if (_hitboxEnabled)
                 {
-                    _buildings?.DrawHitBoxes();
-                    //<Temporal>
                     _hitboxLoader?.DrawBoundingBoxes();
-                    //<Temporal>
                 }
                 // 1) Draw your opaque world
                 if (WorldObjects != null) Render3DModels(WorldObjects);

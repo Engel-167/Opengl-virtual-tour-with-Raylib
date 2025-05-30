@@ -34,13 +34,4 @@ public class Buildings(string path) : World3DObjects(path)
             Raylib.UnloadModel(model.Model);
         }
     }
-
-    public void DrawHitBoxes()
-    {
-        foreach (ModelData model in ModelDatas)
-        {
-            // Dibujar la hitbox del modelo para depuración
-            Raylib.DrawBoundingBox(model.BoundingBox, Color.Red);
-        }
-    }
 }
