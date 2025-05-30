@@ -725,9 +725,12 @@ angle = 0.0
 scale = [1.0, 1.5, 1.0]
 
 
-
-
-
+[[models]]
+path = "Assets/gltf/KitMedieval_v1/building_tower_B_yellow.gltf"
+position = [54.7, 0.0, 13.8]
+axis = [0.0, 1.0, 0.0]
+angle = -90.0
+scale = [1.0, 1.5, 1.0]
 
 #muro zona 2
 
@@ -905,9 +908,71 @@ scale = [1.0, 1.5, 1.0]
 
 [[models]]
 path = "Assets/gltf/KitMedieval_v1/wall_straight.gltf"
-position = [52.6, 0.0, 7.70]
+position = [52.6, 0.0, 7.80]
+axis = [0.0, 1.0, 0.0]
+angle = 110.0
+scale = [1.0, 1.5, 1.0]
+
+[[models]]
+path = "Assets/gltf/KitMedieval_v1/wall_straight.gltf"
+position = [53.2, 0.0, 9.40]
+axis = [0.0, 1.0, 0.0]
+angle = 110.0
+scale = [1.0, 1.5, 1.0]
+
+[[models]]
+path = "Assets/gltf/KitMedieval_v1/wall_straight.gltf"
+position = [53.8, 0.0, 11.0]
+axis = [0.0, 1.0, 0.0]
+angle = 110.0
+scale = [1.0, 1.5, 1.0]
+
+[[models]]
+path = "Assets/gltf/KitMedieval_v1/wall_straight.gltf"
+position = [54.4, 0.0, 12.6]
 axis = [0.0, 1.0, 0.0]
 angle = 110.0
 scale = [1.0, 1.5, 1.0]
 
 
+[[models]]
+path = "Assets/gltf/KitMedieval_v1/wall_straight.gltf"
+position = [55.2, 0.0, 15.0]
+axis = [0.0, 1.0, 0.0]
+angle = 110.0
+scale = [1.0, 1.5, 1.0]
+
+[[models]]
+path = "Assets/gltf/KitMedieval_v1/wall_straight.gltf"
+position = [55.8, 0.0, 16.6]
+axis = [0.0, 1.0, 0.0]
+angle = 110.0
+scale = [1.0, 1.5, 1.0]
+
+[[models]]
+path = "Assets/gltf/KitMedieval_v1/wall_straight.gltf"
+position = [56.4, 0.0, 18.2]
+axis = [0.0, 1.0, 0.0]
+angle = 110.0
+scale = [1.0, 1.5, 1.0]
+
+[[models]]
+path = "Assets/gltf/KitMedieval_v1/wall_straight.gltf"
+position = [57.0, 0.0, 19.8]
+axis = [0.0, 1.0, 0.0]
+angle = 110.0
+scale = [1.0, 1.5, 1.0]
+
+[[models]]
+path = "Assets/gltf/KitMedieval_v1/wall_straight.gltf"
+position = [57.6, 0.0, 21.4]
+axis = [0.0, 1.0, 0.0]
+angle = 110.0
+scale = [1.0, 1.5, 1.0]
+
+[[models]]
+path = "Assets/gltf/KitMedieval_v1/wall_straight.gltf"
+position = [58.2, 0.0, 23.0]
+axis = [0.0, 1.0, 0.0]
+angle = 110.0
+scale = [1.0, 1.5, 1.0]
