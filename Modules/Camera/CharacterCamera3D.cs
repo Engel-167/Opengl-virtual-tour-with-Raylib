@@ -67,6 +67,134 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Camera
         {
             float camRadius = HitBoxSize;
             Vector3 movement = newPosition - Camera.Position;
+
+            if (movement.LengthSquared() < 1e-8f) return; // Sin movimiento significativo
+
+            // 1. Detectar colisiones y recolectar normales y esquinas más cercanas
+            bool collided = false;
+            List<(Vector3 Normal, Vector3 ClosestCorner)> collisionData = new();
+
+            foreach (var hitbox in obbHitboxes)
+            {
+                if (hitbox.Box.CheckCollisionSphere(newPosition, camRadius, out Vector3 normal))
+                {
+                    collided = true;
+
+                    // Obtener la esquina más cercana del OBB
+                    Vector3 closestCorner = GetClosestCorner(hitbox.Box, Camera.Position);
+
+                    // Guardar la normal y su esquina más cercana
+                    collisionData.Add((Normal: normal, ClosestCorner: closestCorner));
+                }
+            }
+
+            // 2. Si no hubo colisiones, mover la cámara normalmente
+            if (!collided)
+            {
+                Camera.Position = newPosition;
+                UpdateHitBox();
+                return;
+            }
+
+            // 3. Calcular el movimiento deslizado en las caras o esquinas
+            Vector3 adjustedMovement = CalculateSlidingMovement(movement, collisionData);
+
+            // 4. Validar y aplicar el movimiento deslizado
+            Camera.Position += adjustedMovement; // Deslizamiento ajustado
+            UpdateHitBox();
+        }
+        
+        private static Vector3 CalculateSlidingMovement(Vector3 movement, List<(Vector3 Normal, Vector3 ClosestCorner)> collisionData)
+        {
+            Vector3 adjustedMovement = movement;
+            float cornerAvoidanceFactor = 0.1f; // Desvío basado en esquinas
+
+            foreach (var (normal, closestCorner) in collisionData)
+            {
+                // 1. Proyección del movimiento en el plano tangente definido por la normal
+                adjustedMovement -= Vector3.Dot(adjustedMovement, normal) * normal;
+
+                // 2. Ajustar deslizando lejos de la esquina más cercana
+                Vector3 toCorner = closestCorner - Camera.Position;
+
+                // Si la distancia a la esquina es pequeña, ajustamos el movimiento
+                if (toCorner.LengthSquared() < HitBoxSize * HitBoxSize * 2.0f)
+                {
+                    if (toCorner.LengthSquared() > 1e-8f) // Evitar vectores nulos
+                    {
+                        toCorner = Vector3.Normalize(toCorner);
+                        adjustedMovement -= toCorner * cornerAvoidanceFactor; // Desliza lejos de la esquina
+                    }
+                }
+            }
+
+            // Validar que el movimiento ajustado sea válido
+            if (adjustedMovement.LengthSquared() < 1e-8f)
+            {
+                return Vector3.Zero; // Detener si el movimiento resulta inválido
+            }
+
+            return adjustedMovement;
+        }
+        
+        private static Vector3 GetClosestCorner(Obb obb, Vector3 position)
+        {
+            Vector3[] corners = obb.GetCorners();
+            Vector3 closestCorner = corners[0];
+            float minDistance = Vector3.DistanceSquared(position, closestCorner);
+
+            foreach (var corner in corners)
+            {
+                float distanceSquared = Vector3.DistanceSquared(position, corner);
+                if (distanceSquared < minDistance)
+                {
+                    closestCorner = corner;
+                    minDistance = distanceSquared;
+                }
+            }
+
+            return closestCorner;
+        }
+        
+        private static void AttemptValidSliding(Vector3 adjustedMovement, List<Hitbox> obbHitboxes)
+        {
+            Vector3 currentPosition = Camera.Position;
+            Vector3 testPosition = currentPosition + adjustedMovement;
+
+            for (int i = 0; i < 5; i++) // Intentos iterativos (máximo cinco intentos)
+            {
+                bool stillColliding = false;
+                foreach (var hitbox in obbHitboxes)
+                {
+                    if (hitbox.Box.CheckCollisionSphere(testPosition, HitBoxSize, out _))
+                    {
+                        stillColliding = true;
+                        break;
+                    }
+                }
+
+                if (!stillColliding)
+                {
+                    Camera.Position = testPosition;
+                    UpdateHitBox();
+                    return;
+                }
+
+                // Reducir el movimiento progresivamente si sigue colisionando
+                adjustedMovement *= 0.5f;
+                testPosition = currentPosition + adjustedMovement;
+            }
+
+            // Si no se encuentra un deslizamiento válido, detener la cámara
+            Camera.Position = currentPosition;
+            UpdateHitBox();
+        }
+        
+        /*
+        private static void TryMoveCamera(Vector3 newPosition, List<Hitbox> obbHitboxes)
+        {
+            float camRadius = HitBoxSize;
+            Vector3 movement = newPosition - Camera.Position;
             if (movement.LengthSquared() < 1e-8f) return;
 
             // 1. Finds collisions with OBBs and gets the normal of the collision (if it exists)
@@ -87,9 +215,8 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Camera
                     }
                 }
             }
-
-            // 2. Checks collisions with AABBs (BoundingBox)
-            // 3. If there's no collision, moves the camera normally
+            
+            // 2. If there's no collision, moves the camera normally
             if (!collided)
             {
                 Camera.Position = newPosition;
@@ -97,7 +224,7 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Camera
                 return;
             }
 
-            // 4. If there's collision with OBB, try to slide using the normal
+            // 3. If there's collision with OBB, try to slide using the normal
             if (collisionNormal != Vector3.Zero)
             {
                 // Computes the allowed movement (sliding): component tangent to the collision's plane
@@ -123,7 +250,7 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Camera
                 }
                 // If it can not slide, doesn't change
             }
-        }
+        }*/
         
         
         //Method that blocks the Y-coordinate if the camera has the Tourist mode enabled
