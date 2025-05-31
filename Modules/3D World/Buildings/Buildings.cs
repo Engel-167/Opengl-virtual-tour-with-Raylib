@@ -6,6 +6,10 @@ public class Buildings(string path) : World3DObjects(path)
 {
     //private const float CameraNearPlane = 0.01f; 
     //private const float CameraFarPlane = 1000.0f;
+    private List<string> modelsPath = new List<string>();
+    
+    private List<Model> models = new List<Model>();
+    
     public override void Draw3DModels()
     {
         // Get the camera's view OBB, passing the near and far planes
@@ -17,7 +21,18 @@ public class Buildings(string path) : World3DObjects(path)
 
         foreach (ModelData model in ModelDatas)
         {
-            Raylib.DrawModelEx(model.Model, model.Position, model.Axis, model.Angle, model.Scale, Color.White);
+            if (!modelsPath.Contains(model.Model))
+            {
+                modelsPath.Add(model.Model);
+                models.Add(Raylib.LoadModel(model.Model));
+            }
+
+            if (modelsPath.Contains(model.Model))
+            {
+                int index = modelsPath.IndexOf(model.Model);
+                Raylib.DrawModelEx(models[index], model.Position, model.Axis, model.Angle, model.Scale, Color.White);    
+            }
+            
             /*// Check if the model's OBB collides with the camera's view OBB
             if (Obb.CheckCollisionBoundingBoxVsObb(model.BoundingBox, cameraViewObb))
             {
@@ -31,7 +46,15 @@ public class Buildings(string path) : World3DObjects(path)
     {
         foreach (ModelData model in ModelDatas)
         {
-            Raylib.UnloadModel(model.Model);
+            //Raylib.UnloadModel(model.Model);
+        }
+    }
+
+    public void DrawHitBoxes()
+    {
+        foreach (Model model in models)
+        {
+            Raylib.UnloadModel(model);
         }
     }
 }

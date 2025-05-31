@@ -122,10 +122,10 @@ public static unsafe class ShadowMap
         foreach (ModelData data in dataList)
         {
             
-            for (int i = 0; i < data.Model.MaterialCount; i++)
+            /*for (int i = 0; i < data.Model.MaterialCount; i++)
             {
                 data.Model.Materials[i].Shader = ShadowShader;
-            }
+            }*/
             
         }
     }
