@@ -10,7 +10,7 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Camera
     // Modes for the camera
     public enum CameraModeType
     {
-        Tourist, // The height is fixed, it has few movements and the speed is lower 
+        Tourist, // The height is fixed, it has few movements, the speed is lower 
         Free //More freedom, useful to look for the map
     }
     public static class CharacterCamera3D
@@ -20,14 +20,12 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Camera
         private const float MouseSensitivity = 0.1f; //Mouse sensitivity
         
         public static Camera3D Camera;
-        private static Vector3 _lastPosition;
         private static float _pitch; // Cumulative vertical rotation 
         private static float _yaw; // Cumulative horizontal rotation
         public static CameraModeType Mode { get; set; } = CameraModeType.Tourist;
         // The camera's mode by default is tourist
-         
-        public static BoundingBox HitBox { get; private set; }
-        private const float HitBoxSize=0.1f;
+        
+        public const float HitBoxSize=0.1f;
         
         static CharacterCamera3D()
         {
@@ -43,88 +41,66 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Camera
                 
                 Projection = CameraProjection.Perspective
             };
-            
-            _lastPosition = Camera.Position;
-        }
-        
-        // Method to update the HitBox only if the camera's position changes
-        public static void UpdateHitBox()
-        {
-            if (Camera.Position != _lastPosition)
-            {
-                HitBox = new BoundingBox(
-                    Camera.Position - new Vector3(HitBoxSize, HitBoxSize, HitBoxSize), // Rear bottom left corner
-                    Camera.Position + new Vector3(HitBoxSize, HitBoxSize, HitBoxSize) // Front top right corner
-                );
-                _lastPosition = Camera.Position;
-            }
         }
         
         //This method checks if it's possible to move the camera without trespassing the hitbox in the world
         //If a position it's not allowed, the method checks if we can move the camera around the object     
         
-        
-        private static void TryMoveCamera(Vector3 newPosition, List<Hitbox> obbHitboxes)
+        private static void TryMoveCamera(Vector3 targetPosition, List<Hitbox> obbHitboxes)
         {
             float camRadius = HitBoxSize;
-            Vector3 movement = newPosition - Camera.Position;
-            if (movement.LengthSquared() < 1e-8f) return;
+            Vector3 currentPosition = Camera.Position;
+            Vector3 remainingMovement = targetPosition - currentPosition;
+            const int maxIterations = 3;
+            const float epsilon = 0.001f;
 
-            // 1. Finds collisions with OBBs and gets the normal of the collision (if it exists)
-            bool collided = false;
-            Vector3 collisionNormal = Vector3.Zero;
-            float minDist = float.MaxValue;
-
-            foreach (var hitbox in obbHitboxes)
+            for (int i = 0; i < maxIterations && remainingMovement.LengthSquared() > 1e-8f; i++)
             {
-                if (hitbox.Box.CheckCollisionSphere(newPosition, camRadius, out Vector3 normal))
-                {
-                    float dist = Vector3.Distance(Camera.Position, hitbox.Box.Center);
-                    if (dist < minDist)
-                    {
-                        collided = true;
-                        minDist = dist;
-                        collisionNormal = normal;
-                    }
-                }
-            }
-            
-            // 2. If there's no collision, moves the camera normally
-            if (!collided)
-            {
-                Camera.Position = newPosition;
-                UpdateHitBox();
-                return;
-            }
+                Vector3 nextPosition = currentPosition + remainingMovement;
+                bool collided = false;
+                Vector3 collisionNormal = Vector3.Zero;
 
-            // 3. If there's collision with OBB, try to slide using the normal
-            if (collisionNormal != Vector3.Zero)
-            {
-                // Computes the allowed movement (sliding): component tangent to the collision's plane
-                Vector3 slideMovement = movement - Vector3.Dot(movement, collisionNormal) * collisionNormal;
-                Vector3 slideTarget = Camera.Position + slideMovement;
-
-                // Checks for collisions on the direction of sliding (with OBBs)
-                bool slideCollided = false;
+                // Looks for the first collision (just the first you found)
                 foreach (var hitbox in obbHitboxes)
                 {
-                    if (hitbox.Box.CheckCollisionSphere(slideTarget, camRadius, out _))
+                    if (hitbox.Box.CheckCollisionSphere(nextPosition, camRadius, out Vector3 normal))
                     {
-                        slideCollided = true;
+                        collided = true;
+                        collisionNormal = normal;
                         break;
                     }
                 }
-                // And with AABB models
-                // If it can move, apply the change
-                if (!slideCollided)
+
+                if (!collided)
                 {
-                    Camera.Position = slideTarget;
-                    UpdateHitBox();
+                    // There's no collision, moves the total and it ends
+                    currentPosition += remainingMovement;
+                    Camera.Position = currentPosition;
+                    return;
                 }
-                // If it can not slide, doesn't change
+
+                // Taking the movement over the tangent plane to the normal
+                float dot = Vector3.Dot(remainingMovement, collisionNormal);
+
+                // If the movement points out of the surface, do sliding
+                if (dot < 0)
+                {
+                    // Removes the component to the normal (sliding)
+                    Vector3 slideMovement = remainingMovement - dot * collisionNormal;
+                    // Forwards to almost reach the surface (avoids penetration)
+                    currentPosition += remainingMovement + collisionNormal * (-dot + epsilon);
+                    remainingMovement = slideMovement;
+                }
+                else
+                {
+                    // Movement points outside or is tangent, it cancels out the rest of it
+                    remainingMovement = Vector3.Zero;
+                }
             }
+
+            // If you reached here, moves the camera where it can
+            Camera.Position = currentPosition;
         }
-        
         
         //Method that blocks the Y-coordinate if the camera has the Tourist mode enabled
         public static void ApplyCameraConstraints()

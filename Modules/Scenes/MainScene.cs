@@ -35,6 +35,8 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
     private Model _waterModel;
     private FootstepManager? _footstepManager;
 
+    private static readonly Vector3 HitboxSize = new Vector3(CharacterCamera3D.HitBoxSize, CharacterCamera3D.HitBoxSize, CharacterCamera3D.HitBoxSize);
+
     private SkyBox _skyBox;
 
     public override void InitScene()
@@ -142,7 +144,7 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
                 }
 
                 // Actualizar posición y restricciones
-                CharacterCamera3D.UpdateHitBox();
+                //CharacterCamera3D.UpdateHitBox();
                 CharacterCamera3D.ApplyCameraConstraints();
             }
 
@@ -238,7 +240,8 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
                 Raylib GLTF 3D model Loading
                 {GetFPS()} fps                
                 Camera Pos: {CharacterCamera3D.Camera.Position}
-                CameraBox: MIN-{CharacterCamera3D.HitBox.Min} MAX-{CharacterCamera3D.HitBox.Max}
+                CameraBox: MIN-{CharacterCamera3D.Camera.Position-HitboxSize}
+                 MAX-{CharacterCamera3D.Camera.Position+HitboxSize}
                 Hitbox Enabled = {((_hitboxEnabled)?"Yes":"No")} (Press B to toggle)",-100,10,20,Color.Black);
                 
                 DrawText($@"Current Mode < {CharacterCamera3D.Mode} >", 200, 10, 20, Color.Black);
