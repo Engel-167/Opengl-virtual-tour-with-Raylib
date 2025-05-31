@@ -171,14 +171,14 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
             
             ShadowMap.Update();
             
-            // Actualizar sonidos de pasos
-            if (_footstepManager != null)
+           
+            if (_footstepManager != null && CharacterCamera3D.Mode == CameraModeType.Tourist)
             {
                 Vector3 playerPos = CharacterCamera3D.Camera.Position;
-                bool isRunning = IsKeyDown(KeyboardKey.LeftShift); // correr con shift
+                bool isRunning = IsKeyDown(KeyboardKey.LeftShift); // Run with Shift
                 _footstepManager.Update(playerPos, isRunning);
             }
-            
+
             // Advance time
             //_timeAccumulator += GetFrameTime();
 
