@@ -1,5 +1,6 @@
 using Opengl_virtual_tour_with_Raylib.Modules.Core.Globals;
 using Opengl_virtual_tour_with_Raylib.Modules.Core.Settings;
+using Opengl_virtual_tour_with_Raylib.Modules.Lighting;
 using Opengl_virtual_tour_with_Raylib.Modules.Scenes;
 using Opengl_virtual_tour_with_Raylib.Modules.UI_UX;
 using Raylib_cs;
@@ -20,7 +21,6 @@ public class SceneManager
         SetConfigFlags(ConfigFlags.Msaa4xHint);
         SetConfigFlags(ConfigFlags.ResizableWindow);
         SetConfigFlags(ConfigFlags.AlwaysRunWindow);
-        SetConfigFlags(ConfigFlags.BorderlessWindowMode);
         //InitWindow(ScreenWidth, ScreenHeight, "OpenGL-tour-with-Raylib");
         InitWindow(Variables.AppSettings.ScreenWidth, Variables.AppSettings.ScreenHeight, "OpenGL-tour-with-Raylib");
         SetWindowMinSize(1000, 600);
@@ -108,6 +108,11 @@ public class SceneManager
                     if (creditsScene.Initialized)
                     {
                         creditsScene.KillScene();
+                    }
+
+                    if (mainScene.Initialized)
+                    {
+                        mainScene.KillScene();
                     }
 
                     

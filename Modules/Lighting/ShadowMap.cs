@@ -8,9 +8,9 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Lighting;
 
 public static unsafe class ShadowMap
 {
-    public static readonly Shader ShadowShader = LoadShader("Assets/Shaders/shadowmap.vert", "Assets/Shaders/shadowmap.frag");
+    private static readonly Shader ShadowShader = LoadShader("Assets/Shaders/shadowmap.vert", "Assets/Shaders/shadowmap.frag");
     
-    private const int ShadowmapResolution = 2160;//4096
+    private const int ShadowmapResolution = 1080;//4096
 
     private static Vector3 _lightDir;
     private static int _lightDirLoc;
@@ -18,20 +18,15 @@ public static unsafe class ShadowMap
     private static RenderTexture2D _shadowMap;
     private static int _lightVpLoc;
     private static int _shadowMapLoc;
-    
-    private static List<World3DObjects>? _worldObjects;
 
     public static bool Enabled = true;
     
     public static void Init(List<World3DObjects> worldObjects)
     {
-        _worldObjects = worldObjects;
         
-        //List<ModelData> materials = new List<ModelData>(_worldObjects);
-
-        foreach (var modelData in _worldObjects)
+        foreach (var obj in worldObjects)
         {
-            BindShader(modelData.ModelDatas);
+            BindShader(obj.Models);
         }
 
         // ShadowMap.BindShader(materials);
@@ -69,7 +64,7 @@ public static unsafe class ShadowMap
         };
     }
 
-    public static void Update()
+    public static void Update(List<World3DObjects>? worldObjects)
     {
         if (Enabled)
         {
@@ -85,17 +80,19 @@ public static unsafe class ShadowMap
                 ClearBackground(Color.White);
                 BeginMode3D(_lightCam);
 
-                Matrix4x4 lightView = Rlgl.GetMatrixModelview();
-                Matrix4x4 lightProj = Rlgl.GetMatrixProjection();
+                    Matrix4x4 lightView = Rlgl.GetMatrixModelview();
+                    Matrix4x4 lightProj = Rlgl.GetMatrixProjection();
 
-                //Draw 3D Models
-                Rlgl.EnableBackfaceCulling();
-                if (_worldObjects != null)
-                    foreach (var obj in _worldObjects)
+                    //Draw 3D Models
+                    Rlgl.EnableBackfaceCulling();
+                    if (worldObjects != null)
                     {
-                        obj.Draw3DModels();
+                        foreach (var obj in worldObjects)
+                        {
+                            obj.Draw3DModels();
+                        }   
                     }
-
+                    
                 EndMode3D();
                 EndTextureMode();
                 
@@ -117,16 +114,14 @@ public static unsafe class ShadowMap
         }
     }
 
-    public static void BindShader(List<ModelData> dataList)
+    public static void BindShader(List<Model> models)
     {
-        foreach (ModelData data in dataList)
+        foreach (var model in models)
         {
-            
-            /*for (int i = 0; i < data.Model.MaterialCount; i++)
+            for (int i = 0; i < model.MaterialCount; i++)
             {
-                data.Model.Materials[i].Shader = ShadowShader;
-            }*/
-            
+                model.Materials[i].Shader = ShadowShader;
+            }
         }
     }
 

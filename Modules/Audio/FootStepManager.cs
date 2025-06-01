@@ -60,7 +60,7 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Audio
 
                 foreach (var model in _sceneModels)
                 {
-                    if (IsPointInsideBox(footPos, model.BoundingBox))
+                    if (IsPointInsideBox(footPos, GetModelBoundingBox(LoadModel(model.ModelPath))))
                     {
                         if (model.AssetName.Equals("tile"))
                         {

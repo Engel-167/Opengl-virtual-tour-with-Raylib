@@ -29,26 +29,18 @@ vec2 randomOffsetGenerator(vec2 seed) {
     return fract(vec2(n, n * 43758.5453) * 43758.5453);
 }
 
-// --- Predefined Disk Sample Offsets (24 samples) ---
-const int diskSamples = 24;
+// --- Predefined Disk Sample Offsets (12 samples) ---
+const int diskSamples = 12;
 const vec2 diskKernel[diskSamples] = vec2[](
-// Original 12
 vec2( 0.326247f,  0.40582f ), vec2( -0.840154f, -0.07358f ),
 vec2( -0.695914f,  0.457137f ), vec2( -0.203345f, -0.620716f ),
 vec2( 0.96234f,  -0.194983f ), vec2(  0.473434f, -0.480026f ),
 vec2( -0.519456f, -0.768961f ), vec2( -0.094184f,  0.929389f ),
 vec2( 0.79552f,  0.597705f ), vec2( -0.347336f,  0.296979f ),
-vec2( 0.05311f, -0.091586f ), vec2(  0.11397f, -0.993465f ),
-// Added 12 more
-vec2( 0.179401f,  0.750657f ), vec2(  0.945593f,  0.250332f ),
-vec2( -0.168388f, -0.97347f ), vec2( -0.927865f,  0.307343f ),
-vec2( 0.57419f, -0.725481f ), vec2( -0.651784f, -0.40841f ),
-vec2( 0.41443f,  0.898566f ), vec2(  0.710477f, -0.006014f ),
-vec2( -0.041559f, -0.30207f ), vec2( -0.404445f,  0.782956f ),
-vec2( -0.800167f,  0.588684f ), vec2(  0.198169f, -0.576976f )
+vec2( 0.05311f, -0.091586f ), vec2(  0.11397f, -0.993465f )
 );
 
-// --- Shadow Calculation Function (Randomized PCF with 24 Disk Samples) ---
+// --- Shadow Calculation Function (Randomized PCF with 12 Disk Samples) ---
 float CalculateShadowFactor(vec4 fragPosLightSpace, vec3 normal, vec3 lightDirection)
 {
     // Perspective divide
@@ -63,7 +55,6 @@ float CalculateShadowFactor(vec4 fragPosLightSpace, vec3 normal, vec3 lightDirec
     }
 
     // Calculate bias to avoid shadow acne
-    // Using the bias calculation from the previous disk kernel version
     float bias = max(0.00008 * (1.0 - dot(normal, lightDirection)), 0.000032); // Adjust bias as needed
 
     float shadow = 0.0; // Accumulator for shadow contribution
@@ -71,9 +62,9 @@ float CalculateShadowFactor(vec4 fragPosLightSpace, vec3 normal, vec3 lightDirec
     // Radius of the PCF disk kernel in texels. Adjust for softness.
     float diskRadius = 1.8; // Start with this, tune if needed
 
-    for(int i = 0; i < diskSamples; ++i) // Loop 24 times
+    for(int i = 0; i < diskSamples; ++i) // Loop 12 times
     {
-        // Get the offset from the expanded disk kernel
+        // Get the offset from the reduced disk kernel
         vec2 kernelOffset = diskKernel[i] * diskRadius * texelSize;
 
         // Generate a unique random offset per sample for jittering
@@ -89,80 +80,59 @@ float CalculateShadowFactor(vec4 fragPosLightSpace, vec3 normal, vec3 lightDirec
         // Compare depths (fragment is shadowed if it's further than the occluder)
         shadow += (currentDepth - bias) > pcfDepth ? 1.0 : 0.0;
     }
-    // Average the results over the number of disk samples
-    shadow /= float(diskSamples); // Divide by 24
+    // Average the results over the reduced number of disk samples
+    shadow /= float(diskSamples); // Divide by 12
 
     // Return shadow factor (1.0 = fully lit, 0.0 = fully shadowed)
     return 1.0 - shadow;
 }
-
 
 // --- Main Function ---
 void main()
 {
     // --- Basic Properties ---
     vec4 texelColor = texture(texture0, fragTexCoord);
-    // Use colDiffuse as a tint for the material
     vec4 materialColor = colDiffuse;
     vec3 normal = normalize(fragNormal);
     vec3 viewDir = normalize(viewPos - fragPosition);
-    // Direction *from* fragment *to* light source
     vec3 lightDirection = normalize(-lightDir);
 
     // --- Ambient Lighting ---
-    // Calculate ambient based on texture color and ambient uniform ONLY.
     vec3 ambientColor = texelColor.rgb * ambient.rgb;
 
     // --- Diffuse Lighting ---
-    // Use texture color tinted by material color for diffuse base
     vec3 diffuseBase = texelColor.rgb * materialColor.rgb;
     float NdotL = max(dot(normal, lightDirection), 0.0);
     vec3 diffuseContrib = diffuseBase * lightColor.rgb * NdotL;
 
     // --- Specular Lighting ---
     vec3 specularColor = vec3(0.0);
-    if (NdotL > 0.0) // Only calculate specular if light hits the surface
+    if (NdotL > 0.0)
     {
-        // Using Blinn-Phong (halfway vector) is generally preferred
         vec3 halfwayDir = normalize(lightDirection + viewDir);
         float specAngle = max(dot(normal, halfwayDir), 0.0);
-        // Phong (reflection vector) - uncomment below and comment above if preferred
-        // vec3 reflectDir = reflect(-lightDirection, normal);
-        // float specAngle = max(dot(viewDir, reflectDir), 0.0);
-
-        // Shininess factor (adjust for desired highlight size)
         float shininess = 32.0;
-        // Specular usually uses light color directly
         specularColor = lightColor.rgb * pow(specAngle, shininess);
     }
 
     // --- Shadow Calculation ---
-    // Transform fragment position to light space
     vec4 fragPosLightSpace = lightVP * vec4(fragPosition, 1.0);
-    // Get shadow factor (0.0 = shadowed, 1.0 = lit) using the NEW PCF function
     float shadowFactor = CalculateShadowFactor(fragPosLightSpace, normal, lightDirection);
 
     // --- Combine Lighting ---
-    // Apply shadow factor ONLY to diffuse and specular components
     vec3 directLight = (diffuseContrib + specularColor) * shadowFactor;
-
-    // Final color before saturation/gamma = Ambient + Shadowed Direct Light
     vec3 litColor = ambientColor + directLight;
 
     // --- Saturation Boost ---
-    // Increase saturation for vibrancy
-    float saturationBoost = 1.5; // Value > 1 increases saturation. Adjust as needed (e.g., 1.1 to 1.5)
-    vec3 luminanceWeights = vec3(0.299, 0.587, 0.114); // Standard weights for luminance
+    float saturationBoost = 1.5;
+    vec3 luminanceWeights = vec3(0.299, 0.587, 0.114);
     float luminance = dot(litColor, luminanceWeights);
     vec3 grayScaleColor = vec3(luminance);
-    vec3 saturatedColor = mix(grayScaleColor, litColor, saturationBoost); // Interpolate towards original color
+    vec3 saturatedColor = mix(grayScaleColor, litColor, saturationBoost);
 
-    // Assign the saturated color
     finalColor.rgb = saturatedColor;
-    // Combine alpha from texture and material tint
     finalColor.a = texelColor.a * materialColor.a;
 
     // --- Gamma Correction ---
-    // Apply gamma correction for more realistic brightness perception
     finalColor = pow(finalColor, vec4(1.0 / 2.2));
 }

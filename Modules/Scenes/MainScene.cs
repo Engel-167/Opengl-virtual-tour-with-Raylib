@@ -39,8 +39,8 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
 
     private static readonly Vector3 HitboxSize = new Vector3(CharacterCamera3D.HitBoxSize, CharacterCamera3D.HitBoxSize, CharacterCamera3D.HitBoxSize);
 
-    private SkyBox _skyBox;
-
+    private SkyBox? _skyBox;
+    
     public override void InitScene()
     {
         _camMode = CameraMode.Custom;
@@ -59,13 +59,17 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
         WorldObjects.AddRange(_buildings);
         WorldObjects.AddRange(_roads);
         WorldObjects.AddRange(_props);
-            
+        
+        Render3DModels(WorldObjects);
+
+        Console.WriteLine($"ShadowMap enabled 1 : {ShadowMap.Enabled}");
         ShadowMap.Init(WorldObjects);
+        Console.WriteLine($"ShadowMap enabled 1 : {ShadowMap.Enabled}");
         
         _hitboxEnabled = true;
         
         // Inicializar FootstepManager con los modelos que tienen suelo tipo "tile"
-        var modelos = _roads?.ModelDatas ?? new List<ModelData>();
+        var modelos = _roads?.ModelDataList ?? new List<ModelData>();
         _footstepManager = new FootstepManager(modelos);
         
         // Load our water shader
@@ -140,7 +144,7 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
                 if (CharacterCamera3D.Mode == CameraModeType.Tourist)
                 {
                     if (_buildings != null && _hitboxLoader?.Cajas !=null)
-                        CharacterCamera3D.HandleTouristModeInput(_buildings.ModelDatas, _hitboxLoader.Cajas);
+                        CharacterCamera3D.HandleTouristModeInput(_buildings.ModelDataList, _hitboxLoader.Cajas);
                 }
                 else
                 {
@@ -169,15 +173,18 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
                 _hitboxEnabled = !_hitboxEnabled;
             }
             
-            ShadowMap.Update();
+        
+            ShadowMap.Update(WorldObjects);    
+            
+            
             
             // Actualizar sonidos de pasos
-            if (_footstepManager != null)
+            /*if (_footstepManager != null)
             {
                 Vector3 playerPos = CharacterCamera3D.Camera.Position;
                 bool isRunning = IsKeyDown(KeyboardKey.LeftShift); // correr con shift
                 _footstepManager.Update(playerPos, isRunning);
-            }
+            }*/
             
             // Advance time
             //_timeAccumulator += GetFrameTime();
@@ -219,15 +226,15 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
                 
                 BeginMode3D(CharacterCamera3D.Camera);
             
-                _skyBox.Draw();
+                _skyBox?.Draw();
                 
-                /*if (_hitboxEnabled)
+                if (_hitboxEnabled)
                 {
                     _buildings?.DrawHitBoxes();
                     //<Temporal>
                     _hitboxLoader?.DrawBoundingBoxes();
                     //<Temporal>
-                }*/
+                }
                 // 1) Draw your opaque world
                 if (WorldObjects != null) Render3DModels(WorldObjects);
 
@@ -288,9 +295,9 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
     public override void KillScene()
     {
         UnloadShader(_waterShader);
-        _footstepManager?.Unload();
+        //_footstepManager?.Unload();
 
-        _skyBox.Destroy();
+        _skyBox?.Destroy();
         
         Initialized = false;
     }
