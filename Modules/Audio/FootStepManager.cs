@@ -11,8 +11,7 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Audio
         private readonly Sound[] _footstepSounds;
         private readonly Sound[] _grassSounds;
         private readonly Sound _runSound;
-        private readonly Sound _runGrassSound; // Nuevo sonido agregado
-
+        private readonly Sound _runGrassSound; 
         private Vector3 _lastPlayerPos;
         private float _stepCooldown = 0.0f;
         private float _cooldownTime = 0.4f;
@@ -113,7 +112,7 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Audio
                 UnloadSound(s);
 
             UnloadSound(_runSound);
-            UnloadSound(_runGrassSound); //  Agregado
+            UnloadSound(_runGrassSound); 
         }
 
         private bool IsPointInsideBox(Vector3 point, BoundingBox box)

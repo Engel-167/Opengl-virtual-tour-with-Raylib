@@ -184,13 +184,14 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Camera
             if (Raylib.IsKeyDown(KeyboardKey.LeftShift))
                 movement *= 6.0f;
             
-            // Detectar si se está moviendo
+            
             bool isMoving = movement.Length() > 0.0f;
             bool isRunning = isMoving && Raylib.IsKeyDown(KeyboardKey.LeftShift);
 
-            // Llamar a FootstepManager si está en movimiento
-            if (isMoving && FootstepAudio != null)
+            // Only play footstep sounds when in Tourist mode (not in Free mode)
+            if (Mode == CameraModeType.Tourist && isMoving && FootstepAudio != null)
                 FootstepAudio.Update(Camera.Position, isRunning);
+
 
 
             TryMoveCamera(Camera.Position+movement, obbHitboxes);
