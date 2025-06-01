@@ -763,6 +763,14 @@ angle = -90.0
 scale = [1.0, 1.5, 1.0]
 
 
+[[models]]
+path = "Assets/gltf/KitMedieval_v1/building_tower_B_yellow.gltf"
+position = [8.60, 0.0, 47.50]
+axis = [0.0, 1.0, 0.0]
+angle = 90.0
+scale = [1.0, 1.5, 1.0]
+
+
 
 #muro zona 2
 
@@ -1093,4 +1101,89 @@ path = "Assets/gltf/KitMedieval_v1/wall_straight.gltf"
 position = [61.6, 0.0, 47.0]
 axis = [0.0, 1.0, 0.0]
 angle = 100.0
+scale = [1.0, 1.5, 1.0]
+
+
+#continuacion muros zona 7
+
+
+[[models]]
+path = "Assets/gltf/KitMedieval_v1/wall_straight.gltf"
+position = [8.60, 0.0, 42.50]
+axis = [0.0, 1.0, 0.0]
+angle = -90.0
+scale = [1.0, 1.5, 1.0]
+
+
+[[models]]
+path = "Assets/gltf/KitMedieval_v1/wall_straight.gltf"
+position = [8.60, 0.0, 44.50]
+axis = [0.0, 1.0, 0.0]
+angle = -90.0
+scale = [1.0, 1.5, 1.0]
+
+
+[[models]]
+path = "Assets/gltf/KitMedieval_v1/wall_straight.gltf"
+position = [8.60, 0.0, 46.48]
+axis = [0.0, 1.0, 0.0]
+angle = -90.0
+scale = [1.0, 1.5, 1.0]
+
+
+
+[[models]]
+path = "Assets/gltf/KitMedieval_v1/wall_straight.gltf"
+position = [8.60, 0.0, 48.48]
+axis = [0.0, 1.0, 0.0]
+angle = -90.0
+scale = [1.0, 1.5, 1.0]
+
+[[models]]
+path = "Assets/gltf/KitMedieval_v1/wall_straight.gltf"
+position = [8.80, 0.0, 50.38]
+axis = [0.0, 1.0, 0.0]
+angle = -78.0
+scale = [1.0, 1.5, 1.0]
+
+[[models]]
+path = "Assets/gltf/KitMedieval_v1/wall_straight.gltf"
+position = [9.20, 0.0, 52.15]
+axis = [0.0, 1.0, 0.0]
+angle = -75.0
+scale = [1.0, 1.5, 1.0]
+
+[[models]]
+path = "Assets/gltf/KitMedieval_v1/wall_straight.gltf"
+position = [9.70, 0.0, 54.0]
+axis = [0.0, 1.0, 0.0]
+angle = -72.0
+scale = [1.0, 1.5, 1.0]
+
+[[models]]
+path = "Assets/gltf/KitMedieval_v1/wall_straight.gltf"
+position = [10.30, 0.0, 55.87]
+axis = [0.0, 1.0, 0.0]
+angle = -69.0
+scale = [1.0, 1.5, 1.0]
+
+[[models]]
+path = "Assets/gltf/KitMedieval_v1/wall_straight.gltf"
+position = [11.12, 0.0, 57.40]
+axis = [0.0, 1.0, 0.0]
+angle = -55.0
+scale = [1.0, 1.5, 1.0]
+
+[[models]]
+path = "Assets/gltf/KitMedieval_v1/wall_straight.gltf"
+position = [12.42, 0.0, 58.80]
+axis = [0.0, 1.0, 0.0]
+angle = -41.0
+scale = [1.0, 1.5, 1.0]
+
+[[models]]
+path = "Assets/gltf/KitMedieval_v1/wall_straight.gltf"
+position = [14.00, 0.0, 59.80]
+axis = [0.0, 1.0, 0.0]
+angle = -25.0
 scale = [1.0, 1.5, 1.0]
