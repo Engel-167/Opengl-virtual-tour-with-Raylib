@@ -54,6 +54,8 @@ public class GeneralSettingsUi
             }
 
             Variables.UpdateText = true;
+            
+            Variables.HomeUi?.UpdateText();
         };
 
         _container = new Container(ContainerOrientation.Horizontal, 10, 5);
@@ -72,7 +74,9 @@ public class GeneralSettingsUi
         {
             if (_container != null)
             {
-                _container.Components[0].Text = Variables.Language.LanguageString;
+                string text = Variables.Language.LanguageString;
+                
+                _container.Components[0].Text = text;
             }
         }
         

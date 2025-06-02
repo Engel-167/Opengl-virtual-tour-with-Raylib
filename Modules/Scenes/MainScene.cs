@@ -278,6 +278,8 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
 
         _skyBox?.Destroy();
         
+        ShadowMap.UnloadShadowmapRenderTexture();
+        
         Initialized = false;
     }
 }

@@ -167,13 +167,7 @@ public class HomeUi
 
         if (Variables.UpdateText)
         {
-            if (_container != null)
-            {
-                _container.Components[0].Text = Variables.Language.StartString;
-                _container.Components[1].Text = Variables.Language.SettingsString;
-                _container.Components[2].Text = Variables.Language.CreditsString;
-                _container.Components[3].Text = Variables.Language.ExitString;
-            }
+           UpdateText();
         }
         
         if (_container != null) _container.Draw();
@@ -199,6 +193,17 @@ public class HomeUi
             {
                 _container.Position = new Vector2(GetScreenWidth() / 2f - _container.GetWidth() / 2f, GetScreenHeight() / 2f - 50f);
             }
+        }
+    }
+
+    public void UpdateText()
+    {
+        if (_container != null)
+        {
+            _container.Components[0].Text = Variables.Language.StartString;
+            _container.Components[1].Text = Variables.Language.SettingsString;
+            _container.Components[2].Text = Variables.Language.CreditsString;
+            _container.Components[3].Text = Variables.Language.ExitString;
         }
     }
 }
