@@ -166,6 +166,9 @@ public class SettingsUi
         {
             Console.WriteLine("Home button");
             Thread.Sleep(500);
+            
+            Variables.HomeUi?.UpdateLayout();
+            
             Core.Globals.Scenes.CurrentScene = Core.Globals.Scenes.Scene.Home;
             Variables.IsSettingsMenuEnabled = false;
         };

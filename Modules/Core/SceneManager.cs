@@ -1,6 +1,5 @@
 using Opengl_virtual_tour_with_Raylib.Modules.Core.Globals;
 using Opengl_virtual_tour_with_Raylib.Modules.Core.Settings;
-using Opengl_virtual_tour_with_Raylib.Modules.Lighting;
 using Opengl_virtual_tour_with_Raylib.Modules.Scenes;
 using Opengl_virtual_tour_with_Raylib.Modules.UI_UX;
 using Raylib_cs;
@@ -14,51 +13,36 @@ public class SceneManager
     public int Start()
     {
         // Initialization
-        //--------------------------------------------------------------------------------------
-        //Variables.AppSettings = SettingsLoader.LoadSettings(Variables.SettingsFilePath);
-        
+        //Config Flags
         SetConfigFlags(ConfigFlags.VSyncHint);
         SetConfigFlags(ConfigFlags.Msaa4xHint);
         SetConfigFlags(ConfigFlags.ResizableWindow);
         SetConfigFlags(ConfigFlags.AlwaysRunWindow);
-        //InitWindow(ScreenWidth, ScreenHeight, "OpenGL-tour-with-Raylib");
+        
+        //Window initialization
         InitWindow(Variables.AppSettings.ScreenWidth, Variables.AppSettings.ScreenHeight, "OpenGL-tour-with-Raylib");
         SetWindowMinSize(1000, 600);
         SetExitKey(KeyboardKey.Null);
         
+        //Audio initialization
         AudioManager audioManager = new();
         audioManager.Initialize();
 
+        //Scenes initialization
         LogoScene logoScene = new LogoScene(0,"Logo Scene");
         MainScene mainScene = new(1, "Main Scene");
         HomeScene homeScene = new(2, "Home Scene");
         CreditsScene creditsScene = new(3, "Credits Scene");
         
+        //Ui initialization
         Variables.SettingsMenu = new SettingsUi();
-        
-        if (Variables.AppSettings.ScreenWidth == 0 && Variables.AppSettings.ScreenHeight == 0)
-        {
-            Variables.FirstTime = true;
-            int currentMonitor = GetCurrentMonitor();
-            Variables.AppSettings.ScreenWidth = GetMonitorWidth(currentMonitor); 
-            Variables.AppSettings.ScreenHeight = GetMonitorHeight(currentMonitor);
-            
-            SettingsLoader.SaveSettings(Variables.SettingsFilePath, Variables.AppSettings);
-            
-            Console.WriteLine($"Variables width and height updated: {Variables.AppSettings.ScreenWidth}x{Variables.AppSettings.ScreenHeight}");
-        }
+        Variables.HomeUi = new HomeUi();
+
+        CheckAppFirstTimeSetUp();
         
         Thread.Sleep(500);
 
-        if (Variables.AppSettings.Fullscreen)
-        {
-            int monitor = GetCurrentMonitor();
-            SetWindowSize(GetMonitorWidth(monitor), GetMonitorHeight(monitor));
-            Variables.SettingsMenu.UpdateLayout();
-            ToggleFullscreen();
-            Variables.AppSettings.Fullscreen = true;
-            SettingsLoader.SaveSettings(Variables.SettingsFilePath, Variables.AppSettings);
-        }
+        CheckSavedFullScreenState();
         
         int framesCounter = 0;
         //--------------------------------------------------------------------------------------
@@ -72,7 +56,7 @@ public class SceneManager
             {
                 framesCounter++;
 
-                // Wait for 2 seconds (120 frames) before jumping to TITLE screen
+                // 2 seconds span for drawing functions to update the Ui text
                 if (framesCounter > 240)
                 {
                     Variables.UpdateText = false;
@@ -153,5 +137,33 @@ public class SceneManager
         // De-Initialization
         audioManager.Kill();
         return 0;
+    }
+
+    private void CheckSavedFullScreenState()
+    {
+        if (Variables.AppSettings.Fullscreen)
+        {
+            int monitor = GetCurrentMonitor();
+            SetWindowSize(GetMonitorWidth(monitor), GetMonitorHeight(monitor));
+            Variables.SettingsMenu?.UpdateLayout();
+            ToggleFullscreen();
+            Variables.AppSettings.Fullscreen = true;
+            SettingsLoader.SaveSettings(Variables.SettingsFilePath, Variables.AppSettings);
+        }
+    }
+
+    private void CheckAppFirstTimeSetUp()
+    {
+        if (Variables.AppSettings.ScreenWidth == 0 && Variables.AppSettings.ScreenHeight == 0)
+        {
+            Variables.FirstTime = true;
+            var currentMonitor = GetCurrentMonitor();
+            Variables.AppSettings.ScreenWidth = GetMonitorWidth(currentMonitor); 
+            Variables.AppSettings.ScreenHeight = GetMonitorHeight(currentMonitor);
+            
+            SettingsLoader.SaveSettings(Variables.SettingsFilePath, Variables.AppSettings);
+            
+            Console.WriteLine($"Variables width and height updated: {Variables.AppSettings.ScreenWidth}x{Variables.AppSettings.ScreenHeight}");
+        }
     }
 }    

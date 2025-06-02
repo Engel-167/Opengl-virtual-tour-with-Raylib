@@ -1,9 +1,7 @@
 ﻿using System.Numerics;
 using Opengl_virtual_tour_with_Raylib.Modules._3D_World;
-using Opengl_virtual_tour_with_Raylib.Modules._3D_World.Buildings;
-using Opengl_virtual_tour_with_Raylib.Modules._3D_World.Roads;
 using Opengl_virtual_tour_with_Raylib.Modules._3D_World.SkyBox;
-using Opengl_virtual_tour_with_Raylib.Modules.UI_UX;
+using Opengl_virtual_tour_with_Raylib.Modules.Core.Globals;
 using Raylib_cs;
 using static Raylib_cs.Raylib;
 
@@ -22,20 +20,14 @@ public class HomeScene(byte id, string windowTitle) : SceneObject(id,windowTitle
     /// <summary> List of the worldObjects that will be drawn in the background</summary>
     private List<World3DObjects>? _worldObjects;
 
-    private HomeUi? _homeUi;
-
-    private SkyBox _skyBox;
+    private SkyBox? _skyBox;
     
     public override void InitScene()
     {
-        //InitializeWorld();
-        Buildings buildings = new Buildings("ConfigurationFiles/DATA/BuildingsDATA.toml");
-        Roads roads = new Roads("ConfigurationFiles/DATA/RoadsDATA.toml");
-        
         _worldObjects = new List<World3DObjects>();
-        _worldObjects.AddRange(buildings);
-        _worldObjects.AddRange(roads);
-        
+        _worldObjects.AddRange(Variables.Buildings);
+        _worldObjects.AddRange(Variables.Roads);
+
         _camera = new Camera3D
         {
             Position = new Vector3(5, 3, 5),
@@ -49,8 +41,6 @@ public class HomeScene(byte id, string windowTitle) : SceneObject(id,windowTitle
             Projection = CameraProjection.Perspective
             
         };
-        
-        _homeUi = new HomeUi();
         
         _skyBox = new SkyBox();
         
@@ -69,22 +59,22 @@ public class HomeScene(byte id, string windowTitle) : SceneObject(id,windowTitle
             
             BeginMode3D(_camera);
             
-                _skyBox.Draw();
+                _skyBox?.Draw();
             
                 if (_worldObjects != null) Render3DModels(_worldObjects);
             
             EndMode3D();
             
             // Draw the Start Button
-            if (!Core.Globals.Variables.IsSettingsMenuEnabled)
+            if (!Variables.IsSettingsMenuEnabled)
             {
-                if (_homeUi != null) _homeUi.Draw();
-                if (Core.Globals.Variables.SettingsMenu != null) Core.Globals.Variables.SettingsMenu.UpdateLayout();
+                if (Variables.HomeUi != null) Variables.HomeUi.Draw();
+                if (Variables.SettingsMenu != null) Variables.SettingsMenu.UpdateLayout();
             }
             else
             {
-                if (Core.Globals.Variables.SettingsMenu != null) Core.Globals.Variables.SettingsMenu.Draw();
-                if (_homeUi != null) _homeUi.UpdateLayout();
+                if (Variables.SettingsMenu != null) Variables.SettingsMenu.Draw();
+                if (Variables.HomeUi != null) Variables.HomeUi.UpdateLayout();
             }
             
         EndDrawing();
@@ -94,14 +84,7 @@ public class HomeScene(byte id, string windowTitle) : SceneObject(id,windowTitle
     public override void KillScene()
     {
         // De-Initialization
-        //--------------------------------------------------------------------------------------
-        if (_worldObjects != null)
-            foreach (var obj in _worldObjects)
-            {
-                obj.Unload3DModels();
-            }
-
-        _skyBox.Destroy();
+        _skyBox?.Destroy();
         Initialized = false;
     }
 }

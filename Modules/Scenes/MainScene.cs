@@ -1,8 +1,5 @@
 using System.Numerics;
 using Opengl_virtual_tour_with_Raylib.Modules._3D_World;
-using Opengl_virtual_tour_with_Raylib.Modules._3D_World.Buildings;
-using Opengl_virtual_tour_with_Raylib.Modules._3D_World.Props;
-using Opengl_virtual_tour_with_Raylib.Modules._3D_World.Roads;
 using Opengl_virtual_tour_with_Raylib.Modules.Camera;
 using Opengl_virtual_tour_with_Raylib.Modules.Core.Globals;
 using Opengl_virtual_tour_with_Raylib.Modules.Lighting;
@@ -17,9 +14,6 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Scenes;
 
 public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitle)
 {
-    private Buildings? _buildings;
-    private Roads? _roads;
-    private Props? _props;
     //<Temporal>
     private HitboxLoader? _hitboxLoader;
     //</Temporal>
@@ -30,10 +24,10 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
     public static List<World3DObjects>? WorldObjects;
     private bool _hitboxEnabled;
     private Shader _waterShader;
-    /*private int    _uTimeLoc;
+    private int    _uTimeLoc;
     private int    _viewPosLoc;
-    private int    _lightDirLoc;*/
-    //private float  _timeAccumulator;
+    private int    _lightDirLoc;
+    private float  _timeAccumulator;
     private Model _waterModel;
     private FootstepManager? _footstepManager;
 
@@ -45,10 +39,6 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
     {
         _camMode = CameraMode.Custom;
         
-        _buildings = new Buildings("ConfigurationFiles/DATA/BuildingsDATA.toml");
-        _roads = new Roads("ConfigurationFiles/DATA/RoadsDATA.toml");
-        _props = new Props("ConfigurationFiles/DATA/PropsDATA.toml");
-        
         //<Temporal>
         _hitboxLoader= new HitboxLoader("ConfigurationFiles/DATA/HitboxesDATA.toml");
         //</Temporal>
@@ -56,10 +46,10 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
         //InitializeWorld();
         WorldObjects = new List<World3DObjects>();
         WorldObjects = new List<World3DObjects>();
-        WorldObjects.AddRange(_buildings);
-        WorldObjects.AddRange(_roads);
-        WorldObjects.AddRange(_props);
-        
+        WorldObjects.AddRange(Variables.Buildings);
+        WorldObjects.AddRange(Variables.Roads);
+        WorldObjects.AddRange(Variables.Props);
+
         Render3DModels(WorldObjects);
 
         Console.WriteLine($"ShadowMap enabled 1 : {ShadowMap.Enabled}");
@@ -69,21 +59,21 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
         _hitboxEnabled = true;
         
         // Inicializar FootstepManager con los modelos que tienen suelo tipo "tile"
-        var modelos = _roads?.ModelDataList ?? new List<ModelData>();
+        var modelos = Variables.Roads.ModelDataList;
         _footstepManager = new FootstepManager(modelos);
         
         // Load our water shader
         _waterShader   = LoadShader("Assets/Shaders/water.vert", "Assets/Shaders/water.frag");
-        /*_uTimeLoc      = GetShaderLocation(_waterShader, "uTime");
+        _uTimeLoc      = GetShaderLocation(_waterShader, "uTime");
         _viewPosLoc    = GetShaderLocation(_waterShader, "viewPos");
-        _lightDirLoc   = GetShaderLocation(_waterShader, "lightDir");*/
+        _lightDirLoc   = GetShaderLocation(_waterShader, "lightDir");
 
-        //_timeAccumulator = 0f;
+        _timeAccumulator = 0f;
 
         // … your existing init …
 
         // Create a plane mesh: width=2, length=2, 100×100 subdivisions
-        Mesh waterMesh = GenMeshPlane(2f, 2f, 100, 100);
+        Mesh waterMesh = GenMeshPlane(19f, 3f, 100, 100);
         _waterModel = LoadModelFromMesh(waterMesh);
 
         // Attach your water shader to the model's material
@@ -99,15 +89,6 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
 
     public override void UpdateScene()
     {
-            // Dibujar el hitbox de la cámara
-            //DrawBoundingBox(CharacterCamera3D.HitBox, Color.Blue);
-                
-            // Change the camera Target when the middle mouse button and the F key is pressed
-            if (IsMouseButtonDown(MouseButton.Middle)||IsKeyDown(KeyboardKey.F))
-            {
-                CharacterCamera3D.Camera.Target = new Vector3(0,0,0); // Make the camera look at the cube
-            }
-                
             // Start capturing the mouse
             if (IsMouseButtonDown(MouseButton.Left) && !Variables.IsSettingsMenuEnabled)
             {
@@ -115,6 +96,7 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
                 DisableCursor();
             }
 
+            //Show Settings Ui
             if (IsKeyPressed(KeyboardKey.Escape))
             {
                 Variables.IsSettingsMenuEnabled = true;
@@ -125,10 +107,10 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
             if (!_cameraControlEnabled && IsMouseButtonPressed(MouseButton.Left) && !Variables.IsSettingsMenuEnabled)
             {
                 _cameraControlEnabled = true;
-                DisableCursor(); // Captura del mouse
+                DisableCursor();
             }
             
-            // Permitir cambio de modo solo si ya se activó la cámara
+            // Change the camera mode only if the camera is already activated
             if (_cameraControlEnabled)
             {
                 
@@ -140,11 +122,11 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
                 if (IsKeyPressed(KeyboardKey.Two)) 
                     CharacterCamera3D.Mode = CameraModeType.Free;// Movimiento del modo Libre
 
-                // Movimiento según el modo
+                // Movement modes
                 if (CharacterCamera3D.Mode == CameraModeType.Tourist)
                 {
-                    if (_buildings != null && _hitboxLoader?.Cajas !=null)
-                        CharacterCamera3D.HandleTouristModeInput(_buildings.ModelDataList, _hitboxLoader.Cajas);
+                    if (_hitboxLoader?.Cajas !=null)
+                        CharacterCamera3D.HandleTouristModeInput(Variables.Buildings.ModelDataList, _hitboxLoader.Cajas);
                 }
                 else
                 {
@@ -152,12 +134,11 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
                     UpdateCamera(ref CharacterCamera3D.Camera, _camMode);
                 }
 
-                // Actualizar posición y restricciones
-                //CharacterCamera3D.UpdateHitBox();
+                // Update Position and Restrictions
                 CharacterCamera3D.ApplyCameraConstraints();
             }
 
-            // if key M is preced then stop updating the shadowmap and if is pressed again then enable the shadowmap update
+            // if key M is pressed then stop updating the shadow map and if is pressed again then enable the shadow map update
             if (IsKeyPressed(KeyboardKey.M))
             {
                 ShadowMap.Enabled = !ShadowMap.Enabled;
@@ -168,13 +149,17 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
                 }
             }   
             
+            // Enable the hitboxes drawing
             if (IsKeyPressed(KeyboardKey.B))
             {
                 _hitboxEnabled = !_hitboxEnabled;
             }
             
-        
-            ShadowMap.Update(WorldObjects);    
+            //Rlgl.DisableBackfaceCulling();
+            //Rlgl.SetCullFace(0);
+            ShadowMap.Update(WorldObjects);
+            
+            //Rlgl.EnableBackfaceCulling();
             
             
             
@@ -187,21 +172,16 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
             }*/
             
             // Advance time
-            //_timeAccumulator += GetFrameTime();
+            _timeAccumulator += GetFrameTime();
 
             // Update shader uniforms
-            /*SetShaderValue(_waterShader, _uTimeLoc,
-                          new[] { _timeAccumulator }, ShaderUniformDataType.Float);
+            SetShaderValue(_waterShader, _uTimeLoc, new[] { _timeAccumulator }, ShaderUniformDataType.Float);
             // pass camera position
             Vector3 camPos = CharacterCamera3D.Camera.Position;
-            SetShaderValue(_waterShader, _viewPosLoc,
-                          new[] { camPos.X, camPos.Y, camPos.Z },
-                          ShaderUniformDataType.Vec3);
+            SetShaderValue(_waterShader, _viewPosLoc, new[] { camPos.X, camPos.Y, camPos.Z }, ShaderUniformDataType.Vec3);
             // simple directional light coming from above/front
             var light = Vector3.Normalize(new Vector3( 0.5f, -1.0f, 0.3f ));
-            SetShaderValue(_waterShader, _lightDirLoc,
-                          new[] { light.X, light.Y, light.Z },
-                          ShaderUniformDataType.Vec3);*/
+            SetShaderValue(_waterShader, _lightDirLoc, new[] { light.X, light.Y, light.Z }, ShaderUniformDataType.Vec3);
             //<Temporal>
             /*Vector3 center = new Vector3(4, 1, 3);
             Vector3 size = new Vector3(2, 2, 2);
@@ -230,39 +210,39 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
                 
                 if (_hitboxEnabled)
                 {
-                    _buildings?.DrawHitBoxes();
+                    Variables.Buildings?.DrawHitBoxes();
                     //<Temporal>
                     _hitboxLoader?.DrawBoundingBoxes();
                     //<Temporal>
                 }
                 // 1) Draw your opaque world
+                //Rlgl.SetCullFace(1);
                 if (WorldObjects != null) Render3DModels(WorldObjects);
+                
+                
 
                 // 2) Transparent water pass
-                //BeginBlendMode(BlendMode.Alpha);
-                //Rlgl.DisableDepthMask();  // don't write to depth
+                BeginBlendMode(BlendMode.Alpha);
+                Rlgl.DisableDepthMask();  // don't write to depth
 
-                // Update shader uniforms as before…
-                /*_timeAccumulator += GetFrameTime();
-                SetShaderValue(_waterShader, _uTimeLoc,
-                    new[] { _timeAccumulator }, ShaderUniformDataType.Float);
-                camPos = CharacterCamera3D.Camera.Position;
-                SetShaderValue(_waterShader, _viewPosLoc,
-                    new[]{camPos.X,camPos.Y,camPos.Z}, ShaderUniformDataType.Vec3);
-                light = Vector3.Normalize(new Vector3(0.5f, -1f, 0.3f));
-                SetShaderValue(_waterShader, _lightDirLoc,
-                    new[]{light.X,light.Y,light.Z}, ShaderUniformDataType.Vec3);
+                    // Update shader uniforms as before…
+                    _timeAccumulator += GetFrameTime();
+                    SetShaderValue(_waterShader, _uTimeLoc, new[] { _timeAccumulator }, ShaderUniformDataType.Float);
+                    camPos = CharacterCamera3D.Camera.Position;
+                    SetShaderValue(_waterShader, _viewPosLoc, new[]{camPos.X,camPos.Y,camPos.Z}, ShaderUniformDataType.Vec3);
+                    light = Vector3.Normalize(new Vector3(0.5f, -1f, 0.3f));
+                    SetShaderValue(_waterShader, _lightDirLoc, new[]{light.X,light.Y,light.Z}, ShaderUniformDataType.Vec3);
 
-                // Draw the subdivided plane at y=0, centered on your cube’s footprint
-                // (rotate so it faces up)
-                DrawModel(_waterModel,
-                    new Vector3(0, 0, -3),    // position
-                    1f,                       // uniform scale
-                    Color.White               // color is ignored by shader
-                );*/
+                    // Draw the subdivided plane at y=0, centered on your cube’s footprint
+                    // (rotate so it faces up)
+                    DrawModel(_waterModel,
+                        new Vector3(1, -0.5f, 3.5f),    // position
+                        1f,                       // uniform scale
+                        Color.White               // color is ignored by shader
+                    );
 
-                //Rlgl.EnableDepthMask();
-                //EndBlendMode();
+                Rlgl.EnableDepthMask();
+                EndBlendMode();
 
                 EndMode3D();
                 
@@ -295,7 +275,6 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
     public override void KillScene()
     {
         UnloadShader(_waterShader);
-        //_footstepManager?.Unload();
 
         _skyBox?.Destroy();
         

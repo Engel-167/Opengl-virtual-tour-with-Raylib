@@ -10,7 +10,7 @@ sound_string = "Sound"
 controls_string = "Controls"
 
 #Video Settings
-fullscreen_string = "FUllScreen"
+fullscreen_string = "FullScreen"
 shadows_string = "Shadows"
 
 #language

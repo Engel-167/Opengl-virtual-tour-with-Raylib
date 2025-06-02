@@ -590,10 +590,10 @@ scale = [1.0, 1.5, 1.0]
 
 [[models]]
 path = "Assets/gltf/KitMedieval_v1/building_bridge_A.gltf"
-position = [0.0, 0.0, 4.0]
+position = [0.0, -0.05, 3.5]
 axis = [0.0, 1.0, 0.0]
 angle = -30.0
-scale = [2.0, 1.0, 2.0]
+scale = [1.5, 1.0, 1.5]
 
 #Building 3 - 
 

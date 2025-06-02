@@ -8,109 +8,147 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Lighting;
 
 public static unsafe class ShadowMap
 {
-    private static readonly Shader ShadowShader = LoadShader("Assets/Shaders/shadowmap.vert", "Assets/Shaders/shadowmap.frag");
+    private static Shader _shadowShader;
+    private const int ShadowmapResolution = 1080; // Reduced resolution for better performance
     
-    private const int ShadowmapResolution = 1080;//4096
-
+    // Location cache variables
+    private static int _lightDirLoc = -1;
+    private static int _viewPosLoc = -1;
+    private static int _lightVpLoc = -1;
+    private static int _shadowMapLoc = -1;
+    
     private static Vector3 _lightDir;
-    private static int _lightDirLoc;
     private static Camera3D _lightCam; 
     private static RenderTexture2D _shadowMap;
-    private static int _lightVpLoc;
-    private static int _shadowMapLoc;
 
     public static bool Enabled = true;
     
     public static void Init(List<World3DObjects> worldObjects)
     {
+        // Load shader with error checking
+        _shadowShader = LoadShader("Assets/Shaders/shadowmap.vert", "Assets/Shaders/shadowmap.frag");
         
+        if (!IsShaderValid(_shadowShader))
+        {
+            TraceLog(TraceLogLevel.Error, "SHADER: Failed to load shadow shader!");
+            Enabled = false;
+            return;
+        }
+
+        // Get shader locations safely
+        _viewPosLoc = GetShaderLocation(_shadowShader, "viewPos");
+        _lightDirLoc = GetShaderLocation(_shadowShader, "lightDir");
+        int lightColLoc = GetShaderLocation(_shadowShader, "lightColor");
+        int ambientLoc = GetShaderLocation(_shadowShader, "ambient");
+        _lightVpLoc = GetShaderLocation(_shadowShader, "lightVP");
+        _shadowMapLoc = GetShaderLocation(_shadowShader, "shadowMap");
+        int shadowResLoc = GetShaderLocation(_shadowShader, "shadowMapResolution");
+
+        if (_viewPosLoc == -1 || _lightDirLoc == -1)
+        {
+            TraceLog(TraceLogLevel.Warning, "SHADER: Some uniform locations not found!");
+        }
+
         foreach (var obj in worldObjects)
         {
             BindShader(obj.Models);
         }
-
-        // ShadowMap.BindShader(materials);
         
-        ShadowShader.Locs[(int)ShaderLocationIndex.VectorView] = GetShaderLocation(ShadowShader, "viewPos");
-        
-        _lightDir = Raymath.Vector3Normalize(new Vector3(0.35f, -1.0f, -0.35f)); //Vector3Normalize((Vector3){ 0.35f, -1.0f, -0.35f });
-        Color lightColor = new Color(255, 197, 143, 255); //40 W Tungsten: new Color(255,197,143,255); High Pressure Sodium: new Color(255, 183, 76,255)
+        // Light setup
+        _lightDir = Raymath.Vector3Normalize(new Vector3(0.35f, -1.0f, -0.35f));
+        Color lightColor = new Color(255, 197, 143, 255);
         Vector4 lightColorNormalized = ColorNormalize(lightColor);
-        _lightDirLoc = GetShaderLocation(ShadowShader, "lightDir");
-        int lightColLoc = GetShaderLocation(ShadowShader, "lightColor");
-        SetShaderValue(ShadowShader, _lightDirLoc, _lightDir, ShaderUniformDataType.Vec3);
-        SetShaderValue(ShadowShader, lightColLoc, lightColorNormalized, ShaderUniformDataType.Vec4);
         
-        // Set shader light values
-        int ambientLoc = GetShaderLocation(ShadowShader, "ambient");
-        float[] ambient = [0.5f, 0.5f, 0.5f, 1.0f];
-        SetShaderValue(ShadowShader, ambientLoc, ambient, ShaderUniformDataType.Vec4);
-        _lightVpLoc = GetShaderLocation(ShadowShader, "lightVP");
-        _shadowMapLoc = GetShaderLocation(ShadowShader, "shadowMap");
+        // Set shader values only if locations are valid
+        if (_lightDirLoc != -1)
+            SetShaderValue(_shadowShader, _lightDirLoc, _lightDir, ShaderUniformDataType.Vec3);
+        if (lightColLoc != -1)
+            SetShaderValue(_shadowShader, lightColLoc, lightColorNormalized, ShaderUniformDataType.Vec4);
+        
+        // Ambient lighting (brighter for toon look)
+        float[] ambient = [0.7f, 0.7f, 0.7f, 1.0f];
+        if (ambientLoc != -1)
+            SetShaderValue(_shadowShader, ambientLoc, ambient, ShaderUniformDataType.Vec4);
+        
+        // Shadow map setup
         int shadowMapResolution = ShadowmapResolution;
-        SetShaderValue(ShadowShader, GetShaderLocation(ShadowShader, "shadowMapResolution"), shadowMapResolution, ShaderUniformDataType.Int);
+        if (shadowResLoc != -1)
+            SetShaderValue(_shadowShader, shadowResLoc, shadowMapResolution, ShaderUniformDataType.Int);
         
-        //LoadShadowmapRenderTexture(SHADOWMAP_RESOLUTION, SHADOWMAP_RESOLUTION);
         _shadowMap = LoadShadowmapRenderTexture(shadowMapResolution, shadowMapResolution);
-        // For the shadow mapping algorithm, we will be rendering everything from the light's point of view
+        
         _lightCam = new Camera3D
         {
-            Position = Raymath.Vector3Scale(_lightDir, -15.0f), //Vector3Scale(lightDir, -15.0f);
-            Target = Vector3.Zero,
-            // Use an orthographic projection for directional lights
+            Position = Raymath.Vector3Scale(_lightDir, -15.0f),
+            Target = Vector3.Zero,//new Vector3(5.0f, 0.0f, 10.0f),
             Projection = CameraProjection.Orthographic,
-            Up = new Vector3(0.0f, 1.0f, 0.0f), //(Vector3){ 0.0f, 1.0f, 0.0f };
-            FovY = 20.0f
+            Up = new Vector3(0.0f, 1.0f, 0.0f),
+            FovY = 45.0f
         };
     }
 
     public static void Update(List<World3DObjects>? worldObjects)
     {
-        if (Enabled)
+        if (!Enabled || !IsShaderValid(_shadowShader))
+        {
+        
+            UnloadShadowmapRenderTexture();
+            return;
+        }
+        
+        
+        try
         {
             Vector3 cameraPos = CharacterCamera3D.Camera.Position;
-            SetShaderValue(ShadowShader, ShadowShader.Locs[(int)ShaderLocationIndex.VectorView], cameraPos, ShaderUniformDataType.Vec3);    
-        
+            if (_viewPosLoc != -1)
+                SetShaderValue(_shadowShader, _viewPosLoc, cameraPos, ShaderUniformDataType.Vec3);
+            
             _lightDir = Vector3.Normalize(_lightDir);
             _lightCam.Position = Raymath.Vector3Scale(_lightDir, -15.0f);
-                
-            SetShaderValue(ShadowShader, _lightDirLoc, _lightDir, ShaderUniformDataType.Vec3);
             
-                BeginTextureMode(_shadowMap);
-                ClearBackground(Color.White);
-                BeginMode3D(_lightCam);
+            if (_lightDirLoc != -1)
+                SetShaderValue(_shadowShader, _lightDirLoc, _lightDir, ShaderUniformDataType.Vec3);
+            
+            Rlgl.EnableBackfaceCulling();
+                        
+            BeginTextureMode(_shadowMap);
+            //Rlgl.SetCullFace(0);
+            ClearBackground(Color.White);
+            BeginMode3D(_lightCam);
 
-                    Matrix4x4 lightView = Rlgl.GetMatrixModelview();
-                    Matrix4x4 lightProj = Rlgl.GetMatrixProjection();
+                Matrix4x4 lightView = Rlgl.GetMatrixModelview();
+                Matrix4x4 lightProj = Rlgl.GetMatrixProjection();
 
-                    //Draw 3D Models
-                    Rlgl.EnableBackfaceCulling();
-                    if (worldObjects != null)
-                    {
-                        foreach (var obj in worldObjects)
-                        {
-                            obj.Draw3DModels();
-                        }   
-                    }
-                    
-                EndMode3D();
-                EndTextureMode();
+                if (worldObjects != null)
+                {
+                    worldObjects[0].Draw3DModels();
+                    worldObjects[2].Draw3DModels();
+                }
                 
-            Matrix4x4 lightViewProj = Raymath.MatrixMultiply(lightView, lightProj); //MatrixMultiply(lightView, lightProj);
-                
-            SetShaderValueMatrix(ShadowShader, _lightVpLoc, lightViewProj);
-                
-            Rlgl.EnableShader(ShadowShader.Id);
+            EndMode3D();
+            
+            EndTextureMode();
+            Matrix4x4 lightViewProj = Raymath.MatrixMultiply(lightView, lightProj);
+            
+            if (_lightVpLoc != -1)
+                SetShaderValueMatrix(_shadowShader, _lightVpLoc, lightViewProj);
+            
+            Rlgl.EnableShader(_shadowShader.Id);
 
-            int slot = 10;
-                
-            Rlgl.ActiveTextureSlot(10);
-            Rlgl.EnableTexture(_shadowMap.Depth.Id);
-            Rlgl.SetUniform(_shadowMapLoc, &slot, (int)ShaderUniformDataType.Int, 1);
+            if (_shadowMapLoc != -1)
+            {
+                int slot = 10;
+                Rlgl.ActiveTextureSlot(10);
+                Rlgl.EnableTexture(_shadowMap.Depth.Id);
+                Rlgl.SetUniform(_shadowMapLoc, &slot, (int)ShaderUniformDataType.Int, 1);
+            }
+
+            //Rlgl.SetCullFace(1);
         }
-        else
+        catch (Exception ex)
         {
-            UnloadShadowmapRenderTexture();
+            TraceLog(TraceLogLevel.Error, $"SHADOWMAP ERROR: {ex.Message}");
+            Enabled = false;
         }
     }
 
@@ -120,7 +158,8 @@ public static unsafe class ShadowMap
         {
             for (int i = 0; i < model.MaterialCount; i++)
             {
-                model.Materials[i].Shader = ShadowShader;
+                model.Materials[i].Shader = _shadowShader;
+                //SetMaterialTexture(ref model.Materials[i], MaterialMapIndex.Albedo, Texture);
             }
         }
     }

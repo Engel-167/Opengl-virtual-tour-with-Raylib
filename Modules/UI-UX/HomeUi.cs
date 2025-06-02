@@ -84,6 +84,10 @@ public class HomeUi
         };
         exitButton.Event += (_, _) =>
         {
+            Variables.Buildings.Unload3DModels();
+            Variables.Roads.Unload3DModels();
+            Variables.Props.Unload3DModels();
+            
             Thread.Sleep(500);
             Console.WriteLine("Exit button");
             Environment.Exit(0);

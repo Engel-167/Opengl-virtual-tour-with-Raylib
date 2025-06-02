@@ -1,4 +1,8 @@
 using System.Numerics;
+using Opengl_virtual_tour_with_Raylib.Modules._3D_World.Buildings;
+using Opengl_virtual_tour_with_Raylib.Modules._3D_World.Props;
+using Opengl_virtual_tour_with_Raylib.Modules._3D_World.Roads;
+using Opengl_virtual_tour_with_Raylib.Modules.Core.Globals;
 using Raylib_cs;
 using static Raylib_cs.Raylib;
 
@@ -12,6 +16,12 @@ public class LogoScene(byte id, string windowTitle) : SceneObject(id, windowTitl
     {
         Console.WriteLine("Logo scene Initialized");
         _framesCounter = 0;
+        
+        //3D objects initialization
+        Variables.Buildings = new Buildings("ConfigurationFiles/DATA/BuildingsDATA.toml");
+        Variables.Roads = new Roads("ConfigurationFiles/DATA/RoadsDATA.toml");
+        Variables.Props = new Props("ConfigurationFiles/DATA/PropsDATA.toml");
+        
         Initialized = true;
     }
 
