@@ -39,9 +39,7 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
     {
         _camMode = CameraMode.Custom;
         
-        //<Temporal>
         _hitboxLoader= new HitboxLoader("ConfigurationFiles/DATA/HitboxesDATA.toml");
-        //</Temporal>
         
         //InitializeWorld();
         WorldObjects = new List<World3DObjects>();
@@ -186,23 +184,6 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
             // simple directional light coming from above/front
             var light = Vector3.Normalize(new Vector3( 0.5f, -1.0f, 0.3f ));
             SetShaderValue(_waterShader, _lightDirLoc, new[] { light.X, light.Y, light.Z }, ShaderUniformDataType.Vec3);
-            //<Temporal>
-            /*Vector3 center = new Vector3(4, 1, 3);
-            Vector3 size = new Vector3(2, 2, 2);
-            Vector3 halfExtents = size / 2f;
-
-                // Rotación: 45 grados sobre el eje Y
-            float angleY = 45.0f * MathF.PI / 180.0f;
-            Quaternion rotY = Quaternion.CreateFromAxisAngle(Vector3.UnitY, angleY);
-            
-            float angleX = 20.0f * MathF.PI / 180.0f;
-            Quaternion rotX = Quaternion.CreateFromAxisAngle(Vector3.UnitX, angleX);
-
-                // Combinación (primero X, luego Y)
-            Quaternion rotation = Quaternion.Normalize(rotY * rotX);
-            
-            Obb prueba = new Obb(center, halfExtents, rotation);*/
-            //</Temporal>
             
             BeginDrawing();
         
@@ -214,16 +195,11 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
                 
                 if (_hitboxEnabled)
                 {
-                    Variables.Buildings?.DrawHitBoxes();
-                    //<Temporal>
                     _hitboxLoader?.DrawBoundingBoxes();
-                    //<Temporal>
                 }
                 // 1) Draw your opaque world
                 //Rlgl.SetCullFace(1);
                 if (WorldObjects != null) Render3DModels(WorldObjects);
-                
-                
 
                 // 2) Transparent water pass
                 BeginBlendMode(BlendMode.Alpha);
