@@ -14,9 +14,7 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Scenes;
 
 public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitle)
 {
-    //<Temporal>
     private HitboxLoader? _hitboxLoader;
-    //</Temporal>
     
     private CameraMode _camMode;
     private bool _cameraControlEnabled;
@@ -114,30 +112,8 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
             // Change the camera mode only if the camera is already activated
             if (_cameraControlEnabled)
             {
-                
-                //Choose a mode to use the camera 
-                //By default is in Tourist mode
-                if (IsKeyPressed(KeyboardKey.One)) 
-                    CharacterCamera3D.Mode = CameraModeType.Tourist;// Movimiento del modo Turista
-
-                if (IsKeyPressed(KeyboardKey.Two)) 
-                    CharacterCamera3D.Mode = CameraModeType.Free;// Movimiento del modo Libre
-
-                // Movement modes
-                if (CharacterCamera3D.Mode == CameraModeType.Tourist)
-                {
-                    if (_hitboxLoader?.Cajas !=null)
-                        if (Variables.Buildings != null)
-                            CharacterCamera3D.HandleTouristModeInput(Variables.Buildings.ModelDataList, _hitboxLoader.Cajas);
-                }
-                else
-                {
-                    // Update CharacterCamera3D position and hitbox
-                    UpdateCamera(ref CharacterCamera3D.Camera, _camMode);
-                }
-
-                // Update Position and Restrictions
-                CharacterCamera3D.ApplyCameraConstraints();
+                if (_hitboxLoader != null)
+                    CharacterCamera3D.UpdateMyCamera(_hitboxLoader, _camMode);
             }
 
             // if key M is pressed then stop updating the shadow map and if is pressed again then enable the shadow map update

@@ -1,15 +1,14 @@
 using System.Numerics;
-using Opengl_virtual_tour_with_Raylib.Modules._3D_World;
-using Opengl_virtual_tour_with_Raylib.Modules._3D_World.Hitboxes;
-
+using Opengl_virtual_tour_with_Raylib.Modules._3D_World.Hitboxes; 
 using Raylib_cs;
+using static Raylib_cs.Raylib;
 
 namespace Opengl_virtual_tour_with_Raylib.Modules.Camera
 {
     // Modes for the camera
     public enum CameraModeType
     {
-        Tourist, // The height is fixed, it has few movements, the speed is lower 
+        Tourist, // The height is fixed, it has few movements. The speed is lower 
         Free //More freedom, useful to look for the map
     }
     public static class CharacterCamera3D
@@ -21,7 +20,7 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Camera
         public static Camera3D Camera;
         private static float _pitch; // Cumulative vertical rotation 
         private static float _yaw; // Cumulative horizontal rotation
-        public static CameraModeType Mode { get; set; } = CameraModeType.Tourist;
+        public static CameraModeType Mode { get; private set; } = CameraModeType.Tourist;
         // The camera's mode by default is tourist
         
         public const float HitBoxSize=0.1f;
@@ -72,7 +71,7 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Camera
 
                 if (!collided)
                 {
-                    // There's no collision, moves the total and it ends
+                    // There's no collision, moves the camera
                     currentPosition += remainingMovement;
                     Camera.Position = currentPosition;
                     return;
@@ -102,7 +101,7 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Camera
         }
         
         //Method that blocks the Y-coordinate if the camera has the Tourist mode enabled
-        public static void ApplyCameraConstraints()
+        private static void ApplyCameraConstraints()
         {
             switch (Mode)
             {
@@ -148,7 +147,7 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Camera
         }
         
         //This method is called everytime we need to perform a camera's movement using the keyboard and mouse
-        public static void HandleTouristModeInput(List<ModelData> allModels, List<Hitbox> obbHitboxes)
+        private static void HandleTouristModeInput(List<Hitbox> obbHitboxes)
         {
             Vector3 forward=Vector3.Normalize(Camera.Target - Camera.Position);
 
@@ -189,16 +188,36 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Camera
 
             /*if (Mode == CameraModeType.Tourist && isMoving && FootstepAudio != null)
                 FootstepAudio.Update(Camera.Position, isRunning);*/
-
-
-
+            
             TryMoveCamera(Camera.Position+movement, obbHitboxes);
             
             HandleMouseRotation();
         }
+
+        public static void UpdateMyCamera(HitboxLoader hitboxLoader, CameraMode camMode)
+        {
+            //Choose a mode to use the camera 
+            //By default is in Tourist mode
+            if (IsKeyPressed(KeyboardKey.One)) 
+                Mode = CameraModeType.Tourist;// Tourist Mode
+
+            if (IsKeyPressed(KeyboardKey.Two)) 
+                Mode = CameraModeType.Free;// Free mode
+
+            // Movement modes
+            if (Mode == CameraModeType.Tourist)
+            {
+                HandleTouristModeInput(hitboxLoader.Cajas);
+            }
+            else
+            {
+                // Update CharacterCamera3D position and hitbox
+                UpdateCamera(ref Camera, camMode);
+            }
+
+            // Update Position and Restrictions
+            ApplyCameraConstraints();
+        }
         
-        //public static FootstepManager FootstepAudio;
-
     }
-
 }
