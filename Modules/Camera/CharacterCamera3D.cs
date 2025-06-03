@@ -1,7 +1,6 @@
 using System.Numerics;
 using Opengl_virtual_tour_with_Raylib.Modules._3D_World;
 using Opengl_virtual_tour_with_Raylib.Modules._3D_World.Hitboxes;
-using Opengl_virtual_tour_with_Raylib.Modules.Audio;
 
 using Raylib_cs;
 
@@ -185,12 +184,11 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Camera
                 movement *= 6.0f;
             
             
-            bool isMoving = movement.Length() > 0.0f;
-            bool isRunning = isMoving && Raylib.IsKeyDown(KeyboardKey.LeftShift);
+            //bool isMoving = movement.Length() > 0.0f;
+            //bool isRunning = isMoving && Raylib.IsKeyDown(KeyboardKey.LeftShift);
 
-            // Only play footstep sounds when in Tourist mode (not in Free mode)
-            if (Mode == CameraModeType.Tourist && isMoving && FootstepAudio != null)
-                FootstepAudio.Update(Camera.Position, isRunning);
+            /*if (Mode == CameraModeType.Tourist && isMoving && FootstepAudio != null)
+                FootstepAudio.Update(Camera.Position, isRunning);*/
 
 
 
@@ -199,12 +197,7 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Camera
             HandleMouseRotation();
         }
         
-        public static Frustum GetCurrentFrustum(float aspect)
-        {
-            return FrustumCulling.CameraGetFrustum(Camera, aspect);
-        }
-        
-        public static FootstepManager FootstepAudio;
+        //public static FootstepManager FootstepAudio;
 
     }
 

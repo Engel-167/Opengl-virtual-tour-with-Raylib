@@ -56,6 +56,7 @@ public class GeneralSettingsUi
             Variables.UpdateText = true;
             
             Variables.HomeUi?.UpdateText();
+            Variables.SettingsMenu?.UpdateText();
         };
 
         _container = new Container(ContainerOrientation.Horizontal, 10, 5);

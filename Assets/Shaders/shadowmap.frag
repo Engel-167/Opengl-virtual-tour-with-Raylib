@@ -55,10 +55,10 @@ float CalculateShadowFactor(vec4 fragPosLightSpace, vec3 normal, vec3 lightDirec
     }
 
     // Calculate bias to avoid shadow acne
-    float bias = max(0.00008 * (1.0 - dot(normal, lightDirection)), 0.000032); // Adjust bias as needed
+    float bias = 0.000185; //max(0.00008 * (1.0 - dot(normal, lightDirection)), 0.000032); // Adjust bias as needed
 
     float shadow = 0.0; // Accumulator for shadow contribution
-    vec2 texelSize = 1.0 / vec2(shadowMapResolution);
+    vec2 texelSize = 1.5 / vec2(shadowMapResolution);
     // Radius of the PCF disk kernel in texels. Adjust for softness.
     float diskRadius = 1.8; // Start with this, tune if needed
 

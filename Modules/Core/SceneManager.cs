@@ -81,7 +81,6 @@ public class SceneManager
                     if (!homeScene.Initialized)
                     {
                         homeScene.InitScene();
-                        Variables.CurrentBgMusic = 1;
                     }
 
                     if (logoScene.Initialized)
@@ -108,7 +107,6 @@ public class SceneManager
                     if (!mainScene.Initialized)
                     {
                         mainScene.InitScene();
-                        Variables.CurrentBgMusic = 0;   
                     }
                     
                     if (homeScene.Initialized)
@@ -146,6 +144,7 @@ public class SceneManager
             int monitor = GetCurrentMonitor();
             SetWindowSize(GetMonitorWidth(monitor), GetMonitorHeight(monitor));
             Variables.SettingsMenu?.UpdateLayout();
+            Variables.HomeUi?.UpdateLayout();
             ToggleFullscreen();
             Variables.AppSettings.Fullscreen = true;
             SettingsLoader.SaveSettings(Variables.SettingsFilePath, Variables.AppSettings);

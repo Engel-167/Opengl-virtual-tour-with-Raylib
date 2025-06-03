@@ -46,9 +46,12 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
         //InitializeWorld();
         WorldObjects = new List<World3DObjects>();
         WorldObjects = new List<World3DObjects>();
-        WorldObjects.AddRange(Variables.Buildings);
-        WorldObjects.AddRange(Variables.Roads);
-        WorldObjects.AddRange(Variables.Props);
+        
+        if (Variables.Buildings != null) WorldObjects.AddRange(Variables.Buildings);
+        
+        if (Variables.Roads != null) WorldObjects.AddRange(Variables.Roads);
+        
+        if (Variables.Props != null) WorldObjects.AddRange(Variables.Props);
 
         Render3DModels(WorldObjects);
 
@@ -59,9 +62,9 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
         _hitboxEnabled = true;
         
         // Inicializar FootstepManager con los modelos que tienen suelo tipo "tile"
-        var modelos = Variables.Roads.ModelDataList;
-        _footstepManager = new FootstepManager(modelos);
-        
+        var modelos = Variables.Roads?.ModelDataList;
+        if (modelos != null) _footstepManager = new FootstepManager(modelos);
+
         // Load our water shader
         _waterShader   = LoadShader("Assets/Shaders/water.vert", "Assets/Shaders/water.frag");
         _uTimeLoc      = GetShaderLocation(_waterShader, "uTime");
@@ -126,7 +129,8 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
                 if (CharacterCamera3D.Mode == CameraModeType.Tourist)
                 {
                     if (_hitboxLoader?.Cajas !=null)
-                        CharacterCamera3D.HandleTouristModeInput(Variables.Buildings.ModelDataList, _hitboxLoader.Cajas);
+                        if (Variables.Buildings != null)
+                            CharacterCamera3D.HandleTouristModeInput(Variables.Buildings.ModelDataList, _hitboxLoader.Cajas);
                 }
                 else
                 {

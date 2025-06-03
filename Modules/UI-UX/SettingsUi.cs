@@ -20,6 +20,8 @@ public class SettingsUi
     
     private readonly VideoSettingsUi? _videoSettingsUi;
     
+    private readonly SoundSettingsUi? _soundSettingsUi;
+    
     private enum CurrentSettings
     {
         General,
@@ -185,6 +187,7 @@ public class SettingsUi
         
         _generalSettingsUi = new GeneralSettingsUi();
         _videoSettingsUi = new VideoSettingsUi();
+        _soundSettingsUi = new SoundSettingsUi();
     }
     
     public void Draw()
@@ -199,15 +202,7 @@ public class SettingsUi
         
         if (Variables.UpdateText)
         {
-            if (_container != null)
-            {
-                _container.Components[0].Text = Variables.Language.GeneralString;
-                _container.Components[1].Text = Variables.Language.VideoString;
-                _container.Components[2].Text = Variables.Language.SoundString;
-                _container.Components[3].Text = Variables.Language.ControlsString;
-
-                if (_homeButton != null) _homeButton.Text = Variables.Language.ExitString;
-            }
+            UpdateText();
         }
         
         _container?.Draw();
@@ -228,8 +223,7 @@ public class SettingsUi
                 break;
             case CurrentSettings.Sound:
             {
-                // Draw sound settings UI here
-                
+                _soundSettingsUi?.Draw();
             }
                 break;
             case CurrentSettings.Controls:
@@ -241,6 +235,19 @@ public class SettingsUi
         }
         
         if (_homeButton != null && Core.Globals.Scenes.CurrentScene == Core.Globals.Scenes.Scene.Main) _homeButton.Draw();
+    }
+
+    public void UpdateText()
+    {
+        if (_container != null)
+        {
+            _container.Components[0].Text = Variables.Language.GeneralString;
+            _container.Components[1].Text = Variables.Language.VideoString;
+            _container.Components[2].Text = Variables.Language.SoundString;
+            _container.Components[3].Text = Variables.Language.ControlsString;
+
+            if (_homeButton != null) _homeButton.Text = Variables.Language.ExitString;
+        }
     }
 
     public void UpdateLayout()
@@ -266,6 +273,7 @@ public class SettingsUi
         
         _videoSettingsUi?.UpdateLayout();
         _generalSettingsUi?.UpdateLayout();
+        _soundSettingsUi?.UpdateLayout();
         
         if (Variables.AppSettings.Fullscreen == false && Raylib.IsWindowResized())
         {

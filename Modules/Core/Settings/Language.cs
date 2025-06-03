@@ -2,22 +2,22 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Core.Settings;
 
 public sealed class Language
 {
-    public string StartString { get; set; }
-    public string ExitString { get; set; }
+    public string StartString { get; set; } = null!;
+    public string ExitString { get; set; } = null!;
+
+    public string SettingsString { get; set; } = null!;
+    public string CreditsString { get; set; } = null!;
     
-    public string SettingsString { get; set; }
-    public string CreditsString { get; set; }
-    
-    public string GeneralString { get; set; }
-    public string VideoString { get; set; }
-    public string SoundString { get; set; }
-    public string ControlsString { get; set; }
+    public string GeneralString { get; set; } = null!;
+    public string VideoString { get; set; } = null!;
+    public string SoundString { get; set; } = null!;
+    public string ControlsString { get; set; } = null!;
     
     //video settings
-    public string FullscreenString { get; set; }
-    public string ShadowsString { get; set; }
-    
+    public string FullscreenString { get; set; } = null!;
+    public string ShadowsString { get; set; } = null!;
+
     //Language
-    public string LanguageString { get; set; }
+    public string LanguageString { get; set; } = null!;
     
 }

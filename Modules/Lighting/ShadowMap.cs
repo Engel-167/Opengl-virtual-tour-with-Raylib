@@ -79,11 +79,11 @@ public static unsafe class ShadowMap
         
         _lightCam = new Camera3D
         {
-            Position = Raymath.Vector3Scale(_lightDir, -15.0f),
+            Position = Raymath.Vector3Scale(_lightDir, -30.0f),
             Target = Vector3.Zero,//new Vector3(5.0f, 0.0f, 10.0f),
             Projection = CameraProjection.Orthographic,
             Up = new Vector3(0.0f, 1.0f, 0.0f),
-            FovY = 45.0f
+            FovY = 40.0f
         };
     }
 

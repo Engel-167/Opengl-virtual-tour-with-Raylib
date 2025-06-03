@@ -25,8 +25,8 @@ public class HomeScene(byte id, string windowTitle) : SceneObject(id,windowTitle
     public override void InitScene()
     {
         _worldObjects = new List<World3DObjects>();
-        _worldObjects.AddRange(Variables.Buildings);
-        _worldObjects.AddRange(Variables.Roads);
+        if (Variables.Buildings != null) _worldObjects.AddRange(Variables.Buildings);
+        if (Variables.Roads != null) _worldObjects.AddRange(Variables.Roads);
 
         _camera = new Camera3D
         {

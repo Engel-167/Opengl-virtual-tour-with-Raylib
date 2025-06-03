@@ -12,7 +12,8 @@ public sealed class AppSettings
     public bool   ShadowsEnabled { get; set; } = true;
 
     /* Sound ---------------------------------------------------------- */
-    public float  MasterVolume   { get; set; } = 1.0f;
+    public float MasterVolume   { get; set; } = 1.0f;
+    public bool MusicEnabled { get; set; } = true;
 
     /* Controls ------------------------------------------------------- */
     public bool InvertXAxis { get; set; } = false;

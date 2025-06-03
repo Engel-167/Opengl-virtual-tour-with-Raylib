@@ -2,10 +2,10 @@ start_string = "Iniciar"
 exit_string = "Salir"
 
 settings_string = "Ajustes"
-credits_string = "Creditos"
+credits_string = "Créditos"
 
 general_string = "General"
-video_string = "Video"
+video_string = "Vídeo"
 sound_string = "Sonido"
 controls_string = "Controles"
 

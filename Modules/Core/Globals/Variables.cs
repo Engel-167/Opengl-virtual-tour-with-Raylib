@@ -9,17 +9,14 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Core.Globals;
 public static class Variables
 {
     //3d objects
-    public static Buildings Buildings;
-    public static Roads Roads;
-    public static Props Props;
+    public static Buildings? Buildings;
+    public static Roads? Roads;
+    public static Props? Props;
     
     //Ui Variables
     public static bool IsSettingsMenuEnabled = false;
     public static HomeUi? HomeUi;
     public static SettingsUi? SettingsMenu;
-    
-    //Music variables
-    public static byte CurrentBgMusic = 1;
     
     //Settings Variables
     public static readonly string SettingsFilePath = "ConfigurationFiles/Settings.toml";
