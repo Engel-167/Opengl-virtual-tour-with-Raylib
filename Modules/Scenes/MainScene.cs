@@ -28,6 +28,8 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
     private float  _timeAccumulator;
     private Model _waterModel;
     private FootstepManager? _footstepManager;
+    
+    private bool PlayAnimation = false;
 
     private static readonly Vector3 HitboxSize = new Vector3(CharacterCamera3D.HitBoxSize, CharacterCamera3D.HitBoxSize, CharacterCamera3D.HitBoxSize);
 
@@ -136,6 +138,30 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
             //Rlgl.DisableBackfaceCulling();
             //Rlgl.SetCullFace(0);
             ShadowMap.Update(WorldObjects);
+            
+            // Play animation when P is held down
+            if (IsKeyPressed(KeyboardKey.P))
+            {
+                PlayAnimation = true;
+            }
+
+            if (PlayAnimation)
+            {
+                unsafe
+                {
+                    Animations.animFrameCounter++;
+
+                    if (Variables.Buildings != null)
+                        UpdateModelAnimation(Variables.Buildings.GateModel, Animations.anims[0],
+                            Animations.animFrameCounter);
+
+                    if (Animations.animFrameCounter >= Animations.anims[0].FrameCount)
+                    {
+                        Animations.animFrameCounter = 0;
+                        PlayAnimation = false;
+                    }    
+                }
+            }
             
             //Rlgl.EnableBackfaceCulling();
             

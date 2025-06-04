@@ -84,7 +84,7 @@ angle = -90.0
 scale = [1.0, 1.5, 1.0]
 
 [[models]]
-path = "Assets/gltf/KitMedieval_v1/wall_straigth_gate_opened.glb"
+path = "Assets/gltf/KitMedieval_v1/wall_straigth_gate_opened.iqm"
 position = [11.0, 0.0, 7.5]
 axis = [0.0, 1.0, 0.0]
 angle = -90.0
@@ -182,7 +182,7 @@ angle = -90.0
 scale = [1.0, 1.5, 1.0]
 
 [[models]]
-path = "Assets/gltf/KitMedieval_v1/wall_straigth_gate_opened.glb"
+path = "Assets/gltf/KitMedieval_v1/wall_straigth_gate_opened.iqm"
 position = [8.42, 0.0, 28.5]
 axis = [0.0, 1.0, 0.0]
 angle = -90.0

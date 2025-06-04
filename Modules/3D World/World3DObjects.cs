@@ -2,13 +2,24 @@ using Raylib_cs;
 
 namespace Opengl_virtual_tour_with_Raylib.Modules._3D_World;
 
-public abstract class World3DObjects(string path)
+public abstract class World3DObjects
 {
-    public readonly List<ModelData> ModelDataList = ModelDataLoader.LoadFromToml(path);
+    public readonly List<ModelData> ModelDataList;
 
     protected readonly List<string> ModelsPath = new();
 
     public readonly List<Model> Models = new();
+
+    protected World3DObjects(string path)
+    {
+        ModelDataList = ModelDataLoader.LoadFromToml(path);
+
+        foreach (var model in ModelDataList.Where(model => !ModelsPath.Contains(model.ModelPath)))
+        {
+            ModelsPath.Add(model.ModelPath);
+            Models.Add(Raylib.LoadModel(model.ModelPath));
+        }
+    }
 
     public virtual void Draw3DModels()
     {
