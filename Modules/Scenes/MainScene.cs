@@ -199,6 +199,7 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
                 {
                     _hitboxLoader?.DrawBoundingBoxes();
                 }
+        
                 // 1) Draw your opaque world
                 //Rlgl.SetCullFace(1);
                 if (WorldObjects != null) Render3DModels(WorldObjects);

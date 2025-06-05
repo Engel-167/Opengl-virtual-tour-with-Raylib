@@ -23,13 +23,19 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Camera
         public static CameraModeType Mode { get; private set; } = CameraModeType.Tourist;
         // The camera's mode by default is tourist
         
+        //<Temporal>
+        private static float _velocityY;
+        private const float Gravity=0.015f;
+        private const float MaxFallSpeed=1.0f;
+        //</Temporal>
+        
         public const float HitBoxSize=0.1f;
         
         static CharacterCamera3D()
         {
             Camera = new Camera3D()
             {
-                Position = new Vector3(3, 1, 3),
+                Position = new Vector3(3, GroundY, 3),
 
                 Target = new Vector3(0, 0, 0),
 
@@ -40,6 +46,46 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Camera
                 Projection = CameraProjection.Perspective
             };
         }
+        
+        //<Temporal>
+        // Acts like gravity and adjust the camera's height of the camera to the ground (OBBs)
+        
+        private static void AdaptCameraToGroundWithGravity(List<Hitbox> sueloHitboxes, bool isMoving)
+        {
+            // Just applies the gravity and raycast if there's movement or the camera is falling
+            if (isMoving || _velocityY != 0f)
+            {
+                // Gravity
+                _velocityY -= Gravity;
+                if (_velocityY < -MaxFallSpeed)
+                    _velocityY = -MaxFallSpeed;
+
+                Camera.Position = new Vector3(Camera.Position.X, Camera.Position.Y + _velocityY, Camera.Position.Z);
+
+                // Checking the ground
+                Vector3 origen = Camera.Position;
+                Ray ray = new Ray(new Vector3(origen.X, origen.Y, origen.Z), new Vector3(0, -1, 0));
+                float minDist = float.MaxValue;
+                float? alturaSuelo = null;
+
+                foreach (var hitbox in sueloHitboxes)
+                {
+                    var col = hitbox.Box.GetRayCollision(ray);
+                    if (col.Hit && col.Point.Y < origen.Y && col.Distance < minDist)
+                    {
+                        minDist = col.Distance;
+                        alturaSuelo = col.Point.Y;
+                    }
+                }
+
+                if (alturaSuelo.HasValue && Camera.Position.Y <= alturaSuelo.Value + GroundY)
+                {
+                    Camera.Position = new Vector3(origen.X, alturaSuelo.Value + GroundY, origen.Z);
+                    _velocityY = 0f;
+                }
+            } 
+        }
+        //</Temporal>
         
         //This method checks if it's possible to move the camera without trespassing the hitbox in the world
         //If a position it's not allowed, the method checks if we can move the camera around the object     
@@ -100,29 +146,6 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Camera
             Camera.Position = currentPosition;
         }
         
-        //Method that blocks the Y-coordinate if the camera has the Tourist mode enabled
-        private static void ApplyCameraConstraints()
-        {
-            switch (Mode)
-            {
-                case CameraModeType.Tourist:
-                    // Fixed height
-                    Vector3 pos = Camera.Position;
-                    
-                    Camera.Position = new Vector3(pos.X, GroundY, pos.Z);
-                    break;
-
-                case CameraModeType.Free:
-                    //Without restrictions by now
-                    /*
-                     * // Minimum height
-                    if (pos.Y < GroundY)
-                        Camera.Position = new Vector3(pos.X, GroundY, pos.Z);
-                    */
-                    break;
-            }
-        }
-
         private static void HandleMouseRotation()
         {
             // Takes the mouse's delta
@@ -158,28 +181,38 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Camera
             right.Y = 0;
 
             Vector3 movement = Vector3.Zero;
+            bool isMoving = false;
 
-
-            if (Raylib.IsKeyDown(KeyboardKey.W))
+            if (IsKeyDown(KeyboardKey.W))
             {
                 //Raylib.CameraMoveForward(ref Camera, Speed,true);   
                 movement += forward*Speed;
+                isMoving = true;
 
             }
             
-            if(Raylib.IsKeyDown(KeyboardKey.S))
-                //Raylib.CameraMoveForward(ref Camera, -Speed,true);
+            if (IsKeyDown(KeyboardKey.S))
+            {
+                //Raylib.CameraMoveForward(ref Camera, Speed,true);   
                 movement -= forward*Speed;
-            
-            if(Raylib.IsKeyDown(KeyboardKey.D))
-                //Raylib.CameraMoveRight(ref Camera, Speed,true);
+                isMoving = true;
+            }
+                
+            if (IsKeyDown(KeyboardKey.D))
+            {
+                //Raylib.CameraMoveForward(ref Camera, Speed,true);   
                 movement += right*Speed;
+                isMoving = true;
+            }
             
-            if(Raylib.IsKeyDown(KeyboardKey.A))
-                //Raylib.CameraMoveRight(ref Camera, -Speed,true);
+            if (IsKeyDown(KeyboardKey.A))
+            {
+                //Raylib.CameraMoveForward(ref Camera, Speed,true);   
                 movement -= right*Speed;
+                isMoving = true;
+            }
             
-            if (Raylib.IsKeyDown(KeyboardKey.LeftShift))
+            if (IsKeyDown(KeyboardKey.LeftShift))
                 movement *= 6.0f;
             
             
@@ -191,6 +224,9 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Camera
             
             TryMoveCamera(Camera.Position+movement, obbHitboxes);
             
+            if (_velocityY != 0f) isMoving = true;
+            
+            AdaptCameraToGroundWithGravity(obbHitboxes, isMoving);
             HandleMouseRotation();
         }
 
@@ -214,9 +250,6 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Camera
                 // Update CharacterCamera3D position and hitbox
                 UpdateCamera(ref Camera, camMode);
             }
-
-            // Update Position and Restrictions
-            ApplyCameraConstraints();
         }
         
     }

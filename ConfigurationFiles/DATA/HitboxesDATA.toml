@@ -143,10 +143,18 @@ center=[6.0, 1.0, 41.3]
 size=[5.7,2.0,1.0]
 angle=0.0
 
-##hitbox del suelo
+##hitbox del suelo de prueba
 [[hitboxes]]
 id=""
 type="box"
 center=[4.0, -0.5, 5.0]
 size=[20.0,1.0,20.0]
+angle=0.0
+
+##Hitbox del puente para simular la subida y bajada
+[[hitboxes]]
+id=""
+type="box"
+center=[0.0, -0.05, 3.5]
+size=[0.75,0.25,3.0]
 angle=0.0
