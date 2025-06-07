@@ -169,21 +169,14 @@ scale = [1.0, 1.5, 1.0]
 
 [[models]]
 path = "Assets/gltf/KitMedieval_v1/wall_straight.gltf"
-position = [8.42, 0.0, 25.5]
-axis = [0.0, 1.0, 0.0]
-angle = -90.0
-scale = [1.0, 1.5, 1.0]
-
-[[models]]
-path = "Assets/gltf/KitMedieval_v1/wall_straight.gltf"
-position = [8.42, 0.0, 27]
+position = [8.42, 0.0, 26]
 axis = [0.0, 1.0, 0.0]
 angle = -90.0
 scale = [1.0, 1.5, 1.0]
 
 [[models]]
 path = "Assets/gltf/KitMedieval_v1/wall_straigth_gate_opened.iqm"
-position = [8.42, 0.0, 28.5]
+position = [8.42, 0.0, 28.0]
 axis = [0.0, 1.0, 0.0]
 angle = -90.0
 scale = [1.0, 1.5, 1.0]
@@ -599,7 +592,7 @@ scale = [1.5, 1.0, 1.5]
 
 [[models]]
 path = "Assets/gltf/KitMedieval_v1/building_barracks_yellow.gltf"
-position = [4.0, 0.0, 7.0]
+position = [3.0, 0.0, 7.0]
 axis = [0.0, 1.0, 0.0]
 angle = -90.0
 scale = [2.0, 1.5, 2.0]

@@ -1,4 +1,5 @@
 using System.Numerics;
+using System.Reflection.Metadata.Ecma335;
 using Opengl_virtual_tour_with_Raylib.Modules._3D_World;
 using Opengl_virtual_tour_with_Raylib.Modules.Camera;
 using Opengl_virtual_tour_with_Raylib.Modules.Core.Globals;
@@ -81,9 +82,12 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
         unsafe
         {
             _waterModel.Materials[0].Shader = _waterShader;
+            //Animations.animFrameCounter = Animations.anims[0].FrameCount;
         }
         
         _skyBox = new SkyBox();
+
+        
         
         Initialized = true;
     }
@@ -151,15 +155,17 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
                 {
                     Animations.animFrameCounter++;
 
-                    if (Variables.Buildings != null)
-                        UpdateModelAnimation(Variables.Buildings.GateModel, Animations.anims[0],
-                            Animations.animFrameCounter);
-
-                    if (Animations.animFrameCounter >= Animations.anims[0].FrameCount)
+                    if (Animations.animFrameCounter >= Animations.anims[0].FrameCount - 1)
                     {
-                        Animations.animFrameCounter = 0;
+                        Animations.animFrameCounter = Animations.anims[0].FrameCount - 1;
                         PlayAnimation = false;
-                    }    
+                    }
+
+                    if (Variables.Buildings != null)
+                    {
+                        UpdateModelAnimation(Variables.Buildings.GateModel, Animations.anims[0], Animations.animFrameCounter);
+                        Console.WriteLine($"Frame count: {Animations.anims[0].FrameCount}");
+                    }
                 }
             }
             

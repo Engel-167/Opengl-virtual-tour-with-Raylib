@@ -336,24 +336,38 @@ scale = [2.0, 5.0, 2.0]
 
 [[models]]
 path = "Assets/gltf/suelos/tile.glb"
-position = [6.0, -1.0, 6.0]
+position = [6.0, -1.0, 5.8]
 axis = [0.0, 1.0, 0.0]
 angle = 90.0
-scale = [2.0, 5.0, 2.0]
+scale = [1.6, 5.0, 2.0]
 
 [[models]]
 path = "Assets/gltf/suelos/tile.glb"
-position = [8.0, -1.0, 6.0]
+position = [8.0, -1.0, 5.8]
 axis = [0.0, 1.0, 0.0]
 angle = 90.0
-scale = [2.0, 5.0, 2.0]
+scale = [1.6, 5.0, 2.0]
 
 [[models]]
 path = "Assets/gltf/suelos/tile.glb"
-position = [10.0, -1.0, 6.0]
+position = [10.0, -1.0, 5.8]
 axis = [0.0, 1.0, 0.0]
 angle = 90.0
-scale = [2.0, 5.0, 2.0]
+scale = [1.6, 5.0, 2.0]
+
+[[models]]
+path = "Assets/gltf/suelos/tile.glb"
+position = [8.0, -0.2, 8.75]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [2.0, 1.0, 0.5]
+
+[[models]]
+path = "Assets/gltf/suelos/tile.glb"
+position = [10.0, -0.2, 8.75]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [2.0, 1.0, 0.5]
 
 [[models]]
 path = "Assets/gltf/suelos/tile.glb"
@@ -1439,21 +1453,28 @@ scale = [2.0, 1.0, 2.0]
 
 [[models]]
 path = "Assets/gltf/suelos/tile-corner-round.glb"
-position = [6.0, -0.2, 8.0]
+position = [6.0, -0.2, 7.5]
 axis = [0.0, 1.0, 0.0]
 angle = 0.0
 scale = [2.0, 1.0, 2.0]
 
 [[models]]
 path = "Assets/gltf/suelos/tile-straight.glb"
-position = [8.0, -0.2, 8.0]
+position = [6.0, -0.2, 8.75]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [2.0, 1.0, 0.5]
+
+[[models]]
+path = "Assets/gltf/suelos/tile-straight.glb"
+position = [8.0, -0.2, 7.5]
 axis = [0.0, 1.0, 0.0]
 angle = 90.0
 scale = [2.0, 1.0, 2.0]
 
 [[models]]
 path = "Assets/gltf/suelos/tile-straight.glb"
-position = [10.0, -0.2, 8.0]
+position = [10.0, -0.2, 7.5]
 axis = [0.0, 1.0, 0.0]
 angle = 90.0
 scale = [2.0, 1.0, 2.0]
