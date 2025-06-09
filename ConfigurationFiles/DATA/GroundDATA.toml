@@ -1,0 +1,51 @@
+##Ground's hitbox
+[[hitboxes]]
+id=""
+type="box"
+center=[2.0, -0.5, 5.0]
+size=[20.0,1.0,20.0]
+angle=0.0
+
+[[hitboxes]]
+id=""
+type="box"
+center=[2.0, -0.5, 25.0]
+size=[20.0,1.0,20.0]
+angle=0.0
+
+[[hitboxes]]
+id=""
+type="box"
+center=[2.0, -0.5, 45.0]
+size=[20.0,1.0,20.0]
+angle=0.0
+
+[[hitboxes]]
+id=""
+type="box"
+center=[-18.0, -0.5, 45.0]
+size=[20.0,1.0,20.0]
+angle=0.0
+
+[[hitboxes]]
+id=""
+type="box"
+center=[-18.0, -0.5, 25.0]
+size=[20.0,1.0,20.0]
+angle=0.0
+
+[[hitboxes]]
+id=""
+type="box"
+center=[-18.0, -0.5, 5.0]
+size=[20.0,1.0,20.0]
+angle=0.0
+
+##Bridge's hitbox to make the up and down movement
+[[hitboxes]]
+id = ""
+type="box"
+center=[0.0, -0.05, 3.5]
+size=[0.75,0.25,3.0]
+angle=0.0
+
