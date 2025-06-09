@@ -143,29 +143,55 @@ center=[6.0, 1.0, 41.3]
 size=[5.7,2.0,1.0]
 angle=0.0
 
-##hitbox del suelo de prueba
+##Building's hitbox
 [[hitboxes]]
-id=""
-type="box"
-center=[2.0, -0.5, 5.0]
-size=[20.0,1.0,20.0]
-angle=0.0
+id = ""
+type ="box"
+center =[11,1.0,0]
+size = [1.5,2.0,1.5]
+angle = 0.0
 
 [[hitboxes]]
-id=""
-type="box"
-center=[2.0, -0.5, 25.0]
-size=[20.0,1.0,20.0]
-angle=0.0
+id = ""
+type ="box"
+center =[10.02, 1.0, 14]
+size = [1.1,2.0,1.1]
+angle = -100.0
 
-##Bridge's hitbox to make the up and down movement
 [[hitboxes]]
-id=""
-type="box"
-center=[0.0, -0.05, 3.5]
-size=[0.75,0.25,3.0]
-angle=0.0
+id = ""
+type ="box"
+center =[9.06, 1.0, 19.4]
+size = [1.0,2.0,1.0]
+angle = -100.0
 
+[[hitboxes]]
+id = ""
+type ="box"
+center =[8.42, 1.0, 32.25]
+size = [1.0,2.0,1.0]
+angle = -0.0
+
+[[hitboxes]]
+id = ""
+type ="box"
+center =[8.42, 1.0, 36.75]
+size = [1.0,2.0,1.0]
+angle = 0.0
+
+[[hitboxes]]
+id = ""
+type ="box"
+center =[-14.75, 1.0, 19.85]
+size = [1.5,2.0,1.5]
+angle = 0.0
+
+[[hitboxes]]
+id = ""
+type ="box"
+center =[-16.75, 1.0, 23.82]
+size = [1.0,2.0,1.0]
+angle = 60.0
 ##Water's hitbox
 [[hitboxes]]
 id=""
@@ -177,6 +203,6 @@ angle=0.0
 [[hitboxes]]
 id=""
 type="box"
-center=[-4.45, 0.1, 3.5]
-size=[8.1,1.0,3.0]
+center=[-3.3, 0.1, 3.5]
+size=[5.9,1.0,3.0]
 angle=0.0

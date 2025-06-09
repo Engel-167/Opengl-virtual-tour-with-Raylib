@@ -16,6 +16,7 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Scenes;
 public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitle)
 {
     private HitboxLoader? _hitboxLoader;
+    private HitboxLoader? _groundLoader;
     
     private CameraMode _camMode;
     private bool _cameraControlEnabled;
@@ -41,6 +42,7 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
         _camMode = CameraMode.Custom;
         
         _hitboxLoader= new HitboxLoader("ConfigurationFiles/DATA/HitboxesDATA.toml");
+        _groundLoader = new HitboxLoader("ConfigurationFiles/DATA/GroundDATA.toml");
         
         //InitializeWorld();
         WorldObjects = new List<World3DObjects>();
@@ -119,7 +121,7 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
             if (_cameraControlEnabled)
             {
                 if (_hitboxLoader != null)
-                    CharacterCamera3D.UpdateMyCamera(_hitboxLoader, _camMode);
+                    CharacterCamera3D.UpdateMyCamera(_hitboxLoader, _groundLoader,_camMode);
             }
 
             // if key M is pressed then stop updating the shadow map and if is pressed again then enable the shadow map update
@@ -203,7 +205,8 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
                 
                 if (_hitboxEnabled)
                 {
-                    _hitboxLoader?.DrawBoundingBoxes();
+                    _hitboxLoader?.DrawBoundingBoxes(Color.Blue);
+                    _groundLoader?.DrawBoundingBoxes(Color.Red);
                 }
         
                 // 1) Draw your opaque world

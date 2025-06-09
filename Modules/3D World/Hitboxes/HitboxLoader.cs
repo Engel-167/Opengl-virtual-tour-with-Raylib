@@ -51,12 +51,12 @@ public class HitboxLoader(string path)
         return hitboxes;
     }
 
-    public void DrawBoundingBoxes()
+    public void DrawBoundingBoxes(Color color)
     {
         foreach (Hitbox caja in Cajas)
         {
             // Dibujar la OBB rotada para depuración
-            caja.DrawWireFrame(Color.Blue);
+            caja.DrawWireFrame(color);
         }
     }
 }
