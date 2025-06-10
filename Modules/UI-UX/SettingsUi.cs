@@ -22,6 +22,8 @@ public class SettingsUi
     
     private readonly SoundSettingsUi? _soundSettingsUi;
     
+    private readonly ControlsSettingsUi? _controlsSettingsUi;
+    
     private enum CurrentSettings
     {
         General,
@@ -81,7 +83,6 @@ public class SettingsUi
         generalSettings.Event += (_, _) =>
         {
             _currentSettings = CurrentSettings.General;
-            _backgroundPanel.Text = "General Settings";
             Console.WriteLine("General Settings button");
         };
 
@@ -102,7 +103,6 @@ public class SettingsUi
         videoSettings.Event += (_, _) =>
         {
             _currentSettings = CurrentSettings.Video;
-            _backgroundPanel.Text = "Video Settings";
             Console.WriteLine("Video Settings button");
         };
         
@@ -123,7 +123,6 @@ public class SettingsUi
         soundSettings.Event += (_, _) =>
         {
             _currentSettings = CurrentSettings.Sound;
-            _backgroundPanel.Text = "Sound Settings";
             Console.WriteLine("Sound Settings button");
         };
         
@@ -144,7 +143,6 @@ public class SettingsUi
         controlsSettings.Event += (_, _) =>
         {
             _currentSettings = CurrentSettings.Controls;
-            _backgroundPanel.Text = "Controls Settings";
             Console.WriteLine("Controls Settings button");
         };
         
@@ -188,6 +186,7 @@ public class SettingsUi
         _generalSettingsUi = new GeneralSettingsUi();
         _videoSettingsUi = new VideoSettingsUi();
         _soundSettingsUi = new SoundSettingsUi();
+        _controlsSettingsUi = new ControlsSettingsUi();
     }
     
     public void Draw()
@@ -228,7 +227,7 @@ public class SettingsUi
                 break;
             case CurrentSettings.Controls:
             {
-                // Draw controls settings UI here
+                _controlsSettingsUi?.Draw();
                 
             }
                 break;
@@ -274,6 +273,7 @@ public class SettingsUi
         _videoSettingsUi?.UpdateLayout();
         _generalSettingsUi?.UpdateLayout();
         _soundSettingsUi?.UpdateLayout();
+        _controlsSettingsUi?.UpdateLayout();
         
         if (Variables.AppSettings.Fullscreen == false && Raylib.IsWindowResized())
         {

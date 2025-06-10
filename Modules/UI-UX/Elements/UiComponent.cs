@@ -11,9 +11,9 @@ public abstract class UiComponent
     public float Height;
     protected Rectangle HitBox;
 
-    protected UiComponent(Texture2D backgroundTexture, Vector2 position, int width, int height)
+    protected UiComponent(Texture2D? backgroundTexture, Vector2 position, int width, int height)
     {
-        BackgroundTexture = backgroundTexture;
+        if (backgroundTexture != null) BackgroundTexture = (Texture2D)backgroundTexture;
         Position = position;
         Width = width;
         Height = height;
@@ -21,6 +21,15 @@ public abstract class UiComponent
         HitBox = new Rectangle(Position.X, Position.Y, Width, Height);
     }
 
+    protected UiComponent(Vector2 position, int width, int height)
+    {
+        Position = position;
+        Width = width;
+        Height = height;
+        
+        HitBox = new Rectangle(Position.X, Position.Y, Width, Height);
+    }
+    
     public virtual void Draw()
     {
         

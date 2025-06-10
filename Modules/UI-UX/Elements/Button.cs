@@ -4,7 +4,7 @@ using Raylib_cs;
 
 namespace Opengl_virtual_tour_with_Raylib.Modules.UI_UX.Elements;
 
-public class Button(Texture2D backgroundTexture, Texture2D hoverTexture, Vector2 position, int width, int height, int[] padding) : UiComponent(backgroundTexture, position, width, height)
+public class Button : UiComponent
 {
     public string Text { get; set; } = string.Empty;
     public Font Font;
@@ -13,9 +13,24 @@ public class Button(Texture2D backgroundTexture, Texture2D hoverTexture, Vector2
     public Color TextColor = Color.Black;
     public Color ClickTextColor = Color.White;
     public Color HoverTextColor = Color.Brown;
+
+    private int[] Padding { get; set; } = [0, 0, 0, 0];
+    private Texture2D HoverTexture { get; set; }
     public event EventHandler? Event;
     private bool _wasHovered;
 
+    public Button(Texture2D backgroundTexture, Texture2D hoverTexture, Vector2 position, int width, int height, int[] padding) : base(
+        backgroundTexture, position, width, height) 
+    {
+        Padding = padding;
+        HoverTexture = hoverTexture;
+    }
+
+    protected Button(string text, Vector2 position, int width, int height): base(null, position, width, height)
+    {
+        Text = text;
+    }
+    
     public override void Draw()
     {
         Position = new Vector2(Position.X, Position.Y); // This line is not needed, just for clarity
@@ -24,10 +39,10 @@ public class Button(Texture2D backgroundTexture, Texture2D hoverTexture, Vector2
         NPatchInfo patchInfo = new NPatchInfo
         {
             Source = new Rectangle(0, 0, BackgroundTexture.Width, BackgroundTexture.Height),
-            Left = padding[0], // Adjust these as required for your specific texture
-            Top = padding[1],
-            Right = padding[2],
-            Bottom = padding[3],
+            Left = Padding[0], // Adjust these as required for your specific texture
+            Top = Padding[1],
+            Right = Padding[2],
+            Bottom = Padding[3],
             Layout = NPatchLayout.NinePatch
         };
 
@@ -48,13 +63,13 @@ public class Button(Texture2D backgroundTexture, Texture2D hoverTexture, Vector2
         // Draw button texture
         if (isClicked)
         {
-            Raylib.DrawTextureNPatch(hoverTexture, patchInfo, HitBox, Vector2.Zero, 0.0f, Color.Gray); // Optional: change texture for click
+            Raylib.DrawTextureNPatch(HoverTexture, patchInfo, HitBox, Vector2.Zero, 0.0f, Color.Gray); // Optional: change texture for click
             Raylib.DrawTextPro(Font, Text, textPosition, Vector2.Zero, 0.0f, FontSize, FontSpacing, ClickTextColor);
             Raylib.PlaySound(Sfx.Click);
         }
         else if (isHovered)
         {
-            Raylib.DrawTextureNPatch(hoverTexture, patchInfo, HitBox, Vector2.Zero, 0.0f, Color.White);
+            Raylib.DrawTextureNPatch(HoverTexture, patchInfo, HitBox, Vector2.Zero, 0.0f, Color.White);
             Raylib.DrawTextPro(Font, Text, textPosition, Vector2.Zero, 0.0f, FontSize, FontSpacing, HoverTextColor);
             if (!_wasHovered)
             {
