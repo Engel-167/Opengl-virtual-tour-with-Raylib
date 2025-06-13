@@ -17,7 +17,7 @@
 
     <ItemGroup>
         <None Include="Assets\**\*" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest"/>
-        <None Include="ConfigurationFiles\**\*" CopyToOutputDirectory="Always" CopyToPublishDirectory="PreserveNewest"/>
+        <None Include="ConfigurationFiles\**\*" CopyToOutputDirectory="Always" CopyToPublishDirectory="Always"/>
         <None Update="Assets\gltf\KitMedieval_v1\Textures\colormap.png" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest"/>
     </ItemGroup>
 

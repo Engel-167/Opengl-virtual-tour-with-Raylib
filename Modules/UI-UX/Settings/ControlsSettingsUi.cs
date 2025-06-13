@@ -74,7 +74,7 @@ public class ControlsSettingsUi
         };
         
         // Labels
-        Label forwardLabel = new Label("Forward", new Vector2(50, 50), 200, 50)
+        Label forwardLabel = new Label(Variables.Language.ForwardString, new Vector2(50, 50), 200, 50)
         {
             Font = Fonts.UbuntuM,
             FontSize = 32f,
@@ -82,7 +82,7 @@ public class ControlsSettingsUi
             TextColor = Color.Black
         };
         
-        Label backwardLabel = new Label("Backward", new Vector2(50, 100), 200, 50)
+        Label backwardLabel = new Label(Variables.Language.BackwardString, new Vector2(50, 100), 200, 50)
         {
             Font = Fonts.UbuntuM,
             FontSize = 32f,
@@ -90,7 +90,7 @@ public class ControlsSettingsUi
             TextColor = Color.Black
         };
         
-        Label leftLabel = new Label("Left", new Vector2(50, 150), 200, 50)
+        Label leftLabel = new Label(Variables.Language.LeftString, new Vector2(50, 150), 200, 50)
         {
             Font = Fonts.UbuntuM,
             FontSize = 32f,
@@ -98,7 +98,7 @@ public class ControlsSettingsUi
             TextColor = Color.Black
         };
         
-        Label rightLabel = new Label("Right", new Vector2(50, 200), 200, 50)
+        Label rightLabel = new Label(Variables.Language.RightString, new Vector2(50, 200), 200, 50)
         {
             Font = Fonts.UbuntuM,
             FontSize = 32f,
@@ -146,8 +146,18 @@ public class ControlsSettingsUi
     
     public void Draw()
     {
+        UpdateText();
         UpdateLayout();
         _labelsContainer.Draw();
         _controlsContainer.Draw();
+    }
+
+    private void UpdateText()
+    {
+        // Update the text of the labels
+        ((Label)_labelsContainer.Components[0]).Text = Variables.Language.ForwardString;
+        ((Label)_labelsContainer.Components[1]).Text = Variables.Language.BackwardString;
+        ((Label)_labelsContainer.Components[2]).Text = Variables.Language.LeftString;
+        ((Label)_labelsContainer.Components[3]).Text = Variables.Language.RightString; // Update the text of the buttons
     }
 }

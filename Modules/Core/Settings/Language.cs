@@ -20,4 +20,10 @@ public sealed class Language
     //Language
     public string LanguageString { get; set; } = null!;
     
+    //Controls
+    public string ForwardString { get; set; } = null!;
+    public string BackwardString { get; set; } = null!;
+    public string LeftString { get; set; } = null!;
+    public string RightString { get; set; } = null!;
+    
 }

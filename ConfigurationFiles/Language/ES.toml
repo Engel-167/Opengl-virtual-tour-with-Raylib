@@ -15,3 +15,9 @@ shadows_string = "Sombras"
 
 #language
 language_string = "Español"
+
+#Contrlols Settings
+forward_string = "Adelante"
+backward_string = "Atrás"
+left_string = "Izquierda"
+right_string = "Derecha"

@@ -1,9 +1,9 @@
-language = "ES"
+language = "EN"
 screen_width = 0
 screen_height = 0
 fullscreen = true
 shadows_enabled = true
-master_volume = 0.50
+master_volume = 0.5
 music_enabled = true
 invert_xaxis = false
 invert_yaxis = false

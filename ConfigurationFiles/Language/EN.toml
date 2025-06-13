@@ -15,3 +15,9 @@ shadows_string = "Shadows"
 
 #language
 language_string = "English"
+
+#Contrlols Settings
+forward_string = "Forward"
+backward_string = "Backward"
+left_string = "Left"
+right_string = "Right"
