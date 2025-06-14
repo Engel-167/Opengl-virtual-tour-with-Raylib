@@ -110,16 +110,14 @@ public class VideoSettingsUi
     
     public void Draw()
     {
-        if (Variables.UpdateText)
+        if (_container != null)
         {
-            if (_container != null)
-            {
-                _container.Components[0].Text = Variables.Language.FullscreenString;
-                _container.Components[1].Text = Variables.Language.ShadowsString;
-            }
+            _container.Components[0].Text = Variables.Language.FullscreenString;
+            _container.Components[1].Text = Variables.Language.ShadowsString;
+
+
+            _container?.Draw();
         }
-        
-        _container?.Draw();
     }
     
     public void UpdateLayout()

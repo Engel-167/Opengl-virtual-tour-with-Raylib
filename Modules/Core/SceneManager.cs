@@ -14,7 +14,6 @@ public class SceneManager
     {
         // Initialization
         //Config Flags
-        SetConfigFlags(ConfigFlags.VSyncHint);
         SetConfigFlags(ConfigFlags.Msaa4xHint);
         SetConfigFlags(ConfigFlags.ResizableWindow);
         SetConfigFlags(ConfigFlags.AlwaysRunWindow);
@@ -23,6 +22,7 @@ public class SceneManager
         InitWindow(Variables.AppSettings.ScreenWidth, Variables.AppSettings.ScreenHeight, "OpenGL-tour-with-Raylib");
         SetWindowMinSize(1000, 600);
         SetExitKey(KeyboardKey.Null);
+        SetTargetFPS(60);
         
         //Audio initialization
         AudioManager audioManager = new();

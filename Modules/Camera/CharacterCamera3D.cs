@@ -309,7 +309,7 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Camera
             HandleMouseRotation();
         }
 
-        public static void UpdateMyCamera(HitboxLoader hitboxLoader, HitboxLoader groundLoader,CameraMode camMode)
+        public static void UpdateMyCamera(HitboxLoader hitboxLoader, HitboxLoader? groundLoader,CameraMode camMode)
         {
             if (IsKeyPressed(KeyboardKey.One))
                 Mode = CameraModeType.Tourist;
