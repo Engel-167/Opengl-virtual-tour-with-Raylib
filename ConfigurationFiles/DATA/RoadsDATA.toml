@@ -2665,3 +2665,375 @@ position = [32.13, -0.2, 47.5]
 axis = [0.0, 1.0, 0.0]
 angle = 0.0
 scale = [2.0, 1.0, 2.0]
+
+[[models]]
+path = "Assets/gltf/suelos/tile-straight.glb"
+position = [30.13, -0.2, 47.5]
+axis = [0.0, 1.0, 0.0]
+angle = 90.0
+scale = [2.0, 1.0, 2.0]
+
+[[models]]
+path = "Assets/gltf/suelos/tile-straight.glb"
+position = [28.13, -0.2, 47.5]
+axis = [0.0, 1.0, 0.0]
+angle = 90.0
+scale = [2.0, 1.0, 2.0]
+
+[[models]]
+path = "Assets/gltf/suelos/tile-straight.glb"
+position = [26.13, -0.2, 47.5]
+axis = [0.0, 1.0, 0.0]
+angle = 90.0
+scale = [2.0, 1.0, 2.0]
+
+[[models]]
+path = "Assets/gltf/suelos/tile-straight.glb"
+position = [24.13, -0.2, 47.5]
+axis = [0.0, 1.0, 0.0]
+angle = 90.0
+scale = [2.0, 1.0, 2.0]
+
+[[models]]
+path = "Assets/gltf/suelos/tile-straight.glb"
+position = [22.13, -0.2, 47.5]
+axis = [0.0, 1.0, 0.0]
+angle = 90.0
+scale = [2.0, 1.0, 2.0]
+
+[[models]]
+path = "Assets/gltf/suelos/tile-straight.glb"
+position = [20.13, -0.2, 47.5]
+axis = [0.0, 1.0, 0.0]
+angle = 90.0
+scale = [2.0, 1.0, 2.0]
+
+
+[[models]]
+path = "Assets/gltf/suelos/tile-straight.glb"
+position = [18.13, -0.2, 47.5]
+axis = [0.0, 1.0, 0.0]
+angle = 90.0
+scale = [2.0, 1.0, 2.0]
+
+[[models]]
+path = "Assets/gltf/suelos/tile-straight.glb"
+position = [16.13, -0.2, 47.5]
+axis = [0.0, 1.0, 0.0]
+angle = 90.0
+scale = [2.0, 1.0, 2.0]
+
+[[models]]
+path = "Assets/gltf/suelos/tile-corner-round.glb"
+position = [14.13, -0.2, 47.5]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [2.0, 1.0, 2.0]
+
+[[models]]
+path = "Assets/gltf/suelos/tile-straight.glb"
+position = [14.13, -0.2, 49.5]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [2.0, 1.0, 2.0]
+
+[[models]]
+path = "Assets/gltf/suelos/tile-straight.glb"
+position = [14.13, -0.2, 51.5]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [2.0, 1.0, 2.0]
+
+[[models]]
+path = "Assets/gltf/suelos/tile-straight.glb"
+position = [14.13, -0.2, 53.5]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [2.0, 1.0, 2.0]
+
+[[models]]
+path = "Assets/gltf/suelos/tile-straight.glb"
+position = [14.13, -0.2, 55.5]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [2.0, 1.0, 2.0]
+
+[[models]]
+path = "Assets/gltf/suelos/tile-straight.glb"
+position = [14.13, -0.2, 57.5]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [2.0, 1.0, 2.0]
+
+[[models]]
+path = "Assets/gltf/suelos/tile-straight.glb"
+position = [14.13, -0.2, 59.5]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [2.0, 1.0, 2.0]
+
+#here left zone from crossing
+[[models]]
+path = "Assets/gltf/suelos/tile-straight.glb"
+position = [34.13, -0.2, 47.5]
+axis = [0.0, 1.0, 0.0]
+angle = 90.0
+scale = [2.0, 1.0, 2.0]
+
+[[models]]
+path = "Assets/gltf/suelos/tile-straight.glb"
+position = [36.13, -0.2, 47.5]
+axis = [0.0, 1.0, 0.0]
+angle = 90.0
+scale = [2.0, 1.0, 2.0]
+
+[[models]]
+path = "Assets/gltf/suelos/tile-straight.glb"
+position = [38.13, -0.2, 47.5]
+axis = [0.0, 1.0, 0.0]
+angle = 90.0
+scale = [2.0, 1.0, 2.0]
+
+[[models]]
+path = "Assets/gltf/suelos/tile-straight.glb"
+position = [40.13, -0.2, 47.5]
+axis = [0.0, 1.0, 0.0]
+angle = 90.0
+scale = [2.0, 1.0, 2.0]
+
+[[models]]
+path = "Assets/gltf/suelos/tile-straight.glb"
+position = [42.13, -0.2, 47.5]
+axis = [0.0, 1.0, 0.0]
+angle = 90.0
+scale = [2.0, 1.0, 2.0]
+
+[[models]]
+path = "Assets/gltf/suelos/tile-straight.glb"
+position = [44.13, -0.2, 47.5]
+axis = [0.0, 1.0, 0.0]
+angle = 90.0
+scale = [2.0, 1.0, 2.0]
+
+[[models]]
+path = "Assets/gltf/suelos/tile-straight.glb"
+position = [46.13, -0.2, 47.5]
+axis = [0.0, 1.0, 0.0]
+angle = 90.0
+scale = [2.0, 1.0, 2.0]
+
+[[models]]
+path = "Assets/gltf/suelos/tile-straight.glb"
+position = [48.13, -0.2, 47.5]
+axis = [0.0, 1.0, 0.0]
+angle = 90.0
+scale = [2.0, 1.0, 2.0]
+
+[[models]]
+path = "Assets/gltf/suelos/tile-straight.glb"
+position = [50.13, -0.2, 47.5]
+axis = [0.0, 1.0, 0.0]
+angle = 90.0
+scale = [2.0, 1.0, 2.0]
+
+[[models]]
+path = "Assets/gltf/suelos/tile-crossing.glb"
+position = [52.13, -0.2, 47.5]
+axis = [0.0, 1.0, 0.0]
+angle = 90.0
+scale = [2.0, 1.0, 2.0]
+
+[[models]]
+path = "Assets/gltf/suelos/tile-straight.glb"
+position = [52.13, -0.2, 49.5]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [2.0, 1.0, 2.0]
+
+[[models]]
+path = "Assets/gltf/suelos/tile-straight.glb"
+position = [52.13, -0.2, 51.5]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [2.0, 1.0, 2.0]
+
+[[models]]
+path = "Assets/gltf/suelos/tile-straight.glb"
+position = [52.13, -0.2, 53.5]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [2.0, 1.0, 2.0]
+
+[[models]]
+path = "Assets/gltf/suelos/tile-straight.glb"
+position = [52.13, -0.2, 55.5]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [2.0, 1.0, 2.0]
+
+[[models]]
+path = "Assets/gltf/suelos/tile-straight.glb"
+position = [42.13, -0.2, 35.5]
+axis = [0.0, 1.0, 0.0]
+angle = 90.0
+scale = [2.0, 1.0, 2.0]
+
+[[models]]
+path = "Assets/gltf/suelos/tile-straight.glb"
+position = [44.13, -0.2, 35.5]
+axis = [0.0, 1.0, 0.0]
+angle = 90.0
+scale = [2.0, 1.0, 2.0]
+
+[[models]]
+path = "Assets/gltf/suelos/tile-straight.glb"
+position = [46.13, -0.2, 35.5]
+axis = [0.0, 1.0, 0.0]
+angle = 90.0
+scale = [2.0, 1.0, 2.0]
+
+[[models]]
+path = "Assets/gltf/suelos/tile-straight.glb"
+position = [48.13, -0.2, 35.5]
+axis = [0.0, 1.0, 0.0]
+angle = 90.0
+scale = [2.0, 1.0, 2.0]
+
+[[models]]
+path = "Assets/gltf/suelos/tile-straight.glb"
+position = [50.13, -0.2, 35.5]
+axis = [0.0, 1.0, 0.0]
+angle = 90.0
+scale = [2.0, 1.0, 2.0]
+
+[[models]]
+path = "Assets/gltf/suelos/tile-straight.glb"
+position = [52.13, -0.2, 35.5]
+axis = [0.0, 1.0, 0.0]
+angle = 90.0
+scale = [2.0, 1.0, 2.0]
+
+#here starts the other road from the center
+
+[[models]]
+path = "Assets/gltf/suelos/tile-straight.glb"
+position = [34.13, -0.2, 21.5]
+axis = [0.0, 1.0, 0.0]
+angle = 90.0
+scale = [2.0, 1.0, 2.0]
+
+[[models]]
+path = "Assets/gltf/suelos/tile-straight.glb"
+position = [36.13, -0.2, 21.5]
+axis = [0.0, 1.0, 0.0]
+angle = 90.0
+scale = [2.0, 1.0, 2.0]
+
+[[models]]
+path = "Assets/gltf/suelos/tile-straight.glb"
+position = [38.13, -0.2, 21.5]
+axis = [0.0, 1.0, 0.0]
+angle = 90.0
+scale = [2.0, 1.0, 2.0]
+
+[[models]]
+path = "Assets/gltf/suelos/tile-straight.glb"
+position = [40.13, -0.2, 21.5]
+axis = [0.0, 1.0, 0.0]
+angle = 90.0
+scale = [2.0, 1.0, 2.0]
+
+[[models]]
+path = "Assets/gltf/suelos/tile-straight.glb"
+position = [42.13, -0.2, 21.5]
+axis = [0.0, 1.0, 0.0]
+angle = 90.0
+scale = [2.0, 1.0, 2.0]
+
+[[models]]
+path = "Assets/gltf/suelos/tile-straight.glb"
+position = [44.13, -0.2, 21.5]
+axis = [0.0, 1.0, 0.0]
+angle = 90.0
+scale = [2.0, 1.0, 2.0]
+
+[[models]]
+path = "Assets/gltf/suelos/tile-straight.glb"
+position = [46.13, -0.2, 21.5]
+axis = [0.0, 1.0, 0.0]
+angle = 90.0
+scale = [2.0, 1.0, 2.0]
+
+[[models]]
+path = "Assets/gltf/suelos/tile-straight.glb"
+position = [48.13, -0.2, 21.5]
+axis = [0.0, 1.0, 0.0]
+angle = 90.0
+scale = [2.0, 1.0, 2.0]
+
+[[models]]
+path = "Assets/gltf/suelos/tile-corner-round.glb"
+position = [50.13, -0.2, 21.5]
+axis = [0.0, 1.0, 0.0]
+angle = 180.0
+scale = [2.0, 1.0, 2.0]
+
+[[models]]
+path = "Assets/gltf/suelos/tile-straight.glb"
+position = [50.13, -0.2, 19.5]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [2.0, 1.0, 2.0]
+
+[[models]]
+path = "Assets/gltf/suelos/tile-straight.glb"
+position = [50.13, -0.2, 17.5]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [2.0, 1.0, 2.0]
+
+[[models]]
+path = "Assets/gltf/suelos/tile-straight.glb"
+position = [50.13, -0.2, 15.5]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [2.0, 1.0, 2.0]
+
+[[models]]
+path = "Assets/gltf/suelos/tile-straight.glb"
+position = [50.13, -0.2, 13.5]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [2.0, 1.0, 2.0]
+
+[[models]]
+path = "Assets/gltf/suelos/tile-straight.glb"
+position = [50.13, -0.2, 11.5]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [2.0, 1.0, 2.0]
+
+[[models]]
+path = "Assets/gltf/suelos/tile-straight.glb"
+position = [50.13, -0.2, 9.5]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [2.0, 1.0, 2.0]
+
+[[models]]
+path = "Assets/gltf/suelos/tile-straight.glb"
+position = [50.13, -0.2, 7.5]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [2.0, 1.0, 2.0]
+
+[[models]]
+path = "Assets/gltf/suelos/tile-straight.glb"
+position = [50.13, -0.2, 5.5]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [2.0, 1.0, 2.0]
+
+
+
+
