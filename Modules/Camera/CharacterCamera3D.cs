@@ -3,6 +3,7 @@ using Opengl_virtual_tour_with_Raylib.Modules._3D_World.Hitboxes;
 using Raylib_cs;
 using static Raylib_cs.Raylib;
 using System.Collections.Generic;
+using Opengl_virtual_tour_with_Raylib.Modules.Core.Globals;
 
 namespace Opengl_virtual_tour_with_Raylib.Modules.Camera
 {
@@ -28,7 +29,10 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Camera
         private const float MaxFallSpeed = 1.0f;
 
         public const float HitBoxSize = 0.1f;
-
+        
+        //<Temporal>
+        //</Temporal>
+        
         static CharacterCamera3D()
         {
             Camera = new Camera3D()
@@ -309,7 +313,46 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Camera
             HandleMouseRotation();
         }
 
-        public static void UpdateMyCamera(HitboxLoader hitboxLoader, HitboxLoader? groundLoader,CameraMode camMode)
+        public static void InteractionAnimDoors(List<Hitbox> doorsHitboxes)
+        {
+            float radius = 4.0f;
+            bool isNearDoor = false;
+
+            foreach (var hitbox in doorsHitboxes)
+            {
+                if (hitbox.Box.CheckCollisionSphere(Camera.Position, radius, out _))
+                {
+                    isNearDoor = true;
+                    break;
+                }
+            }
+
+            unsafe
+            {
+                if (isNearDoor)
+                {
+                    // Open: The animation goes forwards
+                    Animations.animFrameCounter++;
+                    if (Animations.animFrameCounter >= Animations.anims[0].FrameCount - 1)
+                        Animations.animFrameCounter = Animations.anims[0].FrameCount - 1;
+                }
+                else
+                {
+                    // Close: The animation goes backwards
+                    Animations.animFrameCounter--;
+                    if (Animations.animFrameCounter < 0)
+                        Animations.animFrameCounter = 0;
+                }
+
+                if (Variables.Buildings != null)
+                {
+                    UpdateModelAnimation(Variables.Buildings.GateModel, Animations.anims[0], Animations.animFrameCounter);
+                    Console.WriteLine($"Frame count: {Animations.anims[0].FrameCount}");
+                }
+            }
+        }
+        
+        public static void UpdateMyCamera(HitboxLoader hitboxLoader, HitboxLoader? groundLoader, HitboxLoader? doorsHitboxes,CameraMode camMode)
         {
             if (IsKeyPressed(KeyboardKey.One))
                 Mode = CameraModeType.Tourist;
@@ -318,7 +361,15 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Camera
 
             if (Mode == CameraModeType.Tourist)
             {
-                HandleTouristModeInput(hitboxLoader.Cajas, groundLoader.Cajas);
+                if (groundLoader?.Cajas != null)
+                {
+                    if (doorsHitboxes?.Cajas != null)
+                    {
+                        HandleTouristModeInput(hitboxLoader.Cajas, groundLoader.Cajas);
+
+                        InteractionAnimDoors(doorsHitboxes.Cajas);
+                    }
+                }
             }
             else
             {

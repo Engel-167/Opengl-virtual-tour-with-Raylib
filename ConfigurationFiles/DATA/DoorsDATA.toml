@@ -1,0 +1,14 @@
+#Animated Gates
+[[hitboxes]]
+id=""
+type="box"
+center=[11.0, 1.0, 7.5]
+size=[1.0,2.0,1.0]
+angle=0.0
+
+[[hitboxes]]
+id=""
+type="box"
+center=[8.42, 1.0, 28.0]
+size=[1.0,2.0,1.0]
+angle=0.0

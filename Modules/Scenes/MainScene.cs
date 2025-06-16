@@ -14,6 +14,7 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
 {
     private HitboxLoader? _hitboxLoader;
     private HitboxLoader? _groundLoader;
+    private HitboxLoader? _doorLoader;
     
     private CameraMode _camMode;
     private bool _cameraControlEnabled;
@@ -21,8 +22,6 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
     public static List<World3DObjects>? WorldObjects;
     private bool _hitboxEnabled;
     
-    private bool _playAnimation;
-
     private static readonly Vector3 HitboxSize = new(CharacterCamera3D.HitBoxSize, CharacterCamera3D.HitBoxSize, CharacterCamera3D.HitBoxSize);
 
     private SkyBox? _skyBox;
@@ -34,6 +33,7 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
         
         _hitboxLoader= new HitboxLoader("ConfigurationFiles/DATA/HitboxesDATA.toml");
         _groundLoader = new HitboxLoader("ConfigurationFiles/DATA/GroundDATA.toml");
+        _doorLoader = new HitboxLoader("ConfigurationFiles/DATA/DoorsDATA.toml");
         
         //InitializeWorld();
         WorldObjects = new List<World3DObjects>();
@@ -89,7 +89,7 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
             if (_cameraControlEnabled)
             {
                 if (_hitboxLoader != null)
-                    CharacterCamera3D.UpdateMyCamera(_hitboxLoader, _groundLoader,_camMode);
+                    CharacterCamera3D.UpdateMyCamera(_hitboxLoader, _groundLoader,_doorLoader,_camMode);
             }
 
             // if key M is pressed then stop updating the shadow map and if is pressed again then enable the shadow map update
@@ -113,32 +113,6 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
             //Rlgl.SetCullFace(0);
             ShadowMap.Update(WorldObjects);
             
-            // Play animation when P is held down
-            if (IsKeyPressed(KeyboardKey.P))
-            {
-                _playAnimation = true;
-            }
-
-            if (_playAnimation)
-            {
-                unsafe
-                {
-                    Animations.animFrameCounter++;
-
-                    if (Animations.animFrameCounter >= Animations.anims[0].FrameCount - 1)
-                    {
-                        Animations.animFrameCounter = Animations.anims[0].FrameCount - 1;
-                        _playAnimation = false;
-                    }
-
-                    if (Variables.Buildings != null)
-                    {
-                        UpdateModelAnimation(Variables.Buildings.GateModel, Animations.anims[0], Animations.animFrameCounter);
-                        Console.WriteLine($"Frame count: {Animations.anims[0].FrameCount}");
-                    }
-                }
-            }
-            
             BeginDrawing();
         
                 ClearBackground(Color.SkyBlue);
@@ -151,6 +125,7 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
                 {
                     _hitboxLoader?.DrawBoundingBoxes(Color.Blue);
                     _groundLoader?.DrawBoundingBoxes(Color.Red);
+                    _doorLoader?.DrawBoundingBoxes(Color.DarkGreen);
                 }
                 
                 if (WorldObjects != null) Render3DModels(WorldObjects);
