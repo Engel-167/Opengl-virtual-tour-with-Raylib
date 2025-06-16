@@ -1,139 +1,26 @@
 # RoadsDATA.toml
 #////////////AFUERAS//////////////
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-8.0, -0.2, -1.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
 
+#-----------------1--------------------#
 [[models]]
 path = "Assets/gltf/suelos/tile.glb"
-position = [-6.0, -0.2, -1.0]
+position = [0.0, -0.2, -3.0]
 axis = [0.0, 1.0, 0.0]
 angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-4.0, -0.2, -1.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-4.0, -0.2, -1.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-2.0, -0.2, -1.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [0.0, -0.2, -1.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [2.0, -0.2, -1.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [4.0, -0.2, -1.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [6.0, -0.2, -1.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [8.0, -0.2, -1.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [10.0, -0.2, -1.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [12.0, -0.2, -1.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
+scale = [6.0, 1.0, 30.0]
+#-----------------1--------------------#
 
 #-------Parte baja del pueblo-------#
 
+#-----------------2--------------------#
 [[models]]
 path = "Assets/gltf/suelos/tile.glb"
-position = [-12.0, -1.0, 1.0]
+position = [6.0, -1.0, 1.0]
 axis = [0.0, 1.0, 0.0]
 angle = 90.0
-scale = [2.0, 5.0, 2.0]
+scale = [2, 5.0, 10.0]
+#-----------------2--------------------#
 
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-10.0, -1.0, 1.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 5.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-8.0, -1.0, 1.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 5.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-6.0, -1.0, 1.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 5.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-4.0, -1.0, 1.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 5.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-4.0, -1.0, 1.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 5.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-2.0, -1.0, 1.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 5.0, 2.0]
 
 [[models]]
 path = "Assets/gltf/suelos/tile-straight.glb"
@@ -149,62 +36,22 @@ axis = [0.0, 1.0, 0.0]
 angle = 90.0
 scale = [2.0, 5.0, 2.0]
 
+#-----------------3--------------------#
 [[models]]
 path = "Assets/gltf/suelos/tile.glb"
-position = [2.0, -1.0, 1.0]
+position = [-5.5, -1.0, 1.0]
 axis = [0.0, 1.0, 0.0]
 angle = 90.0
-scale = [2.0, 5.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [4.0, -1.0, 1.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 5.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [6.0, -1.0, 1.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 5.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [8.0, -1.0, 1.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 5.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [10.0, -1.0, 1.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 5.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [12.0, -1.0, 1.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 5.0, 2.0]
+scale = [2.0, 5.0, 9.0]
+#-----------------3--------------------#
 
 #///////////RIO ENTRADA////////////////
 [[models]]
 path = "Assets/gltf/suelos/tile.glb"
-position = [-9.0, -1.0, 3.0]
+position = [-12.0, -1.0, 3.0]
 axis = [0.0, 1.0, 0.0]
 angle = 90.0
-scale = [2.0, 5.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-9.5, -1.0, 5.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 5.0, 2.0]
+scale = [8.0, 5.0, 8.0]
 
 
 [[models]]
@@ -257,61 +104,130 @@ angle = 90.0
 scale = [4.0, 1.0, 3.0]
 
 [[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [11.5, -1.0, 3.0]
+path = "Assets/gltf/suelos/fountainCenter.glb"
+position = [12.0, -1.0, 3.0]
 axis = [0.0, 1.0, 0.0]
 angle = 90.0
-scale = [2.0, 5.0, 2.0]
+scale = [4.0, 1.0, 3.0]
+
+[[models]]
+path = "Assets/gltf/suelos/fountainCenter.glb"
+position = [15.0, -1.0, 3.0]
+axis = [0.0, 1.0, 0.0]
+angle = 90.0
+scale = [4.0, 1.0, 3.0]
+
+
+[[models]]
+path = "Assets/gltf/suelos/fountainCenter.glb"
+position = [18.0, -1.0, 3.0]
+axis = [0.0, 1.0, 0.0]
+angle = 90.0
+scale = [4.0, 1.0, 3.0]
+
+[[models]]
+path = "Assets/gltf/suelos/fountainCenter.glb"
+position = [21.0, -1.0, 3.0]
+axis = [0.0, 1.0, 0.0]
+angle = 90.0
+scale = [4.0, 1.0, 3.0]
+
+[[models]]
+path = "Assets/gltf/suelos/fountainCenter.glb"
+position = [24.0, -1.0, 3.0]
+axis = [0.0, 1.0, 0.0]
+angle = 90.0
+scale = [4.0, 1.0, 3.0]
+
+[[models]]
+path = "Assets/gltf/suelos/fountainCenter.glb"
+position = [27.0, -1.0, 3.0]
+axis = [0.0, 1.0, 0.0]
+angle = 90.0
+scale = [4.0, 1.0, 3.0]
+
+[[models]]
+path = "Assets/gltf/suelos/fountainCenter.glb"
+position = [27.0, -1.0, 0.0]
+axis = [0.0, 1.0, 0.0]
+angle = 90.0
+scale = [4.0, 1.0, 3.0]
+
+[[models]]
+path = "Assets/gltf/suelos/fountainCenter.glb"
+position = [30.0, -1.0, 0.0]
+axis = [0.0, 1.0, 0.0]
+angle = 90.0
+scale = [6.0, 1.0, 3.0]
+
+
 
 [[models]]
 path = "Assets/gltf/suelos/tile.glb"
-position = [11.5, -1.0, 5.0]
+position = [22, -1.0, 5.75]
 axis = [0.0, 1.0, 0.0]
 angle = 90.0
-scale = [2.0, 5.0, 2.0]
+scale = [1.5, 5.0, 23.0]
+
+[[models]]
+path = "Assets/gltf/suelos/tile.glb"
+position = [16, -1.0, 1.0]
+axis = [0.0, 1.0, 0.0]
+angle = 90.0
+scale = [2, 5.0, 20.0]
+
+[[models]]
+path = "Assets/gltf/suelos/tile.glb"
+position = [31.5, -1.0, 3.2]
+axis = [0.0, 1.0, 0.0]
+angle = 70.0
+scale = [6.7, 5.0, 6.0]
+
+[[models]]
+path = "Assets/gltf/suelos/tile.glb"
+position = [27.0, -0.3, 0.0]
+axis = [0.0, 1.0, 0.0]
+angle = 90.0
+scale = [2.0, 1.5, 2.0]
+
+[[models]]
+path = "Assets/gltf/suelos/tile.glb"
+position = [29.0, -0.3, 0.0]
+axis = [0.0, 1.0, 0.0]
+angle = 90.0
+scale = [2.0, 1.5, 2.0]
+
+
+
+
+
+[[models]]
+path = "Assets/gltf/suelos/tile.glb"
+position = [11.0, -0.3, 3.0]
+axis = [0.0, 1.0, 0.0]
+angle = 90.0
+scale = [4.0, 1.5, 2.0]
 
 #//////////////////////LUEGO DEL PUENTE///////////
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-12.0, -1.0, 6.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 5.0, 2.0]
 
+#-----------------4--------------------#
 [[models]]
 path = "Assets/gltf/suelos/tile.glb"
-position = [-12.0, -1.0, 6.0]
+position = [7.5, -1.0, 5.75]
 axis = [0.0, 1.0, 0.0]
 angle = 90.0
-scale = [2.0, 5.0, 2.0]
+scale = [1.5, 5.0, 6.0]
+#-----------------4--------------------#
 
+#-----------------5--------------------#
 [[models]]
 path = "Assets/gltf/suelos/tile.glb"
-position = [-8.0, -1.0, 6.0]
+position = [3.0, -1.0, 7.0]
 axis = [0.0, 1.0, 0.0]
 angle = 90.0
-scale = [2.0, 5.0, 2.0]
+scale = [4.0, 5.0, 4.0]
+#-----------------5--------------------#
 
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-6.0, -1.0, 6.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 5.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-4.0, -1.0, 6.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 5.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-2.0, -1.0, 6.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 5.0, 2.0]
 
 [[models]]
 path = "Assets/gltf/suelos/tile.glb"
@@ -320,1093 +236,195 @@ axis = [0.0, 1.0, 0.0]
 angle = 90.0
 scale = [2.0, 5.0, 2.0]
 
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [2.0, -1.0, 6.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 5.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [4.0, -1.0, 6.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 5.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [6.0, -1.0, 5.8]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [1.6, 5.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [8.0, -1.0, 5.8]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [1.6, 5.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [10.0, -1.0, 5.8]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [1.6, 5.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [8.0, -0.2, 8.75]
-axis = [0.0, 1.0, 0.0]
-angle = 0.0
-scale = [2.0, 1.0, 0.5]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [10.0, -0.2, 8.75]
-axis = [0.0, 1.0, 0.0]
-angle = 0.0
-scale = [2.0, 1.0, 0.5]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [2.0, -0.2, 8.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [4.0, -0.2, 8.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-6.0, -0.2, 8.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-8.0, -0.2, 8.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-10.0, -0.2, 8.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [10.0, -0.2, 10.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [8.0, -0.2, 10.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-2.0, -0.2, 10.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-4.0, -0.2, 10.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-6.0, -0.2, 10.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-8.0, -0.2, 10.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-10.0, -0.2, 10.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-12.0, -0.2, 10.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [10.0, -0.2, 12.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [10.0, -0.2, 14.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-
-
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [10.0, -0.2, 16.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [10.0, -0.2, 18.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [10.0, -0.2, 20.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [10.0, -0.2, 22.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [10.0, -0.2, 24.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [10.0, -0.2, 26.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [10.0, -0.2, 28.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [10.0, -0.2, 30.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [10.0, -0.2, 32.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [10.0, -0.2, 34.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [10.0, -0.2, 36.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [10.0, -0.2, 38.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [10.0, -0.2, 40.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [8.0, -0.2, 12.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [8.0, -0.2, 14.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [8.0, -0.2, 16.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [8.0, -0.2, 18.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [8.0, -0.2, 20.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [8.0, -0.2, 22.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [8.0, -0.2, 24.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [8.0, -0.2, 26.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [8.0, -0.2, 30.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [8.0, -0.2, 32.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [8.0, -0.2, 34.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [8.0, -0.2, 36.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [8.0, -0.2, 40.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [6.0, -0.2, 12.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [6.0, -0.2, 14.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [6.0, -0.2, 16.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [6.0, -0.2, 18.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [6.0, -0.2, 20.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [6.0, -0.2, 22.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [6.0, -0.2, 24.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [6.0, -0.2, 26.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [6.0, -0.2, 30.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [6.0, -0.2, 32.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [6.0, -0.2, 34.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [6.0, -0.2, 36.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [6.0, -0.2, 40.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [4.0, -0.2, 12.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [4.0, -0.2, 14.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [4.0, -0.2, 16.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [4.0, -0.2, 20.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [4.0, -0.2, 22.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [4.0, -0.2, 24.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [4.0, -0.2, 26.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [4.0, -0.2, 34.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [4.0, -0.2, 36.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [4.0, -0.2, 40.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [2.0, -0.2, 12.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [2.0, -0.2, 14.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [2.0, -0.2, 16.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [2.0, -0.2, 34.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [2.0, -0.2, 36.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [2.0, -0.2, 40.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [0.0, -0.2, 34.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [0.0, -0.2, 36.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [0.0, -0.2, 40.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
 
+#-----------------6--------------------#
 [[models]]
 path = "Assets/gltf/suelos/tile.glb"
-position = [-2.0, -0.2, 12.0]
+position = [-5.5, -1.0, 6]
 axis = [0.0, 1.0, 0.0]
 angle = 90.0
-scale = [2.0, 1.0, 2.0]
+scale = [2.0, 5.0, 9.0]
+#-----------------6--------------------#
 
+#-----------------7--------------------#
 [[models]]
 path = "Assets/gltf/suelos/tile.glb"
-position = [-2.0, -0.2, 16.0]
+position = [11.1, -0.2, 17.7]
 axis = [0.0, 1.0, 0.0]
 angle = 90.0
-scale = [2.0, 1.0, 2.0]
+scale = [18.8, 1.0, 8.2]
+#-----------------7--------------------#
 
+#-----------------8--------------------#
 [[models]]
 path = "Assets/gltf/suelos/tile.glb"
-position = [-2.0, -0.2, 18.0]
+position = [6.0, -0.2, 19.0]
 axis = [0.0, 1.0, 0.0]
 angle = 90.0
-scale = [2.0, 1.0, 2.0]
+scale = [16.0, 1.0, 2.0]
+#-----------------8--------------------#
 
+#-----------------9--------------------#
 [[models]]
 path = "Assets/gltf/suelos/tile.glb"
-position = [-2.0, -0.2, 22.0]
+position = [3.0, -0.2, 14.0]
 axis = [0.0, 1.0, 0.0]
 angle = 90.0
-scale = [2.0, 1.0, 2.0]
+scale = [6.0, 1.0, 4.0]
+#-----------------9--------------------#
 
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-2.0, -0.2, 24.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
 
+#-----------------10--------------------#
 [[models]]
 path = "Assets/gltf/suelos/tile.glb"
-position = [-2.0, -0.2, 26.0]
+position = [-2.0, -0.2, 11]
 axis = [0.0, 1.0, 0.0]
 angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
+scale = [4.0, 1.0, 2.0]
+#-----------------10--------------------#
 
+#-----------------11--------------------#
 [[models]]
 path = "Assets/gltf/suelos/tile.glb"
-position = [-2.0, -0.2, 40.0]
+position = [-7.0, -0.2, 10]
 axis = [0.0, 1.0, 0.0]
 angle = 90.0
-scale = [2.0, 1.0, 2.0]
+scale = [6.0, 1.0, 8.0]
+#-----------------11--------------------#
 
+#-----------------12--------------------#
 [[models]]
 path = "Assets/gltf/suelos/tile.glb"
-position = [-4.0, -0.2, 12.0]
+position = [-14.5, -0.2, 8.5]
 axis = [0.0, 1.0, 0.0]
 angle = 90.0
-scale = [2.0, 1.0, 2.0]
+scale = [29.0, 1.0, 7.0]
+#-----------------12--------------------#
 
+#-----------------13--------------------#
 [[models]]
 path = "Assets/gltf/suelos/tile.glb"
-position = [-4.0, -0.2, 16.0]
+position = [4.0, -0.2, 23.0]
 axis = [0.0, 1.0, 0.0]
 angle = 90.0
-scale = [2.0, 1.0, 2.0]
+scale = [8.0, 1.0, 2.0]
+#-----------------13--------------------#
 
+#-----------------14--------------------#
 [[models]]
 path = "Assets/gltf/suelos/tile.glb"
-position = [-4.0, -0.2, 18.0]
+position = [-5.0, -0.2, 17.0]
 axis = [0.0, 1.0, 0.0]
 angle = 90.0
-scale = [2.0, 1.0, 2.0]
+scale = [4.0, 1.0, 8.0]
+#-----------------14--------------------#
 
+#-----------------15--------------------#
 [[models]]
 path = "Assets/gltf/suelos/tile.glb"
-position = [-4.0, -0.2, 22.0]
+position = [-18.0, -0.2, 25.7]
 axis = [0.0, 1.0, 0.0]
 angle = 90.0
-scale = [2.0, 1.0, 2.0]
+scale = [5.5, 1.0, 6.0]
+#-----------------15--------------------#
 
+#-----------------16--------------------#
 [[models]]
 path = "Assets/gltf/suelos/tile.glb"
 position = [-4.0, -0.2, 24.0]
 axis = [0.0, 1.0, 0.0]
 angle = 90.0
-scale = [2.0, 1.0, 2.0]
+scale = [6.0, 1.0, 6.0]
+#-----------------16--------------------#
 
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-4.0, -0.2, 26.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
 
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-4.0, -0.2, 38.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-4.0, -0.2, 40.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-6.0, -0.2, 12.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-6.0, -0.2, 16.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-6.0, -0.2, 18.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-6.0, -0.2, 22.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-6.0, -0.2, 24.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-6.0, -0.2, 26.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-6.0, -0.2, 38.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-6.0, -0.2, 40.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-8.0, -0.2, 12.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-8.0, -0.2, 16.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-8.0, -0.2, 18.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-8.0, -0.2, 24.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
+#-----------------17--------------------#
 [[models]]
 path = "Assets/gltf/suelos/tile.glb"
 position = [-8.0, -0.2, 26.0]
 axis = [0.0, 1.0, 0.0]
 angle = 90.0
-scale = [2.0, 1.0, 2.0]
+scale = [6.0, 1.0, 2.0]
+#-----------------17--------------------#
 
+#-----------------17--------------------#
 [[models]]
 path = "Assets/gltf/suelos/tile.glb"
-position = [-8.0, -0.2, 28.0]
+position = [-10.0, -0.2, 27.0]
 axis = [0.0, 1.0, 0.0]
 angle = 90.0
-scale = [2.0, 1.0, 2.0]
+scale = [4.0, 1.0, 2.0]
+#-----------------17--------------------#
 
+#-----------------19--------------------#
 [[models]]
 path = "Assets/gltf/suelos/tile.glb"
-position = [-8.0, -0.2, 38.0]
+position = [-14.0, -0.2, 24.5]
 axis = [0.0, 1.0, 0.0]
 angle = 90.0
-scale = [2.0, 1.0, 2.0]
+scale = [4.0, 1.0, 2.0]
+#-----------------19--------------------#
 
+#-----------------20--------------------#
 [[models]]
 path = "Assets/gltf/suelos/tile.glb"
-position = [-8.0, -0.2, 40.0]
+position = [7.0, -0.2, 33.0]
 axis = [0.0, 1.0, 0.0]
 angle = 90.0
-scale = [2.0, 1.0, 2.0]
+scale = [8.5, 1.0, 4.0]
+#-----------------20--------------------#
 
+#-----------------21--------------------#
 [[models]]
 path = "Assets/gltf/suelos/tile.glb"
-position = [-10.0, -0.2, 12.0]
+position = [2.0, -0.2, 35.0]
 axis = [0.0, 1.0, 0.0]
 angle = 90.0
-scale = [2.0, 1.0, 2.0]
+scale = [4.0, 1.0, 6.0]
+#-----------------21--------------------#
 
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-10.0, -0.2, 26.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-10.0, -0.2, 28.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-10.0, -0.2, 38.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-10.0, -0.2, 40.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-12.0, -0.2, 12.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-12.0, -0.2, 14.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-12.0, -0.2, 16.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-12.0, -0.2, 18.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-12.0, -0.2, 20.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-12.0, -0.2, 22.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-12.0, -0.2, 32.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-12.0, -0.2, 34.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-12.0, -0.2, 36.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-12.0, -0.2, 38.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-12.0, -0.2, 40.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-14.0, -0.2, 12.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-14.0, -0.2, 14.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-14.0, -0.2, 16.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-14.0, -0.2, 18.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-14.0, -0.2, 20.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-14.0, -0.2, 22.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-14.0, -0.2, 24.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-14.0, -0.2, 26.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-# Saltamos z = 28 y 30
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-14.0, -0.2, 32.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-14.0, -0.2, 34.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-14.0, -0.2, 36.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-14.0, -0.2, 38.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-14.0, -0.2, 40.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-16.0, -0.2, 22.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-16.0, -0.2, 24.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-16.0, -0.2, 26.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-16.0, -0.2, 28.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-16.0, -0.2, 32.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-16.0, -0.2, 34.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
+#-----------------22--------------------#
 [[models]]
 path = "Assets/gltf/suelos/tile.glb"
 position = [-16.0, -0.2, 36.0]
 axis = [0.0, 1.0, 0.0]
 angle = 90.0
-scale = [2.0, 1.0, 2.0]
+scale = [10.0, 1.0, 10.0]
 
 [[models]]
 path = "Assets/gltf/suelos/tile.glb"
-position = [-16.0, -0.2, 38.0]
+position = [-17.0, -0.2, 30.7]
 axis = [0.0, 1.0, 0.0]
 angle = 90.0
-scale = [2.0, 1.0, 2.0]
+scale = [1.0, 1.0, 8.0]
+#-----------------22--------------------#
+
+#-----------------23--------------------#
+
 
 [[models]]
 path = "Assets/gltf/suelos/tile.glb"
-position = [-16.0, -0.2, 40.0]
+position = [-7.0, -0.2, 38.0]
 axis = [0.0, 1.0, 0.0]
 angle = 90.0
-scale = [2.0, 1.0, 2.0]
+scale = [2.0, 1.0, 8.0]
+#-----------------23--------------------#
+
+#-----------------24--------------------#
+
 
 [[models]]
 path = "Assets/gltf/suelos/tile.glb"
-position = [-18.0, -0.2, 24.0]
+position = [-2.0, -0.2, 42.0]
 axis = [0.0, 1.0, 0.0]
 angle = 90.0
-scale = [2.0, 1.0, 2.0]
+scale = [6.0, 1.0, 21.0]
+#-----------------24--------------------#
 
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-18.0, -0.2, 26.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
+# Saltamos z = 28 y 30
 
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-18.0, -0.2, 28.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
 
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-18.0, -0.2, 32.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
 
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-18.0, -0.2, 34.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
 #camino de tierra///////////////
 
 [[models]]
@@ -2012,47 +1030,42 @@ scale = [2.0, 1.0, 2.0]
 
 [[models]]
 path = "Assets/gltf/suelos/tile-corner-round.glb"
-position = [-14.0, -0.2, 28.0]
+position = [-14.0, -0.2, 27.4]
 axis = [0.0, 1.0, 0.0]
 angle = 0.0
 scale = [2.0, 1.0, 2.0]
 
 [[models]]
 path = "Assets/gltf/suelos/tile-corner-round.glb"
-position = [-14.0, -0.2, 30.0]
+position = [-14.0, -0.2, 29.4]
 axis = [0.0, 1.0, 0.0]
 angle = 180.0
 scale = [2.0, 1.0, 2.0]
 
 [[models]]
 path = "Assets/gltf/suelos/tile-straight.glb"
-position = [-16.0, -0.2, 30.0]
+position = [-16.0, -0.2, 29.4]
 axis = [0.0, 1.0, 0.0]
 angle = 90.0
 scale = [2.0, 1.0, 2.0]
 
 [[models]]
 path = "Assets/gltf/suelos/tile-straight.glb"
-position = [-18.0, -0.2, 30.0]
+position = [-18.0, -0.2, 29.4]
 axis = [0.0, 1.0, 0.0]
 angle = 90.0
 scale = [2.0, 1.0, 2.0]
 
 [[models]]
 path = "Assets/gltf/suelos/tile-straight.glb"
-position = [-20.0, -0.2, 30.0]
+position = [-20.0, -0.2, 29.4]
 axis = [0.0, 1.0, 0.0]
 angle = 90.0
 scale = [2.0, 1.0, 2.0]
 
 
 
-[[models]]
-path = "Assets/gltf/suelos/tile.glb"
-position = [-4.0, -0.2, 8.0]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
+
 
 #roads zone 2
 [[models]]
@@ -2603,42 +1616,42 @@ scale = [2.0, 1.0, 2.0]
 
 [[models]]
 path = "Assets/gltf/suelos/tile-straight.glb"
-position = [18.13, -0.2, 29.5]
+position = [18.13, -0.2, 30.0]
 axis = [0.0, 1.0, 0.0]
 angle = 0.0
 scale = [2.0, 1.0, 2.0]
 
 [[models]]
 path = "Assets/gltf/suelos/tile-corner-round.glb"
-position = [18.13, -0.2, 27.5]
+position = [18.13, -0.2, 28.0]
 axis = [0.0, 1.0, 0.0]
 angle = -90.0
 scale = [2.0, 1.0, 2.0]
 
 [[models]]
 path = "Assets/gltf/suelos/tile-straight.glb"
-position = [16.13, -0.2, 27.5]
+position = [15.7, -0.2, 28.0]
+axis = [0.0, 1.0, 0.0]
+angle = 90.0
+scale = [2.0, 1.0, 3.0]
+
+[[models]]
+path = "Assets/gltf/suelos/tile-straight.glb"
+position = [14.0, -0.2, 28.0]
 axis = [0.0, 1.0, 0.0]
 angle = 90.0
 scale = [2.0, 1.0, 2.0]
 
 [[models]]
 path = "Assets/gltf/suelos/tile-straight.glb"
-position = [14.13, -0.2, 27.5]
+position = [12.0, -0.2, 28.0]
 axis = [0.0, 1.0, 0.0]
 angle = 90.0
 scale = [2.0, 1.0, 2.0]
 
 [[models]]
 path = "Assets/gltf/suelos/tile-straight.glb"
-position = [12.13, -0.2, 27.5]
-axis = [0.0, 1.0, 0.0]
-angle = 90.0
-scale = [2.0, 1.0, 2.0]
-
-[[models]]
-path = "Assets/gltf/suelos/tile-straight.glb"
-position = [10.13, -0.2, 27.5]
+position = [10.0, -0.2, 28.0]
 axis = [0.0, 1.0, 0.0]
 angle = 90.0
 scale = [2.0, 1.0, 2.0]
@@ -3037,3 +2050,181 @@ scale = [2.0, 1.0, 2.0]
 
 
 
+
+#cesped segundo zona#
+
+#---------------------------1------------------------#
+[[models]]
+path = "Assets/gltf/suelos/tile.glb"
+position = [24.13, -0.2, 13.5]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [14.0, 1.0, 10.0]
+#---------------------------1------------------------#
+
+
+#---------------------------2------------------------#
+[[models]]
+path = "Assets/gltf/suelos/tile.glb"
+position = [52.13, -0.2, 14.0]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [2.0, 1.0, 18.0]
+#---------------------------2------------------------#
+
+
+#---------------------------3------------------------#
+[[models]]
+path = "Assets/gltf/suelos/tile.glb"
+position = [58.13, -0.2, 35.5]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [10.0, 1.0, 55.0]
+#---------------------------3------------------------#
+
+
+#---------------------------4------------------------#
+[[models]]
+path = "Assets/gltf/suelos/tile.glb"
+position = [47.13, -0.2, 28.5]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [12.0, 1.0, 12.0]
+#---------------------------4------------------------#
+
+
+#---------------------------5------------------------#
+[[models]]
+path = "Assets/gltf/suelos/tile.glb"
+position = [37.13, -0.2, 25.5]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [8.0, 1.0, 6.0]
+#---------------------------5------------------------#
+
+#---------------------------6------------------------#
+[[models]]
+path = "Assets/gltf/suelos/tile.glb"
+position = [29.13, -0.2, 27.5]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [4.0, 1.0, 2.0]
+#---------------------------6------------------------#
+
+
+#---------------------------7------------------------#
+[[models]]
+path = "Assets/gltf/suelos/tile.glb"
+position = [23.13, -0.2, 24.5]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [8.0, 1.0, 8.0]
+#---------------------------7------------------------#
+
+
+#---------------------------8------------------------#
+[[models]]
+path = "Assets/gltf/suelos/tile.glb"
+position = [17.13, -0.2, 23.7]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [4.0, 1.0, 6.6]
+#---------------------------8------------------------#
+
+
+#---------------------------9------------------------#
+[[models]]
+path = "Assets/gltf/suelos/tile.glb"
+position = [48.5, -0.2, 41.5]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [15.0, 1.0, 10.0]
+#---------------------------9------------------------#
+
+
+#---------------------------10------------------------#
+[[models]]
+path = "Assets/gltf/suelos/tile.glb"
+position = [32.13, -0.2, 35.5]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [14.0, 1.0, 10.0]
+#---------------------------10------------------------#
+
+
+#---------------------------11------------------------#
+[[models]]
+path = "Assets/gltf/suelos/tile.glb"
+position = [21.13, -0.2, 31.5]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [4.0, 1.0, 6.0]
+#---------------------------11------------------------#
+
+
+#---------------------------12------------------------#
+[[models]]
+path = "Assets/gltf/suelos/tile.glb"
+position = [13.0, -0.2, 37.8]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [8.3, 1.0, 18.0]
+#---------------------------12------------------------#
+
+
+#---------------------------13------------------------#
+[[models]]
+path = "Assets/gltf/suelos/tile.glb"
+position = [37.0, -0.2, 44.5]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [8.0, 1.0, 4.0]
+#---------------------------13------------------------#
+
+
+#---------------------------14------------------------#
+[[models]]
+path = "Assets/gltf/suelos/tile.glb"
+position = [27.13, -0.2, 44.5]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [8.0, 1.0, 4.0]
+#---------------------------14------------------------#
+
+
+#---------------------------15------------------------#
+[[models]]
+path = "Assets/gltf/suelos/tile.glb"
+position = [20.13, -0.2, 41.5]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [6.0, 1.0, 10.0]
+#---------------------------15------------------------#
+
+
+#---------------------------16------------------------#
+[[models]]
+path = "Assets/gltf/suelos/tile.glb"
+position = [33.13, -0.2, 56.0]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [36.0, 1.0, 15.0]
+#---------------------------16------------------------#
+
+#---------------------------17------------------------#
+[[models]]
+path = "Assets/gltf/suelos/tile.glb"
+position = [11.0, -0.2, 52.0]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [5.0, 1.0, 16.0]
+#---------------------------17------------------------#
+
+
+
+[[models]]
+path = "Assets/gltf/suelos/tile.glb"
+position = [41.2, -0.2, 11.0]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [16.2, 1.0, 19.3]
