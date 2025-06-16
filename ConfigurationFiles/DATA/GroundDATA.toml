@@ -41,6 +41,103 @@ center=[-18.0, -0.5, 5.0]
 size=[20.0,1.0,20.0]
 angle=0.0
 
+[[hitboxes]]
+id=""
+type="box"
+center=[22.0, -0.5, 5.0]
+size=[20.0,1.0,20.0]
+angle=0.0
+
+[[hitboxes]]
+id=""
+type="box"
+center=[42.0, -0.5, 5.0]
+size=[20.0,1.0,20.0]
+angle=0.0
+
+[[hitboxes]]
+id=""
+type="box"
+center=[62.0, -0.5, 5.0]
+size=[20.0,1.0,20.0]
+angle=0.0
+
+[[hitboxes]]
+id=""
+type="box"
+center=[62.0, -0.5, 25.0]
+size=[20.0,1.0,20.0]
+angle=0.0
+
+[[hitboxes]]
+id=""
+type="box"
+center=[62.0, -0.5, 45.0]
+size=[20.0,1.0,20.0]
+angle=0.0
+
+[[hitboxes]]
+id=""
+type="box"
+center=[42.0, -0.5, 45.0]
+size=[20.0,1.0,20.0]
+angle=0.0
+
+[[hitboxes]]
+id=""
+type="box"
+center=[42.0, -0.5, 25.0]
+size=[20.0,1.0,20.0]
+angle=0.0
+
+[[hitboxes]]
+id=""
+type="box"
+center=[42.0, -0.5, 65.0]
+size=[20.0,1.0,20.0]
+angle=0.0
+
+[[hitboxes]]
+id=""
+type="box"
+center=[62.0, -0.5, 65.0]
+size=[20.0,1.0,20.0]
+angle=0.0
+
+[[hitboxes]]
+id=""
+type="box"
+center=[2.0, -0.5, 65.0]
+size=[20.0,1.0,20.0]
+angle=0.0
+
+[[hitboxes]]
+id=""
+type="box"
+center=[22.0, -0.5, 65.0]
+size=[20.0,1.0,20.0]
+angle=0.0
+
+[[hitboxes]]
+id=""
+type="box"
+center=[22.0, -0.5, 25.0]
+size=[20.0,1.0,20.0]
+angle=0.0
+
+[[hitboxes]]
+id=""
+type="box"
+center=[22.0, -0.5, 45.0]
+size=[20.0,1.0,20.0]
+angle=0.0
+
+[[hitboxes]]
+id=""
+type="box"
+center=[42.0, -0.5, 65.0]
+size=[20.0,1.0,20.0]
+angle=0.0
 ##Bridge's hitbox to make the up and down movement
 [[hitboxes]]
 id = ""
