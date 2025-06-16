@@ -1554,3 +1554,183 @@ position = [14.13, 0.0, 16.5]
 axis = [0.0, 1.0, 0.0]
 angle = -260.0
 scale = [2.0, 1.5, 2.0]
+
+
+#********decoration
+
+[[models]]
+path = "Assets/gltf/arboles/Tree_1_B_Color1.gltf"
+position = [7.13, 0.0, 9.5]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [0.25, 0.4, 0.25]
+
+
+[[models]]
+path = "Assets/gltf/arboles/Tree_1_C_Color1.gltf"
+position = [8.97, 0.0, 5.66]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [0.25, 0.4, 0.25]
+
+[[models]]
+path = "Assets/gltf/arboles/Tree_2_A_Color1.gltf"
+position = [1.97, 0.0, 11.66]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [0.25, 0.4, 0.25]
+
+[[models]]
+path = "Assets/gltf/arboles/Bush_3_C_Color1.gltf"
+position = [4.97, 0.0, 19.66]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [0.25, 0.4, 0.25]
+
+[[models]]
+path = "Assets/gltf/arboles/Bush_2_C_Color1.gltf"
+position = [2.97, 0.0, 21.66]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [0.25, 0.4, 0.25]
+
+[[models]]
+path = "Assets/gltf/arboles/Tree_3_C_Color1.gltf"
+position = [-3.97, 0.0, 11.66]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [0.25, 0.4, 0.25]
+
+
+[[models]]
+path = "Assets/gltf/arboles/Tree_2_C_Color1.gltf"
+position = [-6.97, 0.0, 9.66]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [0.25, 0.4, 0.25]
+
+[[models]]
+path = "Assets/gltf/arboles/Tree_4_A_Color1.gltf"
+position = [-8.97, 0.0, 16.66]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [0.25, 0.4, 0.25]
+
+[[models]]
+path = "Assets/gltf/arboles/Tree_4_B_Color1.gltf"
+position = [-7.97, 0.0, 15.66]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [0.25, 0.4, 0.25]
+
+[[models]]
+path = "Assets/gltf/arboles/Tree_4_C_Color1.gltf"
+position = [18.97, 0.0, 5.66]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [0.25, 0.4, 0.25]
+
+[[models]]
+path = "Assets/gltf/arboles/Tree_2_E_Color1.gltf"
+position = [22.97, 0.0, 5.66]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [0.25, 0.4, 0.25]
+
+[[models]]
+path = "Assets/gltf/arboles/Tree_2_D_Color1.gltf"
+position = [26.97, 0.0, 5.66]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [0.25, 0.4, 0.25]
+
+[[models]]
+path = "Assets/gltf/arboles/Tree_1_C_Color1.gltf"
+position = [19.97, 0.0, 23.66]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [0.25, 0.4, 0.25]
+
+[[models]]
+path = "Assets/gltf/arboles/Tree_2_C_Color1.gltf"
+position = [21.97, 0.0, 29.66]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [0.25, 0.4, 0.25]
+
+[[models]]
+path = "Assets/gltf/arboles/Tree_4_C_Color1.gltf"
+position = [26.97, 0.0, 31.66]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [0.25, 0.4, 0.25]
+
+[[models]]
+path = "Assets/gltf/arboles/Tree_4_C_Color1.gltf"
+position = [26.97, 0.0, 39.66]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [0.25, 0.4, 0.25]
+
+[[models]]
+path = "Assets/gltf/arboles/Tree_4_C_Color1.gltf"
+position = [36.97, 0.0, 39.66]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [0.25, 0.4, 0.25]
+
+[[models]]
+path = "Assets/gltf/arboles/Tree_4_C_Color1.gltf"
+position = [36.97, 0.0, 31.66]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [0.25, 0.4, 0.25]
+
+[[models]]
+path = "Assets/gltf/arboles/Bush_4_F_Color1.gltf"
+position = [45.97, 0.0, 40.66]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [0.25, 0.4, 0.25]
+
+[[models]]
+path = "Assets/gltf/arboles/Bush_4_A_Color1.gltf"
+position = [43.97, 0.0, 43.66]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [0.25, 0.4, 0.25]
+
+[[models]]
+path = "Assets/gltf/arboles/Bush_4_B_Color1.gltf"
+position = [40.97, 0.0, 40.66]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [0.25, 0.4, 0.25]
+
+[[models]]
+path = "Assets/gltf/arboles/Rock_1_A_Color1.gltf"
+position = [14.97, 0.0, 32.66]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [0.50, 0.90, 0.50]
+
+[[models]]
+path = "Assets/gltf/arboles/Rock_2_C_Color1.gltf"
+position = [17.97, 0.0, 36.66]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [0.25, 0.4, 0.25]
+
+[[models]]
+path = "Assets/gltf/arboles/Tree_Bare_1_A_Color1.gltf"
+position = [12.97, 0.0, 34.66]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [0.55, 1.0, 0.55]
+
+[[models]]
+path = "Assets/gltf/arboles/Tree_Bare_2_B_Color1.gltf"
+position = [18.97, 0.0, 43.66]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [0.25, 0.4, 0.25]
