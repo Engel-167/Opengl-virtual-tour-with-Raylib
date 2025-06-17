@@ -138,6 +138,55 @@ type="box"
 center=[42.0, -0.5, 65.0]
 size=[20.0,1.0,20.0]
 angle=0.0
+
+#----------------Escaleras de la segunda zona-----------------#
+#Lumbermill
+[[hitboxes]]
+id=""
+type="box"
+center=[26.0, 0.1, 14.9]
+size=[1.0,0.2,0.5]
+angle=260.0
+
+[[hitboxes]]
+id=""
+type="box"
+center=[26.5, 0.2, 15.0]
+size=[1.0,0.4,0.5]
+angle=260.0
+
+#Stage
+#Necesita escaleras
+[[hitboxes]]
+id=""
+type="box"
+center=[20.6, 0.2, 16.0]
+size=[2.0,0.4,1.0]
+angle=-90.0
+
+[[hitboxes]]
+id=""
+type="box"
+center=[19.5, 0.2, 17.3]
+size=[1.8,0.4,1.8]
+angle=-90.0
+
+#Stage
+#Escaleras
+[[hitboxes]]
+id=""
+type="box"
+center=[44.3, 0.1, 7.85]
+size=[1.0,0.2,1.0]
+angle=-90.0
+
+[[hitboxes]]
+id=""
+type="box"
+center=[44.6, 0.2, 7.85]
+size=[1.0,0.4,1.0]
+angle=-90.0
+
 ##Bridge's hitbox to make the up and down movement
 [[hitboxes]]
 id = ""
