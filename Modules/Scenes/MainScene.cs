@@ -23,10 +23,10 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
     private bool _hitboxEnabled;
     
     private static readonly Vector3 HitboxSize = new(CharacterCamera3D.HitBoxSize, CharacterCamera3D.HitBoxSize, CharacterCamera3D.HitBoxSize);
-
+    
     private SkyBox? _skyBox;
 
-    private readonly Watter _watter = new(new Vector3(1, -0.5f, 3.5f),19f,13f);
+    private Watter _watter = null!;
     public override void InitScene()
     {
         _camMode = CameraMode.Custom;
@@ -55,13 +55,15 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
         
         _skyBox = new SkyBox();
         
+        _watter = new Watter(new Vector3(1, -0.5f, 3.5f),19f,3f);
+        
         Initialized = true;
     }
 
     public override void UpdateScene()
     {
             // Start capturing the mouse
-            if (IsMouseButtonDown(MouseButton.Left) && !Variables.IsSettingsMenuEnabled)
+            if (IsMouseButtonDown(MouseButton.Left) && !Variables.IsSettingsMenuEnabled && !Variables.IsDialogBoxEnabled)
             {
                 _camMode = CameraMode.Free;
                 DisableCursor();
@@ -78,8 +80,19 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
                     EnableCursor();    
                 }
             }
+            
+            if (IsKeyPressed(KeyboardKey.T) && !Variables.IsSettingsMenuEnabled)
+            {
+                Variables.IsDialogBoxEnabled = !Variables.IsDialogBoxEnabled;
+                    
+                if (Variables.IsDialogBoxEnabled)
+                {
+                    _cameraControlEnabled = false;
+                    EnableCursor();    
+                }
+            }
                 
-            if (!_cameraControlEnabled && IsMouseButtonPressed(MouseButton.Left) && !Variables.IsSettingsMenuEnabled)
+            if (!_cameraControlEnabled && IsMouseButtonPressed(MouseButton.Left) && !Variables.IsSettingsMenuEnabled && !Variables.IsDialogBoxEnabled)
             {
                 _cameraControlEnabled = true;
                 DisableCursor();
@@ -108,6 +121,7 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
             {
                 _hitboxEnabled = !_hitboxEnabled;
             }
+        
             
             //Rlgl.DisableBackfaceCulling();
             //Rlgl.SetCullFace(0);
@@ -147,14 +161,30 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
                 DrawText($@"Current Mode < {CharacterCamera3D.Mode} >", 200, 10, 20, Color.Black);
                 DrawText($"Enable shadows: {ShadowMap.Enabled} (Press M to toggle)", 200, 50, 20, Color.Red);
                 
-                if (Variables.IsSettingsMenuEnabled)
+                
+                
+                if (Variables.IsSettingsMenuEnabled && !Variables.IsDialogBoxEnabled)
                 {
                     Variables.SettingsMenu?.Draw();
+                }
+                else
+                {
+                    Variables.IsSettingsMenuEnabled = false;
+                }
+
+                if (Variables.IsDialogBoxEnabled && !Variables.IsSettingsMenuEnabled)
+                {
+                    Variables.DialogBox?.Draw();
+                }
+                else
+                {
+                    Variables.IsDialogBoxEnabled = false;
                 }
 
                 if (IsWindowResized())
                 {
                     Variables.SettingsMenu?.UpdateLayout();
+                    Variables.DialogBox?.UpdateLayout();
                 }
                 
             EndDrawing();

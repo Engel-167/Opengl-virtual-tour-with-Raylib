@@ -37,6 +37,7 @@ public class SceneManager
         //Ui initialization
         Variables.SettingsMenu = new SettingsUi();
         Variables.HomeUi = new HomeUi();
+        Variables.DialogBox = new DialogBox();
 
         CheckAppFirstTimeSetUp();
         

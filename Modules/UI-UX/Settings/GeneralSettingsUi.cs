@@ -46,11 +46,13 @@ public class GeneralSettingsUi
             if (Variables.AppSettings.Language == "EN")
             {
                 Variables.Language = SettingsLoader.LoadLanguage(Variables.EnglishLangFilePath);
+                Variables.Dialogs = SettingsLoader.LoadDialog(Variables.EnglishDialogFilePath);
             }
             
             if(Variables.AppSettings.Language == "ES")
             {
                 Variables.Language = SettingsLoader.LoadLanguage(Variables.SpanishLangFilePath);
+                Variables.Dialogs = SettingsLoader.LoadDialog(Variables.SpanishDialogFilePath);
             }
 
             Variables.UpdateText = true;
