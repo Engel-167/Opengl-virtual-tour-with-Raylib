@@ -15,8 +15,10 @@ public static class Variables
     
     //Ui Variables
     public static bool IsSettingsMenuEnabled = false;
+    public static bool IsDialogBoxEnabled = false;
     public static HomeUi? HomeUi;
     public static SettingsUi? SettingsMenu;
+    public static DialogBox? DialogBox;
     
     //Settings Variables
     public static readonly string SettingsFilePath = "ConfigurationFiles/Settings.toml";
@@ -26,6 +28,10 @@ public static class Variables
     public static readonly string EnglishLangFilePath = "ConfigurationFiles/Language/EN.toml";
     public static readonly string SpanishLangFilePath = "ConfigurationFiles/Language/ES.toml";
     public static Language Language = SettingsLoader.LoadLanguage(AppSettings.Language == "EN"?EnglishLangFilePath:SpanishLangFilePath);
+    //Dialogs Variables
+    public static readonly string EnglishDialogFilePath = "ConfigurationFiles/Dialogs/EN-Dialogs.toml";
+    public static readonly string SpanishDialogFilePath = "ConfigurationFiles/Dialogs/ES-Dialogs.toml";
+    public static Dialogs.Dialogs Dialogs = SettingsLoader.LoadDialog(AppSettings.Language == "EN"?EnglishDialogFilePath:SpanishDialogFilePath);
     
     //Tracking First initialization
     public static bool FirstTime = false;

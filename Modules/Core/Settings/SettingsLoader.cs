@@ -43,6 +43,26 @@ public static class SettingsLoader
             return new Language();
         }
     }
+    
+    public static Dialogs.Dialogs LoadDialog(string filePath)
+    {
+        if (!File.Exists(filePath))
+        {
+            Console.WriteLine($"Warning: Settings file not found at {filePath}. Using default settings.");
+            return new Dialogs.Dialogs();
+        }
+
+        try
+        {
+            var toml = File.ReadAllText(filePath);
+            return Toml.ToModel<Dialogs.Dialogs>(toml);
+        }
+        catch (TomlException ex)
+        {
+            Console.WriteLine($"Error parsing {filePath}: {ex.Message}");
+            return new Dialogs.Dialogs();
+        }
+    }
 
     public static void SaveSettings(string filePath, AppSettings settings)
     {
