@@ -666,6 +666,107 @@ type="box"
 center=[58.7,1.0,32.4]
 size=[1.5,2.0,1.0]
 angle=45.0
+
+[[hitboxes]]
+id=""
+type="box"
+center=[61.0, 1.0, 45.3]
+size=[7.8,2.0,1.0]
+angle=102.0
+
+[[hitboxes]]
+id=""
+type="box"
+center=[61.7, 1.0, 50.9]
+size=[3.9,2.0,1.0]
+angle=90.0
+
+[[hitboxes]]
+id=""
+type="box"
+center=[51.78, 1.0, 55.10]
+size=[19.8,2.0,1.0]
+angle=10.0
+
+[[hitboxes]]
+id=""
+type="box"
+center=[30.93, 1.0, 58.80]
+size=[20.0,2.0,1.0]
+angle=10.0
+
+[[hitboxes]]
+id=""
+type="box"
+center=[8.47, 1.0, 45.12]
+size=[9.0,2.0,1.0]
+angle=90.0
+
+[[hitboxes]]
+id=""
+type="box"
+center=[8.97, 1.0, 51.04]
+size=[6.5,2.0,1.0]
+angle=105.0
+
+[[hitboxes]]
+id=""
+type="box"
+center=[10.24, 1.0, 55.37]
+size=[2.5,2.0,1.0]
+angle=110.0
+
+[[hitboxes]]
+id=""
+type="box"
+center=[11.10, 1.0, 57.20]
+size=[1.5,2.0,1.0]
+angle=125.0
+
+[[hitboxes]]
+id=""
+type="box"
+center=[12.0, 1.0, 58.10]
+size=[3.5,2.0,1.0]
+angle=140.0
+
+[[hitboxes]]
+id=""
+type="box"
+center=[14.27, 1.0, 59.79]
+size=[2.0,2.0,1.0]
+angle=150.0
+
+[[hitboxes]]
+id=""
+type="box"
+center=[16.14, 1.0, 60.58]
+size=[2.0,2.0,1.0]
+angle=165.0
+
+[[hitboxes]]
+id=""
+type="box"
+center=[19.35, 1.0, 60.69]
+size=[4.0,2.0,1.0]
+angle=185.0
+
+#no se donde iba esta parte asi que la dejo aca, muro entre zona 1 y 2
+
+[[hitboxes]]
+id=""
+type="box"
+center=[8.50, 1.0, 25.27]
+size=[4.5,2.0,1.0]
+angle=90.0
+
+
+[[hitboxes]]
+id=""
+type="box"
+center=[8.71, 1.0, 21.35]
+size=[3.5,2.0,1.0]
+angle=80.0
 ##Water's hitbox
 [[hitboxes]]
 id=""
