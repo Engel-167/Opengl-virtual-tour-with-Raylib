@@ -27,7 +27,7 @@ public class Water
         _timeAccumulator = 0f;
 
         // Create a plane mesh with 100×100 subdivisions
-        Mesh waterMesh = Raylib.GenMeshPlane(width, length, 100, 100);
+        Mesh waterMesh = Raylib.GenMeshPlane(width, length, 100, 50);
         _waterModel = Raylib.LoadModelFromMesh(waterMesh);
 
         // Attach your water shader to the model's material

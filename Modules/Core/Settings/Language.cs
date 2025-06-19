@@ -26,4 +26,6 @@ public sealed class Language
     public string LeftString { get; set; } = null!;
     public string RightString { get; set; } = null!;
     
+    public string InteractString { get; set; } = null!;
+    
 }

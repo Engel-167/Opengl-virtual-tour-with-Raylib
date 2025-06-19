@@ -31,11 +31,15 @@ public static class Variables
     //Dialogs Variables
     public static readonly string EnglishDialogFilePath = "ConfigurationFiles/Dialogs/EN-Dialogs.toml";
     public static readonly string SpanishDialogFilePath = "ConfigurationFiles/Dialogs/ES-Dialogs.toml";
-    public static Dialogs.Dialogs Dialogs = SettingsLoader.LoadDialog(AppSettings.Language == "EN"?EnglishDialogFilePath:SpanishDialogFilePath);
+    public static Dialogs.Dialogs DialogsStorage = SettingsLoader.LoadDialog(AppSettings.Language == "EN"?EnglishDialogFilePath:SpanishDialogFilePath);
     
     //Tracking First initialization
     public static bool FirstTime = false;
     
     //Tracking if the text of the UI should be updated
     public static bool UpdateText = false;
+    
+    //Interaction Variables
+    public static bool CanInteract = false;
+    public static string InteractableObjectId = string.Empty;
 }

@@ -14,6 +14,9 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Camera
 
     public static class CharacterCamera3D
     {
+        private static readonly List<string> InteractableIDs = ["Barracks", "Castle", "Crane", "Mine", "Market"];
+        
+
         private const float GroundY = 0.35f;
         private const float Speed = 0.03f;
         private const float MouseSensitivity = 0.1f;
@@ -94,6 +97,14 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Camera
                     {
                         correction += normal;
                         count++;
+                    }
+
+                    if (InteractableIDs.Contains(hitbox.Id) && hitbox.Box.ContainsPoint(Camera.Target))
+                    {
+                        Variables.InteractableObjectId = hitbox.Id;
+                        Console.WriteLine("Interactable");
+                        
+                            Variables.CanInteract = true;
                     }
                 }
 

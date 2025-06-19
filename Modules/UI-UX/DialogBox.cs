@@ -58,7 +58,7 @@ public class DialogBox
         
         DrawTextBoxed(
             _backgroundPanel.Font,
-            Variables.Dialogs.Dialog1,
+            Variables.DialogsStorage.GetDialog(Variables.InteractableObjectId),
             textRect,
             _backgroundPanel.FontSize,
             _backgroundPanel.FontSpacing,
@@ -112,7 +112,7 @@ public class DialogBox
         Color selectBackTint
     )
     {
-        int length = text.Length;
+        int length = text.Length + 1;
 
         // Offset between lines (on line break '\n')
         float textOffsetY = 0;

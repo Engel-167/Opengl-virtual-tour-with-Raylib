@@ -1,6 +1,7 @@
 using System.Numerics;
 using Opengl_virtual_tour_with_Raylib.Modules._3D_World;
 using Opengl_virtual_tour_with_Raylib.Modules.Camera;
+using Opengl_virtual_tour_with_Raylib.Modules.Core.Globals;
 using Raylib_cs;
 using static Raylib_cs.Raylib;
 
@@ -20,8 +21,6 @@ public static unsafe class ShadowMap
     private static Vector3 _lightDir;
     public static Camera3D LightCam; 
     private static RenderTexture2D _shadowMap;
-
-    public static bool Enabled = true;
     
     public static Vector3 GetLightDirection()
     {
@@ -36,7 +35,7 @@ public static unsafe class ShadowMap
         if (!IsShaderValid(_shadowShader))
         {
             TraceLog(TraceLogLevel.Error, "SHADER: Failed to load shadow shader!");
-            Enabled = false;
+            Variables.AppSettings.ShadowsEnabled = false;
             return;
         }
 
@@ -94,9 +93,8 @@ public static unsafe class ShadowMap
 
     public static void Update(List<World3DObjects>? worldObjects)
     {
-        if (!Enabled || !IsShaderValid(_shadowShader))
+        if (!Variables.AppSettings.ShadowsEnabled || !IsShaderValid(_shadowShader))
         {
-        
             UnloadShadowmapRenderTexture();
             return;
         }
@@ -152,11 +150,11 @@ public static unsafe class ShadowMap
         catch (Exception ex)
         {
             TraceLog(TraceLogLevel.Error, $"SHADOWMAP ERROR: {ex.Message}");
-            Enabled = false;
+            Variables.AppSettings.ShadowsEnabled = false;
         }
     }
 
-    public static void BindShader(List<Model> models)
+    private static void BindShader(List<Model> models)
     {
         foreach (var model in models)
         {
@@ -164,6 +162,24 @@ public static unsafe class ShadowMap
             {
                 model.Materials[i].Shader = _shadowShader;
                 //SetMaterialTexture(ref model.Materials[i], MaterialMapIndex.Albedo, Texture);
+            }
+        }
+    }
+    
+    // In ShadowMap.cs
+
+    public static void UnbindShader(List<World3DObjects> worldObjects)
+    {
+        Shader defaultShader = new Shader(); // ID will be 0, Raylib uses default shader
+
+        foreach (var obj in worldObjects)
+        {
+            foreach (var model in obj.Models)
+            {
+                for (int i = 0; i < model.MaterialCount; i++)
+                {
+                    model.Materials[i].Shader = defaultShader;
+                }
             }
         }
     }

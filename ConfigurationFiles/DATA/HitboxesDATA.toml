@@ -123,7 +123,7 @@ angle = 115.0
 #-----------Buiding 3------------#
 #Little Castle
 [[hitboxes]]
-id=""
+id="Barracks"
 type="box"
 center=[3.0, 1.0, 7.0]
 size=[3.1,2.0,3.1]
@@ -174,7 +174,7 @@ angle=0.0
 
 #Market
 [[hitboxes]]
-id=""
+id="Market"
 type="box"
 center=[-3, 1.0, 34.0]
 size=[3.7,2.0,2.7]
@@ -413,7 +413,7 @@ angle=10.0
 
 #GreatCastle
 [[hitboxes]]
-id=""
+id="Castle"
 type="box"
 center=[31.13, 1.0, 35.5]
 size=[9.0,2.0,9.0]
@@ -430,7 +430,7 @@ angle=-90.0
 #Lumbermill
 #Necesitaescaleras
 [[hitboxes]]
-id=""
+id="Crane"
 type="box"
 center=[27.7, 1.0, 15.5]
 size=[3.0,2.0,2.0]
@@ -477,7 +477,7 @@ angle=-90.0
 
 #Mine
 [[hitboxes]]
-id=""
+id="Mine"
 type="box"
 center=[37.13, 1.0, 7.5]
 size=[5.4,2.0,5.0]

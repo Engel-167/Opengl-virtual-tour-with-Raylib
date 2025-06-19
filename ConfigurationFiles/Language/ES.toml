@@ -21,3 +21,6 @@ forward_string = "Adelante"
 backward_string = "Atrás"
 left_string = "Izquierda"
 right_string = "Derecha"
+
+#interaction
+interact_string = "Interactuar con:"

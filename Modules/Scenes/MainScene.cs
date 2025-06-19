@@ -5,6 +5,7 @@ using Opengl_virtual_tour_with_Raylib.Modules._3D_World.SkyBox;
 using Opengl_virtual_tour_with_Raylib.Modules.Camera;
 using Opengl_virtual_tour_with_Raylib.Modules.Core.Globals;
 using Opengl_virtual_tour_with_Raylib.Modules.Lighting;
+using Opengl_virtual_tour_with_Raylib.Modules.UI_UX.Elements;
 using Raylib_cs;
 using static Raylib_cs.Raylib;
 
@@ -27,6 +28,8 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
     private SkyBox? _skyBox;
 
     private Water _water = null!;
+    
+    private Panel _notifierPanel = null!;
     public override void InitScene()
     {
         _camMode = CameraMode.Custom;
@@ -47,15 +50,32 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
 
         Render3DModels(WorldObjects);
 
-        Console.WriteLine($"ShadowMap enabled 1 : {ShadowMap.Enabled}");
-        ShadowMap.Init(WorldObjects);
-        Console.WriteLine($"ShadowMap enabled 1 : {ShadowMap.Enabled}");
+        Console.WriteLine($"ShadowMap enabled 1 : {Variables.AppSettings.ShadowsEnabled}");
+        if (Variables.AppSettings.ShadowsEnabled)
+        {
+            ShadowMap.Init(WorldObjects);
+        }
+        Console.WriteLine($"ShadowMap enabled 1 : {Variables.AppSettings.ShadowsEnabled}");
         
         _hitboxEnabled = true;
         
         _skyBox = new SkyBox();
         
         _water = new Water(new Vector3(10.5f, -0.5f, 2.0f),38f,7f);
+        
+        _notifierPanel = _notifierPanel = new Panel
+        (
+            Textures.Flag, new Vector2(GetScreenWidth() / 2f - 200, 5),
+            400, 100,
+            [55, 55, 55, 55]
+        )
+        {
+            Text = Variables.Language.InteractString + " F",
+            TextColor = Color.White,
+            Font = Fonts.UbuntuM,
+            FontSize = 32f,
+            FontSpacing = 2f
+        };
         
         Initialized = true;
     }
@@ -95,16 +115,19 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
                 }
             }
             
-            if (IsKeyPressed(KeyboardKey.T) && !Variables.IsSettingsMenuEnabled)
+            if (IsKeyPressed(KeyboardKey.F) && Variables.CanInteract)
             {
-                Variables.IsDialogBoxEnabled = !Variables.IsDialogBoxEnabled;
-                    
-                if (Variables.IsDialogBoxEnabled)
-                {
-                    _cameraControlEnabled = false;
-                    EnableCursor();    
-                }
+                Variables.IsDialogBoxEnabled = true;
+                _cameraControlEnabled = false;
+                EnableCursor();    
             }
+            
+            /*if (IsKeyPressed(KeyboardKey.F) && !Variables.CanInteract)
+            {
+                Variables.IsDialogBoxEnabled = false;
+            }*/
+            
+            
                 
             if (!_cameraControlEnabled && IsMouseButtonPressed(MouseButton.Left) && !Variables.IsSettingsMenuEnabled && !Variables.IsDialogBoxEnabled)
             {
@@ -119,16 +142,33 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
                     CharacterCamera3D.UpdateMyCamera(_hitboxLoader, _groundLoader,_doorLoader,_camMode);
             }
 
-            // if key M is pressed then stop updating the shadow map and if is pressed again then enable the shadow map update
+            // Toggle Shadows
             if (IsKeyPressed(KeyboardKey.M))
             {
-                ShadowMap.Enabled = !ShadowMap.Enabled;
-
-                if (ShadowMap.Enabled)
+                Variables.AppSettings.ShadowsEnabled = !Variables.AppSettings.ShadowsEnabled;
+            
+                if (Variables.AppSettings.ShadowsEnabled)
                 {
                     if (WorldObjects != null) ShadowMap.Init(WorldObjects);
                 }
-            }   
+                else
+                {
+                    ShadowMap.UnloadShadowmapRenderTexture();
+                }
+            }
+            
+            // ... (hitbox toggle logic)
+            
+            UpdateLightFollow();
+            
+            if (Variables.AppSettings.ShadowsEnabled)
+            {
+                ShadowMap.Update(WorldObjects);
+            }
+            
+            BeginDrawing();
+            
+            // ... (rest of the drawing code)   
             
             // Enable the hitboxes drawing
             if (IsKeyPressed(KeyboardKey.B))
@@ -139,7 +179,14 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
             UpdateLightFollow();
             //Rlgl.DisableBackfaceCulling();
             //Rlgl.SetCullFace(0);
-            ShadowMap.Update(WorldObjects);
+            if (Variables.AppSettings.ShadowsEnabled)
+            {
+                ShadowMap.Update(WorldObjects);   
+            }
+            else
+            {
+                ShadowMap.UnloadShadowmapRenderTexture();
+            }
             
             BeginDrawing();
         
@@ -173,7 +220,7 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
                 Hitbox Enabled = {((_hitboxEnabled)?"Yes":"No")} (Press B to toggle)",-100,10,20,Color.Black);
                 
                 DrawText($@"Current Mode < {CharacterCamera3D.Mode} >", 200, 10, 20, Color.Black);
-                DrawText($"Enable shadows: {ShadowMap.Enabled} (Press M to toggle)", 200, 50, 20, Color.Red);
+                DrawText($"Enable shadows: {Variables.AppSettings.ShadowsEnabled} (Press M to toggle)", 200, 50, 20, Color.Red);
                 
                 
                 
@@ -188,19 +235,23 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
 
                 if (Variables.IsDialogBoxEnabled && !Variables.IsSettingsMenuEnabled)
                 {
+                    Variables.CanInteract = true;
                     Variables.DialogBox?.Draw();
                 }
-                else
+
+                if (Variables.CanInteract && !Variables.IsSettingsMenuEnabled)
                 {
-                    Variables.IsDialogBoxEnabled = false;
+                    _notifierPanel.Text = Variables.Language.InteractString + " F";
+                    _notifierPanel.Draw();
                 }
+                Console.WriteLine($"CanInteract: {Variables.CanInteract}");
 
                 if (IsWindowResized())
                 {
                     Variables.SettingsMenu?.UpdateLayout();
                     Variables.DialogBox?.UpdateLayout();
+                    _notifierPanel.Position = new Vector2(GetScreenWidth() / 2f - 200, 5);
                 }
-                
             EndDrawing();
     }
 

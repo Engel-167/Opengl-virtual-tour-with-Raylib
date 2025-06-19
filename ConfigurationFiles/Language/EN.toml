@@ -21,3 +21,6 @@ forward_string = "Forward"
 backward_string = "Backward"
 left_string = "Left"
 right_string = "Right"
+
+#interaction
+interact_string = "Interact with:"

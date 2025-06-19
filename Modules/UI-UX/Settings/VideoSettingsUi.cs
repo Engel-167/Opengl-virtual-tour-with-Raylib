@@ -70,7 +70,7 @@ public class VideoSettingsUi
         };
         
         Button shadowsButton = new Button(
-            Textures.EnabledStateButton,
+            Variables.AppSettings.ShadowsEnabled?Textures.EnabledStateButton:Textures.DisabledStateButton,
             Textures.DefaultStateButton,
             new Vector2(20 + 200, 50), 200, 80,
             [15, 15, 15, 15])
@@ -85,9 +85,9 @@ public class VideoSettingsUi
         };
         shadowsButton.Event += (_, _) =>
         {
-            ShadowMap.Enabled = !ShadowMap.Enabled;
+            Variables.AppSettings.ShadowsEnabled = !Variables.AppSettings.ShadowsEnabled;
 
-            if (ShadowMap.Enabled)
+            if (Variables.AppSettings.ShadowsEnabled)
             {
                 shadowsButton.BackgroundTexture = Textures.EnabledStateButton;
                 if (MainScene.WorldObjects != null) ShadowMap.Init(MainScene.WorldObjects);
@@ -95,7 +95,10 @@ public class VideoSettingsUi
             else
             {
                 shadowsButton.BackgroundTexture = Textures.DisabledStateButton;
+                ShadowMap.UnloadShadowmapRenderTexture();
             }
+    
+            SettingsLoader.SaveSettings(Variables.SettingsFilePath, Variables.AppSettings);
         };
         
         _container = new Container(ContainerOrientation.Horizontal, 20, 10);

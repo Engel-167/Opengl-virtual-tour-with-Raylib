@@ -45,6 +45,8 @@ public class SceneManager
 
         CheckSavedFullScreenState();
         
+        Variables.AppSettings = SettingsLoader.LoadSettings(Variables.SettingsFilePath);
+        
         int framesCounter = 0;
         //--------------------------------------------------------------------------------------
         // Main game loop
@@ -61,6 +63,18 @@ public class SceneManager
                 if (framesCounter > 240)
                 {
                     Variables.UpdateText = false;
+                    framesCounter = 0;
+                }
+            }
+            
+            if (Variables.CanInteract && !Variables.IsSettingsMenuEnabled)
+            {
+                framesCounter++;
+
+                // 2 seconds span for drawing functions to update the Ui text
+                if (framesCounter > 120)
+                {
+                    Variables.CanInteract = false;
                     framesCounter = 0;
                 }
             }
