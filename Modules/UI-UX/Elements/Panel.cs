@@ -9,7 +9,7 @@ public class Panel(Texture2D backgroundTexture, Vector2 position, int width, int
     public Font Font;
     public float FontSize;
     public float FontSpacing;
-    
+    public Color TextColor = Color.Black;
     public override void Draw()
     {
         Position = new Vector2(Position.X, Position.Y); // This line is not needed, just for clarity
@@ -34,6 +34,6 @@ public class Panel(Texture2D backgroundTexture, Vector2 position, int width, int
         );
         
         Raylib.DrawTextureNPatch(BackgroundTexture, patchInfo, HitBox, Vector2.Zero, 0.0f, Color.White);
-        Raylib.DrawTextPro(Font, Text, textPosition, Vector2.Zero, 0.0f, FontSize, FontSpacing, Color.Black);
+        Raylib.DrawTextPro(Font, Text, textPosition, Vector2.Zero, 0.0f, FontSize, FontSpacing, TextColor);
     }
 }

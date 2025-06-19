@@ -18,10 +18,15 @@ public static unsafe class ShadowMap
     private static int _shadowMapLoc = -1;
     
     private static Vector3 _lightDir;
-    private static Camera3D _lightCam; 
+    public static Camera3D LightCam; 
     private static RenderTexture2D _shadowMap;
 
     public static bool Enabled = true;
+    
+    public static Vector3 GetLightDirection()
+    {
+        return _lightDir;
+    }
     
     public static void Init(List<World3DObjects> worldObjects)
     {
@@ -77,9 +82,9 @@ public static unsafe class ShadowMap
         
         _shadowMap = LoadShadowmapRenderTexture(shadowMapResolution, shadowMapResolution);
         
-        _lightCam = new Camera3D
+        LightCam = new Camera3D
         {
-            Position = Raymath.Vector3Scale(_lightDir, -30.0f),
+            Position = Raymath.Vector3Scale(_lightDir, -35.0f),
             Target = Vector3.Zero,//new Vector3(5.0f, 0.0f, 10.0f),
             Projection = CameraProjection.Orthographic,
             Up = new Vector3(0.0f, 1.0f, 0.0f),
@@ -104,7 +109,6 @@ public static unsafe class ShadowMap
                 SetShaderValue(_shadowShader, _viewPosLoc, cameraPos, ShaderUniformDataType.Vec3);
             
             _lightDir = Vector3.Normalize(_lightDir);
-            _lightCam.Position = Raymath.Vector3Scale(_lightDir, -15.0f);
             
             if (_lightDirLoc != -1)
                 SetShaderValue(_shadowShader, _lightDirLoc, _lightDir, ShaderUniformDataType.Vec3);
@@ -114,7 +118,7 @@ public static unsafe class ShadowMap
             BeginTextureMode(_shadowMap);
             //Rlgl.SetCullFace(0);
             ClearBackground(Color.White);
-            BeginMode3D(_lightCam);
+            BeginMode3D(LightCam);
 
                 Matrix4x4 lightView = Rlgl.GetMatrixModelview();
                 Matrix4x4 lightProj = Rlgl.GetMatrixProjection();
@@ -190,11 +194,11 @@ public static unsafe class ShadowMap
             Rlgl.FramebufferAttach(target.Id, target.Depth.Id, FramebufferAttachType.Depth, FramebufferAttachTextureType.Texture2D, 0);
 
             // Check if fbo is complete with attachments (valid)
-            if (Rlgl.FramebufferComplete(target.Id)) Raylib.TraceLog(TraceLogLevel.Info, $"FBO: {target.Id} Framebuffer object created successfully");
+            if (Rlgl.FramebufferComplete(target.Id)) TraceLog(TraceLogLevel.Info, $"FBO: {target.Id} Framebuffer object created successfully");
 
             Rlgl.DisableFramebuffer();
         }
-        else Raylib.TraceLog(TraceLogLevel.Warning, "FBO: Framebuffer object can not be created");
+        else TraceLog(TraceLogLevel.Warning, "FBO: Framebuffer object can not be created");
 
         return target;
     }
@@ -211,6 +215,6 @@ public static unsafe class ShadowMap
 
     public static Vector3 GetLightCamPosition()
     {
-        return _lightCam.Position;
+        return LightCam.Position;
     }
 }

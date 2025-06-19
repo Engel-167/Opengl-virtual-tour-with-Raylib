@@ -4,9 +4,9 @@
 #--------centro de la ciudad-------------#
 
 [[models]]
-path = "Assets/gltf/car_hatchback.gltf"
-position = [0.0, 0.12, 1.15]
-axis = [0.0,1.0,0.0]
-angle = -90.0
-scale = [1.0, 1.0, 1.0]
+path = "Assets/gltf/arboles/Tree_1_B_Color1.gltf"
+position = [7.13, 0.0, 9.5]
+axis = [0.0, 1.0, 0.0]
+angle = 0.0
+scale = [0.25, 0.4, 0.25]
 

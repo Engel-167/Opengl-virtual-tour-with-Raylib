@@ -25,4 +25,7 @@ public static class Textures
     public static Texture2D DefaultStateButton = Raylib.LoadTexture("Assets/UI-UX/kenney_ui-pack-adventure/PNG/Double/progress_white.png");
     public static Texture2D EnabledStateButton = Raylib.LoadTexture("Assets/UI-UX/kenney_ui-pack-adventure/PNG/Double/progress_green.png");
     public static Texture2D DisabledStateButton = Raylib.LoadTexture("Assets/UI-UX/kenney_ui-pack-adventure/PNG/Double/progress_blue.png");
+    
+    //Flag texture
+    public static Texture2D Flag = Raylib.LoadTexture("Assets/UI-UX/kenney_ui-pack-adventure/PNG/Double/banner_hanging.png");
 }

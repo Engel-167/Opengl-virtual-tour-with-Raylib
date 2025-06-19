@@ -1607,14 +1607,6 @@ scale = [2.0, 1.5, 2.0]
 #********decoration
 
 [[models]]
-path = "Assets/gltf/arboles/Tree_1_B_Color1.gltf"
-position = [7.13, 0.0, 9.5]
-axis = [0.0, 1.0, 0.0]
-angle = 0.0
-scale = [0.25, 0.4, 0.25]
-
-
-[[models]]
 path = "Assets/gltf/arboles/Tree_1_C_Color1.gltf"
 position = [8.97, 0.0, 5.66]
 axis = [0.0, 1.0, 0.0]

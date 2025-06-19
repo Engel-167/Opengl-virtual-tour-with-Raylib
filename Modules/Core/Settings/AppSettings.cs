@@ -14,8 +14,4 @@ public sealed class AppSettings
     /* Sound ---------------------------------------------------------- */
     public float MasterVolume   { get; set; } = 1.0f;
     public bool MusicEnabled { get; set; } = true;
-
-    /* Controls ------------------------------------------------------- */
-    public bool InvertXAxis { get; set; } = false;
-    public bool InvertYAxis { get; set; } = false;
 }

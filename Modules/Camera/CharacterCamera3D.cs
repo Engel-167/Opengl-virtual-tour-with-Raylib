@@ -2,7 +2,6 @@ using System.Numerics;
 using Opengl_virtual_tour_with_Raylib.Modules._3D_World.Hitboxes; 
 using Raylib_cs;
 using static Raylib_cs.Raylib;
-using System.Collections.Generic;
 using Opengl_virtual_tour_with_Raylib.Modules.Core.Globals;
 
 namespace Opengl_virtual_tour_with_Raylib.Modules.Camera
@@ -35,9 +34,9 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Camera
         
         static CharacterCamera3D()
         {
-            Camera = new Camera3D()
+            Camera = new Camera3D
             {
-                Position = new Vector3(5, GroundY, 7),
+                Position = new Vector3(0, GroundY, 1),
                 Target = new Vector3(0, 0, 0),
                 Up = Vector3.UnitY,
                 FovY = 45.0f,

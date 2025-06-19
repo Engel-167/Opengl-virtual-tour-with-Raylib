@@ -4,7 +4,7 @@ using Raylib_cs;
 
 namespace Opengl_virtual_tour_with_Raylib.Modules._3D_World;
 
-public class Watter
+public class Water
 {
     private readonly int _uTimeLoc;
     private readonly int _viewPosLoc;
@@ -15,7 +15,7 @@ public class Watter
     
     private readonly Vector3 _position;
 
-    public Watter(Vector3 position, float width, float length)
+    public Water(Vector3 position, float width, float length)
     {
         _position  = position;
         // Load water shader

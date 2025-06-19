@@ -26,7 +26,7 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
     
     private SkyBox? _skyBox;
 
-    private Watter _watter = null!;
+    private Water _water = null!;
     public override void InitScene()
     {
         _camMode = CameraMode.Custom;
@@ -55,10 +55,24 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
         
         _skyBox = new SkyBox();
         
-        _watter = new Watter(new Vector3(1, -0.5f, 3.5f),19f,3f);
+        _water = new Water(new Vector3(10.5f, -0.5f, 2.0f),38f,7f);
         
         Initialized = true;
     }
+    
+    private void UpdateLightFollow()
+    {
+        // Center the light camera on the player's XZ position to make shadows follow the player.
+        Vector3 playerPos = CharacterCamera3D.Camera.Position;
+        
+        // The light camera will target the player's position on the ground plane.
+        ShadowMap.LightCam.Target = playerPos with { Y = 0.0f };
+
+        // The light camera is positioned away from the target, along the light's direction.
+        // This ensures the shadow angle remains constant as the player moves.
+        const float lightDistance = 35.0f; // Controls how far the light source is.
+        ShadowMap.LightCam.Position = ShadowMap.LightCam.Target - (ShadowMap.GetLightDirection() * lightDistance);
+    } 
 
     public override void UpdateScene()
     {
@@ -121,8 +135,8 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
             {
                 _hitboxEnabled = !_hitboxEnabled;
             }
-        
             
+            UpdateLightFollow();
             //Rlgl.DisableBackfaceCulling();
             //Rlgl.SetCullFace(0);
             ShadowMap.Update(WorldObjects);
@@ -144,7 +158,7 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
                 
                 if (WorldObjects != null) Render3DModels(WorldObjects);
                 
-                _watter.Update();
+                _water.Update();
 
                 EndMode3D();
                 
@@ -193,7 +207,7 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
     public override void KillScene()
     {
         _skyBox?.Destroy();
-        _watter.Kill();
+        _water.Kill();
         ShadowMap.UnloadShadowmapRenderTexture();
         
         Initialized = false;
