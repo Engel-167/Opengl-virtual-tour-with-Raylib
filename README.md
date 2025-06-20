@@ -1,6 +1,8 @@
 
 # MediaValus 
 
+***
+
 ## Abstract
 
 This project is an interactive virtual tour application set in a medieval city, developed in C# using raylib_cs (the C# binding for Raylib). It allows users to explore a 3D environment, simulating a guided visit through a medieval city with immersive visuals and sound, designed for a realistic and engaging experience.
@@ -34,6 +36,8 @@ Go to the project directory
 ```
 
 ### Install dependencies
+First make sure you have the [.NET SDK 9.0 or later](https://dotnet.microsoft.com/en-us/download/dotnet/9.0) installed on your machine.
+
 
 Restore dependencies using NuGet. If you're using the .NET CLI, run:
 
@@ -106,7 +110,7 @@ Build and run the project:
 
 ## Demo
 
-
+### [Youtube-Showcase](https://youtu.be/d8PGC7U6DOQ)
 
 ## License
 
