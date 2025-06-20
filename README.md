@@ -1,13 +1,19 @@
 
-# MediaValus (Opengl-virtual-tour-with-Raylib)
+# MediaValus 
 
 ## Abstract
 
-This project is an interactive virtual tour application developed using C# and Raylib_cs (the C# binding for Raylib). It allows users to explore a 3D environment, providing an immersive, visual, and educational experience. The main goal is to demonstrate 3D rendering techniques and the integration of raylib_cs as a graphics engine for building virtual environments.
+This project is an interactive virtual tour application set in a medieval city, developed in C# using raylib_cs (the C# binding for Raylib). It allows users to explore a 3D environment, simulating a guided visit through a medieval city with immersive visuals and sound, designed for a realistic and engaging experience.
 
 This is an OpenSource project of a **Virtual Tour** using an OpenGL multiplatform game library called [Raylib](https://www.raylib.com/) using the [C#](https://github.com/dotnet/csharplang) programming language and one of its Raylib wrappers [raylib-cs](https://github.com/raylib-cs/raylib-cs)
-![raylib 5.5 architecture (Obtained from the official website)](https://www.raylib.com/images/raylib_architecture_v5.5.png)
 
+
+
+## Key Features
+
+- Interactive tour of a medieval-themed 3D city
+- Intuitive navigation controls
+- Open-source and easily extensible
 
 
 ## Keywords
@@ -39,8 +45,10 @@ Alternatively, to add the Raylib-cs package manually, run:
 
 ```bash
    dotnet add package Raylib-cs
+   dotnet add package Tomlyn
 ```
 
+Tomlyn is used for TOML parsing within the project. 
 If you use Visual Studio, simply open the solution and it will prompt you to restore NuGet packages automatically.
 
 Build and run the project:
@@ -59,8 +67,9 @@ Build and run the project:
 - **Libraries:** raylib_cs (C# binding for Raylib), OpenGL
 - **OS:** Windows/Linux
 - **Dependencies:**
-    - [raylib_cs](https://github.com/ChrisDill/Raylib-cs)  
-    - .NET SDK (Core or later)
+    - [raylib_cs](https://github.com/ChrisDill/Raylib-cs)
+    - [Tomlyn](https://github.com/xoofx/Tomlyn)
+    - [.NET SDK 9.0 or later](https://dotnet.microsoft.com/en-us/download/dotnet/9.0)
     - OpenGL 
 - **Recommended IDE:** JetBrains Rider
 ## Authors
