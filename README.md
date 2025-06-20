@@ -76,6 +76,14 @@ Build and run the project:
     - [.NET SDK 9.0 or later](https://dotnet.microsoft.com/en-us/download/dotnet/9.0)
     - OpenGL 
 - **Recommended IDE:** JetBrains Rider
+
+## Testing enviroment
+
+- Intel i5 4th generation
+- 8 GB Ram
+- Intel UHD graphics
+- Storage type: HDD
+
 ## Authors
 
 <table>
