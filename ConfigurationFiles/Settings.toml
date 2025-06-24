@@ -5,5 +5,4 @@ fullscreen = true
 shadows_enabled = true
 master_volume = 0.5
 music_enabled = true
-invert_xaxis = false
-invert_yaxis = false
+

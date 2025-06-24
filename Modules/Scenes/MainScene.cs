@@ -23,7 +23,7 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
     public static List<World3DObjects>? WorldObjects;
     private bool _hitboxEnabled;
     
-    private static readonly Vector3 HitboxSize = new(CharacterCamera3D.HitBoxSize, CharacterCamera3D.HitBoxSize, CharacterCamera3D.HitBoxSize);
+    //private static readonly Vector3 HitboxSize = new(CharacterCamera3D.HitBoxSize, CharacterCamera3D.HitBoxSize, CharacterCamera3D.HitBoxSize);
     
     private SkyBox? _skyBox;
 
@@ -40,7 +40,7 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
         
         //InitializeWorld();
         WorldObjects = new List<World3DObjects>();
-        WorldObjects = new List<World3DObjects>();
+        //WorldObjects = new List<World3DObjects>();
         
         if (Variables.Buildings != null) WorldObjects.AddRange(Variables.Buildings);
         
@@ -57,7 +57,7 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
         }
         Console.WriteLine($"ShadowMap enabled 1 : {Variables.AppSettings.ShadowsEnabled}");
         
-        _hitboxEnabled = true;
+        _hitboxEnabled = false;
         
         _skyBox = new SkyBox();
         
@@ -209,7 +209,7 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
 
                 EndMode3D();
                 
-                DrawText("Collision False", 28, 10, 20, Color.Black);
+                /*DrawText("Collision False", 28, 10, 20, Color.Black);
             
                 DrawText($@"
                 Raylib GLTF 3D model Loading
@@ -221,7 +221,7 @@ public class MainScene (byte id, string windowTitle): SceneObject(id, windowTitl
                 
                 DrawText($@"Current Mode < {CharacterCamera3D.Mode} >", 200, 10, 20, Color.Black);
                 DrawText($"Enable shadows: {Variables.AppSettings.ShadowsEnabled} (Press M to toggle)", 200, 50, 20, Color.Red);
-                
+                */
                 
                 
                 if (Variables.IsSettingsMenuEnabled && !Variables.IsDialogBoxEnabled)
