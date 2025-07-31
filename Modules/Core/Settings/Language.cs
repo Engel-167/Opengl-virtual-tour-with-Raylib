@@ -16,6 +16,8 @@ public sealed class Language
     //video settings
     public string FullscreenString { get; set; } = null!;
     public string ShadowsString { get; set; } = null!;
+    
+    public string OutlineString { get; set; } = null!;
 
     //Language
     public string LanguageString { get; set; } = null!;

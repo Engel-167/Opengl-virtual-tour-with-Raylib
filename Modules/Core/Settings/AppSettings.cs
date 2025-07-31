@@ -10,6 +10,8 @@ public sealed class AppSettings
     public int ScreenHeight { get; set; }
     public bool   Fullscreen     { get; set; } = true;
     public bool   ShadowsEnabled { get; set; } = true;
+    
+    public bool OutlineEnabled { get; set; } = false;
 
     /* Sound ---------------------------------------------------------- */
     public float MasterVolume { get; set; } = 1.0f;

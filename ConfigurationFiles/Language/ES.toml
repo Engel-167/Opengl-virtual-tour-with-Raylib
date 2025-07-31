@@ -12,6 +12,7 @@ controls_string = "Controles"
 #Video Settings
 fullscreen_string = "Pantalla Completa"
 shadows_string = "Sombras"
+outline_string = "Contorno"
 
 #language
 language_string = "Español"

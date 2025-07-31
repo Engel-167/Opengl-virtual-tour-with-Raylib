@@ -12,6 +12,7 @@ controls_string = "Controls"
 #Video Settings
 fullscreen_string = "FullScreen"
 shadows_string = "Shadows"
+outline_string = "Outline"
 
 #language
 language_string = "English"

@@ -357,6 +357,7 @@ namespace Opengl_virtual_tour_with_Raylib.Modules.Camera
                 if (Variables.Buildings != null)
                 {
                     UpdateModelAnimation(Variables.Buildings.GateModel, Animations.anims[0], Animations.animFrameCounter);
+                    UpdateModelAnimation(Variables.Buildings.OutlineGateModel, Animations.anims[0], Animations.animFrameCounter);
                     Console.WriteLine($"Frame count: {Animations.anims[0].FrameCount}");
                 }
             }

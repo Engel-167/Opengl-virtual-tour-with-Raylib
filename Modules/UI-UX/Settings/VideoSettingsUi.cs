@@ -101,9 +101,41 @@ public class VideoSettingsUi
             SettingsLoader.SaveSettings(Variables.SettingsFilePath, Variables.AppSettings);
         };
         
+        Button outlineButton = new Button(
+            Variables.AppSettings.OutlineEnabled?Textures.EnabledStateButton:Textures.DisabledStateButton,
+            Textures.DefaultStateButton,
+            new Vector2(20 + 200, 50), 200, 80,
+            [15, 15, 15, 15])
+        {
+            Text = Variables.Language.OutlineString,
+            Font = Fonts.UbuntuM,
+            FontSize = 32f,
+            FontSpacing = 2f,
+            TextColor = Color.White,
+            HoverTextColor = Color.LightGray,
+            ClickTextColor = Color.Black
+        };
+        
+        outlineButton.Event += (_, _) =>
+        {
+            Variables.AppSettings.OutlineEnabled = !Variables.AppSettings.OutlineEnabled;
+
+            if (Variables.AppSettings.OutlineEnabled)
+            {
+                outlineButton.BackgroundTexture = Textures.EnabledStateButton;
+            }
+            else
+            {
+                outlineButton.BackgroundTexture = Textures.DisabledStateButton;
+            }
+
+            SettingsLoader.SaveSettings(Variables.SettingsFilePath, Variables.AppSettings);
+        };
+        
         _container = new Container(ContainerOrientation.Horizontal, 20, 10);
         _container.Components.Add(_fullscreenButton);
         _container.Components.Add(shadowsButton);
+        _container.Components.Add(outlineButton);
         
         _container.Position = new Vector2(
             GetScreenWidth() / 2.0f - _container.GetWidth() / 2.0f,
@@ -117,7 +149,7 @@ public class VideoSettingsUi
         {
             _container.Components[0].Text = Variables.Language.FullscreenString;
             _container.Components[1].Text = Variables.Language.ShadowsString;
-
+            _container.Components[2].Text = Variables.Language.OutlineString;
 
             _container?.Draw();
         }
